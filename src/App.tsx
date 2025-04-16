@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -9,6 +10,10 @@ import OrientationPro from "./pages/services/OrientationPro";
 import CoachingPro from "./pages/services/CoachingPro";
 import Immigration from "./pages/services/Immigration";
 import Recrutement from "./pages/services/Recrutement";
+import About from "./pages/About";
+import Testimonials from "./pages/Testimonials";
+import Blog from "./pages/Blog";
+import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,11 +32,11 @@ const App = () => (
           <Route path="/services/coaching" element={<CoachingPro />} />
           <Route path="/services/immigration" element={<Immigration />} />
           <Route path="/services/recrutement" element={<Recrutement />} />
-          {/* Other Routes */}
-          <Route path="/a-propos" element={<NotFound />} />
-          <Route path="/temoignages" element={<NotFound />} />
-          <Route path="/blog" element={<NotFound />} />
-          <Route path="/contact" element={<NotFound />} />
+          {/* Main Routes */}
+          <Route path="/a-propos" element={<About />} />
+          <Route path="/temoignages" element={<Testimonials />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/contact" element={<Contact />} />
           {/* Catch-all Route */}
           <Route path="*" element={<NotFound />} />
         </Routes>
