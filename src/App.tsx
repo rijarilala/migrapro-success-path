@@ -9,6 +9,7 @@ import Services from "./pages/Services";
 import OrientationPro from "./pages/services/OrientationPro";
 import CoachingPro from "./pages/services/CoachingPro";
 import Immigration from "./pages/services/Immigration";
+import Eligibility from "./pages/services/Eligibility";
 import Recrutement from "./pages/services/Recrutement";
 import About from "./pages/About";
 import Testimonials from "./pages/Testimonials";
@@ -31,6 +32,7 @@ const App = () => (
           <Route path="/services/orientation" element={<OrientationPro />} />
           <Route path="/services/coaching" element={<CoachingPro />} />
           <Route path="/services/immigration" element={<Immigration />} />
+          <Route path="/services/eligibility" element={<Eligibility />} />
           <Route path="/services/recrutement" element={<Recrutement />} />
           {/* Main Routes */}
           <Route path="/a-propos" element={<About />} />
