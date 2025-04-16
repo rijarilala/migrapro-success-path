@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,7 +62,14 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+                // MigraPro custom colors
+                migrapro: {
+                    'terre-cuite': '#E76F51',
+                    'vert-foret': '#2A9D8F',
+                    'bleu-ciel': '#264653',
+                    'jaune-soleil': '#E9C46A',
+                }
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -84,12 +92,38 @@ export default {
 					to: {
 						height: '0'
 					}
-				}
+				},
+                'fade-in': {
+                    '0%': {
+                        opacity: '0',
+                        transform: 'translateY(10px)'
+                    },
+                    '100%': {
+                        opacity: '1',
+                        transform: 'translateY(0)'
+                    }
+                },
+                'scale-in': {
+                    '0%': {
+                        opacity: '0',
+                        transform: 'scale(0.95)'
+                    },
+                    '100%': {
+                        opacity: '1',
+                        transform: 'scale(1)'
+                    }
+                }
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
-			}
+				'accordion-up': 'accordion-up 0.2s ease-out',
+                'fade-in': 'fade-in 0.5s ease-out forwards',
+                'scale-in': 'scale-in 0.3s ease-out forwards'
+			},
+            fontFamily: {
+                sans: ['Open Sans', 'sans-serif'],
+                heading: ['Montserrat', 'sans-serif'],
+            },
 		}
 	},
 	plugins: [require("tailwindcss-animate")],
