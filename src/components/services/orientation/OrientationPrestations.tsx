@@ -1,5 +1,5 @@
 
-import { UserRound, BarChart, BuildingLibrary, GraduationCap, Globe, ListTodo } from 'lucide-react';
+import { UserRound, BarChart, Building, GraduationCap, Globe, ListTodo } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 const OrientationPrestations = () => {
@@ -17,7 +17,7 @@ const OrientationPrestations = () => {
     {
       title: "Identification des métiers en demande",
       description: "Présentation des secteurs porteurs et des critères d'embauche au Canada et à Madagascar.",
-      icon: <BuildingLibrary className="h-10 w-10 text-migrapro-vert-foret" />
+      icon: <Building className="h-10 w-10 text-migrapro-vert-foret" />
     },
     {
       title: "Valorisation de votre profil",
