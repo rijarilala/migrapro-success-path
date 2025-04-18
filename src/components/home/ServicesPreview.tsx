@@ -1,5 +1,5 @@
 
-import { CompassIcon, BookOpen, Plane, Users } from 'lucide-react';
+import { CompassIcon, BookOpen, Plane, Users, GraduationCap, HeadphonesIcon } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -15,10 +15,24 @@ const ServicesPreview = () => {
       color: "bg-gradient-to-br from-teal-50 to-green-50 border-migrapro-vert-foret/20"
     },
     {
-      title: "Pack Réussite Pro",
-      description: "CV, Lettre de Motivation et Coaching Entretien pour maximiser vos chances.",
-      icon: <BookOpen className="h-8 w-8 text-migrapro-terre-cuite" />,
+      title: "Formation",
+      description: "Modules pratiques pour développer vos compétences clés à Madagascar et au Canada.",
+      icon: <GraduationCap className="h-8 w-8 text-migrapro-terre-cuite" />,
+      link: "/services/formation",
+      color: "bg-gradient-to-br from-amber-50 to-yellow-50 border-migrapro-terre-cuite/20"
+    },
+    {
+      title: "Coaching",
+      description: "Accompagnement sur mesure pour atteindre vos objectifs professionnels.",
+      icon: <HeadphonesIcon className="h-8 w-8 text-migrapro-bleu-ciel" />,
       link: "/services/coaching",
+      color: "bg-gradient-to-br from-sky-50 to-blue-50 border-migrapro-bleu-ciel/20"
+    },
+    {
+      title: "Pack Réussite Pro",
+      description: "CV, Lettre de Motivation et Coaching pour maximiser vos chances.",
+      icon: <BookOpen className="h-8 w-8 text-migrapro-terre-cuite" />,
+      link: "/services/pack-reussite",
       color: "bg-gradient-to-br from-orange-50 to-red-50 border-migrapro-terre-cuite/20"
     },
     {
@@ -50,7 +64,7 @@ const ServicesPreview = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, index) => (
             <Card 
               key={service.title} 

@@ -12,19 +12,19 @@ const FormationHero = () => {
             </div>
             
             <h1 className="font-heading font-bold text-4xl md:text-5xl mb-6">
-              Formation Professionnelle
+              Formation
             </h1>
             
             <p className="text-lg md:text-xl mb-6 text-white/90 max-w-2xl">
-              Développez un savoir-faire immédiatement opérationnel pour répondre 
-              aux attentes des recruteurs locaux et canadiens.
+              Développez les compétences essentielles pour répondre aux attentes des recruteurs 
+              locaux et canadiens grâce à nos modules de formation spécialisés.
             </p>
           </div>
           
           <div className="md:w-1/3 mt-8 md:mt-0 flex justify-end">
             <img 
-              src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
-              alt="Formation Professionnelle" 
+              src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+              alt="Formation" 
               className="rounded-lg shadow-lg max-w-full animate-fade-in animate-delay-200"
               style={{maxHeight: '300px'}}
             />
