@@ -8,7 +8,7 @@ import CoachingPricing from '@/components/services/coaching/CoachingPricing';
 import CoachingTestimonials from '@/components/services/coaching/CoachingTestimonials';
 import ServiceCTA from '@/components/services/ServiceCTA';
 
-const CoachingPro = () => {
+const PackReussitePro = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
@@ -29,4 +29,4 @@ const CoachingPro = () => {
   );
 };
 
-export default CoachingPro;
+export default PackReussitePro;
