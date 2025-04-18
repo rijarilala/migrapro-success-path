@@ -1,5 +1,4 @@
-
-import { CompassIcon, BookOpen, Plane, Users } from 'lucide-react';
+import { CompassIcon, BookOpen, Plane, Users, GraduationCap, Heart } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -7,6 +6,24 @@ import { Badge } from '@/components/ui/badge';
 
 const ServicesOverview = () => {
   const services = [
+    {
+      title: "Formation Professionnelle",
+      description: "Développez vos compétences avec nos modules de formation adaptés.",
+      longDescription: "Des formations pratiques et modulaires pour répondre aux attentes des recruteurs locaux et canadiens.",
+      icon: <GraduationCap className="h-12 w-12 text-migrapro-vert-foret" />,
+      link: "/services/formation",
+      color: "bg-gradient-to-br from-green-50 to-emerald-50 border-migrapro-vert-foret/20",
+      isNew: true
+    },
+    {
+      title: "Coaching Professionnel",
+      description: "Un accompagnement sur mesure pour votre réussite.",
+      longDescription: "Séances individuelles ou en groupe pour renforcer votre confiance et atteindre vos objectifs.",
+      icon: <Heart className="h-12 w-12 text-migrapro-terre-cuite" />,
+      link: "/services/coaching",
+      color: "bg-gradient-to-br from-orange-50 to-red-50 border-migrapro-terre-cuite/20",
+      isNew: true
+    },
     {
       title: "Conseil & Orientation Professionnelle",
       description: "Diagnostic de profil, bilan de compétences, plan de carrière personnalisé.",
