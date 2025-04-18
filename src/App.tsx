@@ -7,7 +7,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Services from "./pages/Services";
 import OrientationPro from "./pages/services/OrientationPro";
-import CoachingPro from "./pages/services/CoachingPro";
+import Formation from "./pages/services/Formation";
+import Coaching from "./pages/services/Coaching";
+import PackReussitePro from "./pages/services/PackReussitePro";
 import Immigration from "./pages/services/Immigration";
 import Eligibility from "./pages/services/Eligibility";
 import Recrutement from "./pages/services/Recrutement";
@@ -30,7 +32,9 @@ const App = () => (
           {/* Services Routes */}
           <Route path="/services" element={<Services />} />
           <Route path="/services/orientation" element={<OrientationPro />} />
-          <Route path="/services/coaching" element={<CoachingPro />} />
+          <Route path="/services/formation" element={<Formation />} />
+          <Route path="/services/coaching" element={<Coaching />} />
+          <Route path="/services/pack-reussite" element={<PackReussitePro />} />
           <Route path="/services/immigration" element={<Immigration />} />
           <Route path="/services/eligibility" element={<Eligibility />} />
           <Route path="/services/recrutement" element={<Recrutement />} />

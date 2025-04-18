@@ -46,7 +46,17 @@ const Navbar = () => {
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
+                <Link to="/services/formation" className="w-full">
+                  Formation
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
                 <Link to="/services/coaching" className="w-full">
+                  Coaching
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link to="/services/pack-reussite" className="w-full">
                   Pack Réussite Pro
                 </Link>
               </DropdownMenuItem>
@@ -118,7 +128,21 @@ const Navbar = () => {
                   Conseil & Orientation
                 </Link>
                 <Link 
+                  to="/services/formation" 
+                  className="text-gray-600 py-1"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Formation
+                </Link>
+                <Link 
                   to="/services/coaching" 
+                  className="text-gray-600 py-1"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Coaching
+                </Link>
+                <Link 
+                  to="/services/pack-reussite" 
                   className="text-gray-600 py-1"
                   onClick={() => setIsMenuOpen(false)}
                 >
