@@ -2,9 +2,8 @@
 "use client";
 
 import { useEffect, useState, useCallback, useRef } from "react";
-import { ArrowUpCircle } from "lucide-react";
+import { ChevronUp } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Progress } from "@/components/ui/progress";
 
 export function BackToTop() {
   const [show, setShow] = useState(false);
@@ -20,8 +19,8 @@ export function BackToTop() {
         const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
         const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
         
-        // Utiliser une valeur plus petite (50px au lieu de 100px) pour être plus réactif
-        setShow(winScroll > 50);
+        // Use an even smaller threshold (30px) to ensure better visibility
+        setShow(winScroll > 30);
         setScrollProgress(scrolled);
         
         ticking.current = false;
@@ -30,17 +29,21 @@ export function BackToTop() {
   }, []);
 
   useEffect(() => {
-    // Vérification initiale au montage
+    // Initial check on mount
     handleScroll();
     
     window.addEventListener("scroll", handleScroll, { passive: true });
     
-    // Vérifier à nouveau après un court délai pour s'assurer que le calcul est correct
+    // Check again after a short delay to ensure calculation is correct
     const timer = setTimeout(handleScroll, 300);
+    
+    // Add another check after a longer delay (useful for slower page loads)
+    const secondTimer = setTimeout(handleScroll, 1000);
     
     return () => {
       window.removeEventListener("scroll", handleScroll);
       clearTimeout(timer);
+      clearTimeout(secondTimer);
     };
   }, [handleScroll]);
 
@@ -54,33 +57,52 @@ export function BackToTop() {
   return (
     <div 
       className={cn(
-        "fixed bottom-4 right-4 md:bottom-8 md:right-8 z-[100] transition-all duration-300",
+        "fixed bottom-5 right-5 md:bottom-8 md:right-8 z-[9999] transition-all duration-300",
         show ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"
       )}
       aria-hidden={!show}
     >
-      <div className="relative">
-        {/* Circular progress indicator */}
-        <div className="absolute inset-0 -m-1">
-          <Progress
-            value={scrollProgress}
-            className="h-full w-full rounded-full bg-secondary/20 [&>div]:bg-primary"
-          />
-        </div>
-        
-        {/* Back to top button */}
-        <button
-          onClick={scrollToTop}
-          aria-label="Retour en haut"
-          className={cn(
-            "relative flex h-12 w-12 items-center justify-center rounded-full",
-            "bg-background text-primary shadow-lg hover:bg-accent",
-            "transition-all duration-200 ease-in-out hover:scale-110",
-          )}
+      <button
+        onClick={scrollToTop}
+        aria-label="Retour en haut"
+        className="relative h-12 w-12 rounded-full bg-white shadow-md focus:outline-none focus:ring-2 focus:ring-primary"
+      >
+        {/* SVG Progress Circle */}
+        <svg 
+          className="absolute inset-0 h-full w-full -rotate-90" 
+          viewBox="0 0 100 100"
         >
-          <ArrowUpCircle className="h-6 w-6" />
-        </button>
-      </div>
+          {/* Background circle */}
+          <circle
+            cx="50"
+            cy="50"
+            r="45"
+            fill="none"
+            stroke="var(--border, hsl(var(--border)))"
+            strokeWidth="2"
+            className="opacity-20"
+          />
+          
+          {/* Progress circle */}
+          <circle
+            cx="50"
+            cy="50"
+            r="45"
+            fill="none"
+            stroke="var(--primary, hsl(var(--primary)))"
+            strokeWidth="3"
+            strokeLinecap="round"
+            strokeDasharray={`${2 * Math.PI * 45}`}
+            strokeDashoffset={`${2 * Math.PI * 45 * (1 - scrollProgress / 100)}`}
+            className="transition-all duration-200"
+          />
+        </svg>
+        
+        {/* Centered icon */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <ChevronUp className="h-5 w-5 text-primary" />
+        </div>
+      </button>
     </div>
   );
 }
