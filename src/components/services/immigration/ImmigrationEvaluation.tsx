@@ -102,19 +102,39 @@ const ImmigrationEvaluation = () => {
   const handleNextStep = () => {
     if (validateCurrentStep()) {
       setCurrentStep(currentStep + 1);
-      const formContainer = document.querySelector('.immigration-evaluation-container');
-      if (formContainer) {
-        formContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
+      
+      setTimeout(() => {
+        const formContainer = document.querySelector('.immigration-evaluation-container');
+        if (formContainer) {
+          const headerOffset = 100;
+          const elementPosition = formContainer.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }
+      }, 100);
     }
   };
 
   const handlePrevStep = () => {
     setCurrentStep(currentStep - 1);
-    const formContainer = document.querySelector('.immigration-evaluation-container');
-    if (formContainer) {
-      formContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    
+    setTimeout(() => {
+      const formContainer = document.querySelector('.immigration-evaluation-container');
+      if (formContainer) {
+        const headerOffset = 100;
+        const elementPosition = formContainer.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    }, 100);
   };
 
   const resetForm = () => {
