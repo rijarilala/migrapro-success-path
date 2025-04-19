@@ -4,7 +4,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useScrollTop } from "./hooks/useScrollTop";
+import { useScrollToTop } from "./hooks/useScrollToTop";
 import { BackToTop } from "./components/ui/back-to-top";
 import Index from "./pages/Index";
 import Services from "./pages/Services";
@@ -26,7 +26,7 @@ const queryClient = new QueryClient();
 
 // Define AppContent as a separate component
 const AppContent = () => {
-  useScrollTop();
+  useScrollToTop(); // Utilisation du hook ici pour toutes les pages
 
   return (
     <>
