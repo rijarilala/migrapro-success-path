@@ -1,7 +1,5 @@
 
-"use client";
-
-import { useEffect, useState, useCallback, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -19,8 +17,7 @@ export function BackToTop() {
         const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
         const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
         
-        // Use an even smaller threshold (30px) to ensure better visibility
-        setShow(winScroll > 30);
+        setShow(winScroll > 50);
         setScrollProgress(scrolled);
         
         ticking.current = false;
@@ -29,15 +26,10 @@ export function BackToTop() {
   }, []);
 
   useEffect(() => {
-    // Initial check on mount
     handleScroll();
-    
     window.addEventListener("scroll", handleScroll, { passive: true });
     
-    // Check again after a short delay to ensure calculation is correct
     const timer = setTimeout(handleScroll, 300);
-    
-    // Add another check after a longer delay (useful for slower page loads)
     const secondTimer = setTimeout(handleScroll, 1000);
     
     return () => {
