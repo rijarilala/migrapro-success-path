@@ -1,7 +1,6 @@
-
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { 
   DropdownMenu,
@@ -9,13 +8,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger 
 } from '@/components/ui/dropdown-menu';
+import { MobileNav } from './MobileNav';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
 
   return (
     <nav className="sticky top-0 z-50 bg-white shadow-md">
@@ -96,113 +92,19 @@ const Navbar = () => {
         </Button>
 
         {/* Mobile Menu Button */}
-        <button
-          className="md:hidden text-gray-700 p-2"
-          onClick={toggleMenu}
-          aria-label="Menu"
+        <Button
+          variant="ghost"
+          className="md:hidden"
+          size="icon"
+          onClick={() => setIsMenuOpen(true)}
         >
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+          <Menu className="h-6 w-6" />
+          <span className="sr-only">Menu</span>
+        </Button>
       </div>
 
-      {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className="md:hidden bg-white pb-4 px-4 shadow-lg animate-fade-in">
-          <div className="flex flex-col gap-4">
-            <Link 
-              to="/"
-              className="py-2 border-b border-gray-100 text-gray-700"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Accueil
-            </Link>
-            
-            <div className="py-2 border-b border-gray-100">
-              <div className="font-medium text-gray-700 mb-2">Services</div>
-              <div className="pl-4 flex flex-col gap-2">
-                <Link 
-                  to="/services/orientation" 
-                  className="text-gray-600 py-1"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Conseil & Orientation
-                </Link>
-                <Link 
-                  to="/services/formation" 
-                  className="text-gray-600 py-1"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Formation
-                </Link>
-                <Link 
-                  to="/services/coaching" 
-                  className="text-gray-600 py-1"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Coaching
-                </Link>
-                <Link 
-                  to="/services/pack-reussite" 
-                  className="text-gray-600 py-1"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Pack Réussite Pro
-                </Link>
-                <Link 
-                  to="/services/immigration" 
-                  className="text-gray-600 py-1"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Immigration Canada
-                </Link>
-                <Link 
-                  to="/services/recrutement" 
-                  className="text-gray-600 py-1"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Recrutement (Bientôt)
-                </Link>
-              </div>
-            </div>
-            
-            <Link 
-              to="/a-propos" 
-              className="py-2 border-b border-gray-100 text-gray-700"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              À propos
-            </Link>
-            
-            <Link 
-              to="/temoignages" 
-              className="py-2 border-b border-gray-100 text-gray-700"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Témoignages
-            </Link>
-            
-            <Link 
-              to="/blog" 
-              className="py-2 border-b border-gray-100 text-gray-700"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Blog / Conseils
-            </Link>
-            
-            <Link 
-              to="/contact" 
-              className="py-2 border-b border-gray-100 text-gray-700"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Contact
-            </Link>
-            
-            <Button className="bg-migrapro-terre-cuite hover:bg-opacity-90 text-white mt-2">
-              Réserver
-            </Button>
-          </div>
-        </div>
-      )}
+      {/* Mobile Navigation */}
+      <MobileNav isOpen={isMenuOpen} onOpenChange={setIsMenuOpen} />
     </nav>
   );
 };
