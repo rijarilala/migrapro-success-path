@@ -11,17 +11,18 @@ export function BackToTop() {
   const [scrollProgress, setScrollProgress] = useState(0);
 
   const handleScroll = useCallback(() => {
-    requestAnimationFrame(() => {
-      const winScroll = document.documentElement.scrollTop;
-      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrolled = (winScroll / height) * 100;
+    const winScroll = document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
 
-      setScrollProgress(scrolled);
-      setShow(winScroll > 100);
-    });
+    setScrollProgress(scrolled);
+    setShow(winScroll > 100);
   }, []);
 
   useEffect(() => {
+    // Initial check on mount
+    handleScroll();
+    
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
@@ -33,10 +34,13 @@ export function BackToTop() {
     });
   };
 
-  if (!show) return null;
-
   return (
-    <div className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-50">
+    <div 
+      className={cn(
+        "fixed bottom-4 right-4 md:bottom-8 md:right-8 z-[100] transition-opacity duration-300",
+        show ? "opacity-100" : "opacity-0 pointer-events-none"
+      )}
+    >
       <div className="relative">
         {/* Circular progress indicator */}
         <div className="absolute inset-0 -m-1">
