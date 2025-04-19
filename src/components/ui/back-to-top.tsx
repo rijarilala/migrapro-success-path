@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { ArrowUpCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Progress } from "@/components/ui/progress";
@@ -9,22 +9,39 @@ import { Progress } from "@/components/ui/progress";
 export function BackToTop() {
   const [show, setShow] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const ticking = useRef(false);
 
   const handleScroll = useCallback(() => {
-    const winScroll = document.documentElement.scrollTop;
-    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const scrolled = (winScroll / height) * 100;
-
-    setScrollProgress(scrolled);
-    setShow(winScroll > 100);
+    if (!ticking.current) {
+      ticking.current = true;
+      
+      requestAnimationFrame(() => {
+        const winScroll = window.pageYOffset || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+        
+        // Utiliser une valeur plus petite (50px au lieu de 100px) pour être plus réactif
+        setShow(winScroll > 50);
+        setScrollProgress(scrolled);
+        
+        ticking.current = false;
+      });
+    }
   }, []);
 
   useEffect(() => {
-    // Initial check on mount
+    // Vérification initiale au montage
     handleScroll();
     
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    
+    // Vérifier à nouveau après un court délai pour s'assurer que le calcul est correct
+    const timer = setTimeout(handleScroll, 300);
+    
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      clearTimeout(timer);
+    };
   }, [handleScroll]);
 
   const scrollToTop = () => {
@@ -37,9 +54,10 @@ export function BackToTop() {
   return (
     <div 
       className={cn(
-        "fixed bottom-4 right-4 md:bottom-8 md:right-8 z-[100] transition-opacity duration-300",
-        show ? "opacity-100" : "opacity-0 pointer-events-none"
+        "fixed bottom-4 right-4 md:bottom-8 md:right-8 z-[100] transition-all duration-300",
+        show ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"
       )}
+      aria-hidden={!show}
     >
       <div className="relative">
         {/* Circular progress indicator */}
