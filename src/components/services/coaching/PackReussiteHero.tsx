@@ -18,11 +18,11 @@ const PackReussiteHero = () => {
             </p>
           </div>
           <div className="md:w-1/3 mt-8 md:mt-0 flex justify-end">
-            <img 
-              src="/lovable-uploads/d95f0f6d-2b51-4011-ab86-18a93cc6cfa8.png" 
-              alt="Pack Réussite illustration"
+            <img
+              src="/lovable-uploads/76b90d6d-5780-41b4-a603-46a6c941848b.png"
+              alt="Approche Pack Réussite"
               className="rounded-lg shadow-lg max-w-full animate-fade-in animate-delay-200"
-              style={{maxHeight: '300px'}}
+              style={{ maxHeight: '300px', objectFit: 'cover' }}
             />
           </div>
         </div>

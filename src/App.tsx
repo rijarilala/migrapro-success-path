@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -11,7 +10,7 @@ import Services from "./pages/Services";
 import OrientationPro from "./pages/services/OrientationPro";
 import Formation from "./pages/services/Formation";
 import Coaching from "./pages/services/Coaching";
-import PackReussitePro from "./pages/services/PackReussitePro";
+import PackReussite from "./pages/services/PackReussitePro";
 import Immigration from "./pages/services/Immigration";
 import Eligibility from "./pages/services/Eligibility";
 import Recrutement from "./pages/services/Recrutement";
@@ -37,7 +36,7 @@ const AppContent = () => {
         <Route path="/services/orientation" element={<OrientationPro />} />
         <Route path="/services/formation" element={<Formation />} />
         <Route path="/services/coaching" element={<Coaching />} />
-        <Route path="/services/pack-reussite" element={<PackReussitePro />} />
+        <Route path="/services/pack-reussite" element={<PackReussite />} />
         <Route path="/services/immigration" element={<Immigration />} />
         <Route path="/services/eligibility" element={<Eligibility />} />
         <Route path="/services/recrutement" element={<Recrutement />} />

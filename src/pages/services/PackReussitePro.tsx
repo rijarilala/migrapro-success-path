@@ -8,7 +8,7 @@ import CoachingPricing from '@/components/services/coaching/CoachingPricing';
 import CoachingTestimonials from '@/components/services/coaching/CoachingTestimonials';
 import ServiceCTA from '@/components/services/ServiceCTA';
 
-const PackReussitePro = () => {
+const PackReussite = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
@@ -18,10 +18,10 @@ const PackReussitePro = () => {
         <CoachingBenefits />
         <CoachingPricing />
         <CoachingTestimonials />
-        <ServiceCTA 
-          title="Boostez votre profil professionnel dès maintenant" 
-          buttonText="Réserver mon Pack" 
-          buttonLink="/contact?service=coaching" 
+        <ServiceCTA
+          title="Boostez votre profil professionnel dès maintenant"
+          buttonText="Réserver mon Pack"
+          buttonLink="/contact?service=pack-reussite"
         />
       </main>
       <Footer />
@@ -29,4 +29,4 @@ const PackReussitePro = () => {
   );
 };
 
-export default PackReussitePro;
+export default PackReussite;
