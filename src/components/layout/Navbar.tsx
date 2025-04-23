@@ -53,7 +53,7 @@ const Navbar = () => {
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link to="/services/pack-reussite" className="w-full">
-                  Pack Réussite Pro
+                  Pack Réussite
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>

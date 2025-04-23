@@ -61,7 +61,7 @@ const PackReussitePro = () => {
             className="bg-migrapro-terre-cuite hover:bg-opacity-90 text-white text-lg px-8 py-6 animate-fade-in animate-delay-400"
             asChild
           >
-            <Link to="/services/coaching">
+            <Link to="/services/pack-reussite">
               Je choisis ce pack
             </Link>
           </Button>

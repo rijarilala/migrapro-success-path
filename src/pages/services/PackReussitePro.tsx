@@ -1,7 +1,7 @@
 
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
-import CoachingHero from '@/components/services/coaching/CoachingHero';
+import PackReussiteHero from '@/components/services/coaching/PackReussiteHero';
 import CoachingDetails from '@/components/services/coaching/CoachingDetails';
 import CoachingBenefits from '@/components/services/coaching/CoachingBenefits';
 import CoachingPricing from '@/components/services/coaching/CoachingPricing';
@@ -13,7 +13,7 @@ const PackReussitePro = () => {
     <div className="flex flex-col min-h-screen">
       <Navbar />
       <main className="flex-grow">
-        <CoachingHero />
+        <PackReussiteHero />
         <CoachingDetails />
         <CoachingBenefits />
         <CoachingPricing />
