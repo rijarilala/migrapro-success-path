@@ -1,5 +1,5 @@
 
-import { FileText, Mail, Users, Target } from 'lucide-react';
+import { FileText, Mail, Briefcase, GraduationCap } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 
@@ -8,7 +8,7 @@ const FormationCourses = () => {
     {
       title: "Rédaction de CV",
       subtitle: "Local & Canadien",
-      description: "Apprenez à rédiger un CV percutant adapté aux standards locaux et internationaux. Maximisez vos chances d'être remarqué par les recruteurs.",
+      description: "Apprenez à rédiger un CV percutant et adapté aux standards malgaches et canadiens pour maximiser vos chances auprès des recruteurs.",
       duration: "4h",
       format: ["En ligne", "Présentiel"],
       icon: <FileText className="h-12 w-12 text-migrapro-terre-cuite" />
@@ -16,26 +16,34 @@ const FormationCourses = () => {
     {
       title: "Lettres de Motivation",
       subtitle: "Techniques & Exemples",
-      description: "Maîtrisez l'art de la lettre de motivation qui capte l'attention et valorise votre candidature. Techniques et structures efficaces.",
+      description: "Maîtrisez l'art de la lettre de motivation efficace avec des techniques concrètes et des modèles adaptés à chaque situation.",
       duration: "3h",
       format: ["En ligne", "Présentiel"],
       icon: <Mail className="h-12 w-12 text-migrapro-terre-cuite" />
     },
     {
-      title: "Communication & Soft Skills",
-      subtitle: "Prise de parole & Gestion du stress",
-      description: "Développez vos compétences en communication orale et écrite. Apprenez à gérer votre stress lors des situations professionnelles importantes.",
-      duration: "6h",
-      format: ["En ligne", "Présentiel"],
-      icon: <Users className="h-12 w-12 text-migrapro-terre-cuite" />
-    },
-    {
-      title: "Orientation & Projet Professionnel",
-      subtitle: "Bilan & Plan de carrière",
-      description: "Faites le point sur vos compétences et aspirations. Construisez un plan de carrière cohérent et réalisable à court et long terme.",
+      title: "Préparation à la recherche du premier emploi / nouveau emploi",
+      subtitle: "Démarches & outils",
+      description: "Découvrez les stratégies, méthodes de prospection, et outils indispensables pour décrocher rapidement votre premier ou nouveau poste.",
       duration: "5h",
       format: ["En ligne", "Présentiel"],
-      icon: <Target className="h-12 w-12 text-migrapro-terre-cuite" />
+      icon: <Briefcase className="h-12 w-12 text-migrapro-terre-cuite" />
+    },
+    {
+      title: "Transition de la vie étudiante vers la vie active professionnelle",
+      subtitle: "Accompagnement personnalisé",
+      description: "Facilitez votre passage des études au marché du travail grâce à un accompagnement ciblé pour valoriser vos compétences et bien démarrer.",
+      duration: "4h",
+      format: ["En ligne", "Présentiel"],
+      icon: <GraduationCap className="h-12 w-12 text-migrapro-terre-cuite" />
+    },
+    {
+      title: "Gestion des Ressources Humaines",
+      subtitle: "Fondamentaux, stratégie & pratique",
+      description: "Assimilez les bases et les stratégies RH, et découvrez la mise en œuvre concrète grâce à des exercices pratiques.",
+      duration: "6h",
+      format: ["En ligne", "Présentiel"],
+      icon: <Briefcase className="h-12 w-12 text-migrapro-terre-cuite" />
     }
   ];
 
