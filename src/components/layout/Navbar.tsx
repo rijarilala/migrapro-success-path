@@ -1,7 +1,6 @@
-
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, ChevronDown, Home, Briefcase, Info, MessageSquare, Blog, Mail, Calendar } from 'lucide-react';
+import { Menu, ChevronDown, Home, Briefcase, Info, MessageSquare, Mail, Calendar, Newspaper } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { 
   DropdownMenu,
@@ -42,7 +41,7 @@ const navLinks = [
   {
     label: "Blog / Conseils",
     to: "/blog",
-    icon: Blog,
+    icon: Newspaper,
   },
   {
     label: "Contact",
@@ -143,7 +142,7 @@ const Navbar = () => {
                 ${location.pathname.startsWith("/blog") ? "text-migrapro-terre-cuite" : "text-gray-700 hover:text-migrapro-terre-cuite"}
               `}
           >
-            <Blog size={18} className="opacity-80" />
+            <Newspaper size={18} className="opacity-80" />
             Blog / Conseils
             <span className={`absolute left-0 -bottom-0.5 w-full h-0.5 bg-migrapro-terre-cuite scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-200
                   ${location.pathname.startsWith("/blog") ? "scale-x-100" : ""}`} />

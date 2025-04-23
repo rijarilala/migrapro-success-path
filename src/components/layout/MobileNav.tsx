@@ -17,7 +17,7 @@ import {
   Users,
   Info,
   MessageSquare,
-  NewspaperIcon,
+  Newspaper,
   ChevronDown,
   X
 } from 'lucide-react';
@@ -151,7 +151,7 @@ export const MobileNav = ({ isOpen, onOpenChange }: { isOpen: boolean; onOpenCha
             onClick={() => onOpenChange(false)}
             className="flex items-center space-x-3 rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground"
           >
-            <NewspaperIcon className="h-5 w-5" />
+            <Newspaper className="h-5 w-5" />
             <span>Blog / Conseils</span>
           </Link>
         </nav>
