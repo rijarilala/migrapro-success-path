@@ -14,13 +14,13 @@ const PackReussiteHero = () => {
               Pack Réussite
             </h1>
             <p className="text-lg md:text-xl mb-6 text-white/90 max-w-2xl">
-              Rédigez un CV et une lettre de motivation percutants et bénéficiez d’un coaching d’entretien clé en main. Obtenez tous les outils pour maximiser vos chances de succès sur le marché du travail, au Canada comme à Madagascar.
+              Rédigez un CV et une lettre de motivation percutants et bénéficiez d'un coaching d'entretien clé en main. Obtenez tous les outils pour maximiser vos chances de succès sur le marché du travail, au Canada comme à Madagascar.
             </p>
           </div>
           <div className="md:w-1/3 mt-8 md:mt-0 flex justify-end">
             <img
-              src="/lovable-uploads/76b90d6d-5780-41b4-a603-46a6c941848b.png"
-              alt="Approche Pack Réussite"
+              src="https://images.unsplash.com/photo-1522071820081-006deb682c5a"
+              alt="Préparation d'entretien professionnel"
               className="rounded-lg shadow-lg max-w-full animate-fade-in animate-delay-200"
               style={{ maxHeight: '300px', objectFit: 'cover' }}
             />
