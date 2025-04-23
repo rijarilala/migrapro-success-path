@@ -50,9 +50,9 @@ const ImmigrationOverview = () => {
 
           <div className="md:w-1/2">
             <img
-              src="https://images.unsplash.com/photo-1519834099055-c7ceba0a4c39?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+              src="/lovable-uploads/2211085b-a318-48e1-90f4-a2eea0f2cfa1.png"
               alt="Immigration Canada"
-              className="rounded-lg shadow-xl w-full object-cover"
+              className="rounded-lg shadow-xl w-full h-auto object-cover"
               style={{ maxHeight: '500px' }}
             />
           </div>
