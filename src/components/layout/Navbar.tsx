@@ -79,9 +79,8 @@ const Navbar = () => {
           >
             <Home size={18} className="opacity-80" />
             Accueil
-            <span className="absolute left-0 -bottom-0.5 w-full h-0.5 bg-migrapro-terre-cuite scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-200
-              ${location.pathname === "/" ? "scale-x-100" : ""}
-            " />
+            <span className={`absolute left-0 -bottom-0.5 w-full h-0.5 bg-migrapro-terre-cuite scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-200
+              ${location.pathname === "/" ? "scale-x-100" : ""}`} />
           </Link>
 
           {/* Services Dropdown */}
@@ -187,4 +186,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
