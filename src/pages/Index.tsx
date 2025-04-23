@@ -6,6 +6,7 @@ import PackReussitePro from '@/components/home/PackReussitePro';
 import ServicesPreview from '@/components/home/ServicesPreview';
 import Testimonials from '@/components/home/Testimonials';
 import BlogPreview from '@/components/home/BlogPreview';
+import ImmigrationOverview from '@/components/home/ImmigrationOverview';
 
 const Index = () => {
   return (
@@ -14,6 +15,7 @@ const Index = () => {
       <main className="flex-grow">
         <Hero />
         <PackReussitePro />
+        <ImmigrationOverview />
         <ServicesPreview />
         <Testimonials />
         <BlogPreview />
