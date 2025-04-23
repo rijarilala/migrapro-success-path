@@ -2,6 +2,7 @@
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 interface ServiceCTAProps {
   title: string;
@@ -11,6 +12,16 @@ interface ServiceCTAProps {
 }
 
 const ServiceCTA = ({ title, subtitle, buttonText, buttonLink }: ServiceCTAProps) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(buttonLink);
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
   return (
     <section className="bg-gradient-to-r from-migrapro-bleu-ciel to-migrapro-bleu-ciel/90 py-16">
       <div className="container mx-auto px-4 text-center">
@@ -22,11 +33,9 @@ const ServiceCTA = ({ title, subtitle, buttonText, buttonLink }: ServiceCTAProps
         
         <Button 
           className="bg-migrapro-terre-cuite hover:bg-migrapro-terre-cuite/90 text-white text-lg px-8 py-6"
-          asChild
+          onClick={handleClick}
         >
-          <Link to={buttonLink}>
-            {buttonText} <ArrowRight className="ml-2" size={18} />
-          </Link>
+          {buttonText} <ArrowRight className="ml-2" size={18} />
         </Button>
       </div>
     </section>

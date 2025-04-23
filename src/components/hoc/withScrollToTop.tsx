@@ -4,7 +4,7 @@ import { useScrollToTop } from '@/hooks/useScrollToTop';
 
 export const withScrollToTop = <P extends object>(
   WrappedComponent: ComponentType<P>,
-  scrollBehavior: ScrollBehavior = 'smooth'
+  scrollBehavior: ScrollBehavior = 'auto'
 ) => {
   return function WithScrollToTopComponent(props: P) {
     useScrollToTop(scrollBehavior);

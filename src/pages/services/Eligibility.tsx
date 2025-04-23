@@ -2,8 +2,17 @@
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import ImmigrationEvaluation from '@/components/services/immigration/ImmigrationEvaluation';
+import { useEffect } from 'react';
 
 const Eligibility = () => {
+  // Force scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'auto' // Using 'auto' for immediate scroll without animation
+    });
+  }, []);
+
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />

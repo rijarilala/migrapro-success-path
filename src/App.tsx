@@ -1,9 +1,9 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { useScrollToTop } from "./hooks/useScrollToTop";
 import { BackToTop } from "./components/ui/back-to-top";
 import Index from "./pages/Index";
 import Services from "./pages/Services";
@@ -26,18 +26,12 @@ const queryClient = new QueryClient();
 
 // ScrollToTop component to ensure proper scroll behavior
 const ScrollToTop = () => {
-  const { pathname, hash } = useLocation();
+  const { pathname } = useLocation();
   
   useEffect(() => {
-    // If there's a hash in the URL, don't scroll to top
-    if (hash) return;
-    
-    // Otherwise scroll to top with smooth behavior
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  }, [pathname, hash]);
+    // Force immediate scroll to top on route change with no animation
+    window.scrollTo(0, 0);
+  }, [pathname]);
   
   return null;
 };
