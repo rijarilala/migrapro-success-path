@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, ChevronDown } from 'lucide-react';
@@ -19,7 +20,7 @@ const Navbar = () => {
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
           <div className="font-heading font-bold text-2xl text-migrapro-bleu-ciel">
-            <span className="text-migrapro-terre-cuite">Migra</span>Pro
+            <span className="text-migrapro-terre-cuite">Great</span>Pathway
           </div>
         </Link>
 

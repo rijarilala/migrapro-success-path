@@ -10,7 +10,7 @@ const Footer = () => {
           {/* Logo & Description */}
           <div className="space-y-4">
             <div className="font-heading font-bold text-2xl">
-              <span className="text-migrapro-terre-cuite">Migra</span>Pro
+              <span className="text-migrapro-terre-cuite">Great</span>Pathway
             </div>
             <p className="text-gray-300">
               Votre partenaire pour un avenir professionnel réussi, spécialisé dans l'orientation professionnelle et l'immigration au Canada.
@@ -104,7 +104,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-gray-600 mt-8 pt-8 text-center text-gray-300 text-sm">
-          <p>&copy; {new Date().getFullYear()} MigraPro. Tous droits réservés.</p>
+          <p>&copy; {new Date().getFullYear()} Great Pathway. Tous droits réservés.</p>
         </div>
       </div>
     </footer>

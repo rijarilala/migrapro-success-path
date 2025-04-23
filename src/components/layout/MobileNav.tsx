@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
@@ -34,7 +33,7 @@ export const MobileNav = ({ isOpen, onOpenChange }: { isOpen: boolean; onOpenCha
       >
         <SheetHeader className="border-b pb-4 mb-4">
           <SheetTitle className="font-heading text-2xl text-left">
-            <span className="text-migrapro-terre-cuite">Migra</span>Pro
+            <span className="text-migrapro-terre-cuite">Great</span>Pathway
           </SheetTitle>
           <Button 
             variant="ghost" 
