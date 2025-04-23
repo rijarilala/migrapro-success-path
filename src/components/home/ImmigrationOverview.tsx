@@ -1,13 +1,10 @@
-
 import { Plane, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-
 const ImmigrationOverview = () => {
   const benefits = ["Évaluation gratuite et instantanée de votre profil", "Plan d'action dédié : dossier complet, accompagnement administratif, conseils d'installation", "Experts certifiés pour sécuriser votre visa et votre permis"];
   const navigate = useNavigate();
-
   const handleEligibilityClick = () => {
     // Utiliser navigate pour assurer que le comportement est cohérent
     navigate('/services/eligibility');
@@ -17,7 +14,6 @@ const ImmigrationOverview = () => {
       behavior: 'smooth'
     });
   };
-
   return <section className="py-16 md:py-24 bg-gradient-to-br from-migrapro-bleu-ciel/5 to-white">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row items-center gap-12">
@@ -41,11 +37,7 @@ const ImmigrationOverview = () => {
                 </li>)}
             </ul>
 
-            <Button 
-              className="bg-migrapro-terre-cuite hover:bg-migrapro-terre-cuite/90" 
-              size="lg" 
-              onClick={handleEligibilityClick}
-            >
+            <Button size="lg" onClick={handleEligibilityClick} className="bg-migrapro-terre-cuite hover:bg-migrapro-terre-cuite/90 mx-[68px]">
               Tester mon éligibilité
             </Button>
           </div>
