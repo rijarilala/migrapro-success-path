@@ -1,4 +1,3 @@
-
 import { CompassIcon, BookOpen, Plane, Users, GraduationCap, HeadphonesIcon } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -32,7 +31,7 @@ const ServicesOverview = () => {
       color: "bg-gradient-to-br from-sky-50 to-blue-50 border-migrapro-bleu-ciel/20"
     },
     {
-      title: "Pack Réussite Pro",
+      title: "Pack Réussite",
       description: "CV, Lettre de Motivation et Coaching pour maximiser vos chances.",
       longDescription: "Une solution complète pour vous démarquer sur le marché du travail avec des documents professionnels et une préparation aux entretiens.",
       icon: <BookOpen className="h-12 w-12 text-migrapro-terre-cuite" />,

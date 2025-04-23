@@ -20,7 +20,7 @@ const CoachingPricing = () => {
         <div className="max-w-3xl mx-auto">
           <Card className="border-2 border-migrapro-terre-cuite shadow-lg hover-scale animate-fade-in">
             <CardHeader className="text-center bg-migrapro-terre-cuite text-white rounded-t-lg">
-              <CardTitle className="text-3xl font-heading">Pack Complet Réussite Pro</CardTitle>
+              <CardTitle className="text-3xl font-heading">Pack Réussite</CardTitle>
               <div className="flex justify-center items-baseline mt-4">
                 <span className="text-4xl font-bold">350€</span>
                 <span className="ml-2 text-white/80">au lieu de 450€</span>

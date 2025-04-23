@@ -1,4 +1,3 @@
-
 import { CompassIcon, BookOpen, Plane, Users, GraduationCap, HeadphonesIcon } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -29,7 +28,7 @@ const ServicesPreview = () => {
       color: "bg-gradient-to-br from-sky-50 to-blue-50 border-migrapro-bleu-ciel/20"
     },
     {
-      title: "Pack Réussite Pro",
+      title: "Pack Réussite",
       description: "CV, Lettre de Motivation et Coaching pour maximiser vos chances.",
       icon: <BookOpen className="h-8 w-8 text-migrapro-terre-cuite" />,
       link: "/services/pack-reussite",
