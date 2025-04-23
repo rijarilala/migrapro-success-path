@@ -5,10 +5,9 @@ import { Link } from 'react-router-dom';
 
 const ImmigrationOverview = () => {
   const benefits = [
-    "Évaluation gratuite de votre éligibilité",
-    "Accompagnement personnalisé de A à Z",
-    "Suivi de dossier par des experts",
-    "Installation et intégration au Canada"
+    "Évaluation gratuite et instantanée de votre profil",
+    "Plan d'action dédié : dossier complet, accompagnement administratif, conseils d'installation",
+    "Experts certifiés pour sécuriser votre visa et votre permis"
   ];
 
   return (
@@ -21,12 +20,12 @@ const ImmigrationOverview = () => {
             </div>
             
             <h2 className="font-heading text-3xl md:text-4xl font-bold mb-6">
-              Votre rêve canadien commence ici
+              Faites du Canada votre nouvelle adresse
             </h2>
             
             <p className="text-lg text-gray-600 mb-8">
-              Notre équipe d'experts vous accompagne dans toutes les étapes de votre projet d'immigration, 
-              de l'évaluation initiale jusqu'à votre installation au Canada.
+              Rejoignez des milliers de candidats qui ont déjà sauté le pas, 
+              et transformez votre projet migratoire en réalité.
             </p>
 
             <ul className="space-y-4 mb-8">
@@ -43,15 +42,15 @@ const ImmigrationOverview = () => {
               size="lg"
               asChild
             >
-              <Link to="/services/immigration">
-                Découvrir nos services d'immigration
+              <Link to="/services/eligibility">
+                Testez votre éligibilité maintenant
               </Link>
             </Button>
           </div>
 
           <div className="md:w-1/2">
             <img
-              src="https://images.unsplash.com/photo-1508693926297-1d61ee3df82a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+              src="https://images.unsplash.com/photo-1519834099055-c7ceba0a4c39?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
               alt="Immigration Canada"
               className="rounded-lg shadow-xl w-full object-cover"
               style={{ maxHeight: '500px' }}
