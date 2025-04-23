@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
@@ -17,7 +18,7 @@ import {
   Users,
   Info,
   MessageSquare,
-  Newspaper,
+  NewspaperIcon,
   ChevronDown,
   X
 } from 'lucide-react';
@@ -33,7 +34,7 @@ export const MobileNav = ({ isOpen, onOpenChange }: { isOpen: boolean; onOpenCha
       >
         <SheetHeader className="border-b pb-4 mb-4">
           <SheetTitle className="font-heading text-2xl text-left">
-            <span className="text-migrapro-terre-cuite">Great</span>Pathway
+            <span className="text-migrapro-terre-cuite">Migra</span>Pro
           </SheetTitle>
           <Button 
             variant="ghost" 
@@ -151,7 +152,7 @@ export const MobileNav = ({ isOpen, onOpenChange }: { isOpen: boolean; onOpenCha
             onClick={() => onOpenChange(false)}
             className="flex items-center space-x-3 rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground"
           >
-            <Newspaper className="h-5 w-5" />
+            <NewspaperIcon className="h-5 w-5" />
             <span>Blog / Conseils</span>
           </Link>
         </nav>
