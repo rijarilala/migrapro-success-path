@@ -54,14 +54,6 @@ export const MobileNav = ({ isOpen, onOpenChange }: { isOpen: boolean; onOpenCha
           <SheetTitle className="font-heading text-2xl text-left">
             <span className="text-migrapro-terre-cuite">Migra</span>Pro
           </SheetTitle>
-          <Button 
-            variant="ghost" 
-            size="icon" 
-            onClick={() => onOpenChange(false)}
-            className="absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100"
-          >
-            <X className="h-6 w-6" />
-          </Button>
         </SheetHeader>
 
         <nav className="space-y-2">
