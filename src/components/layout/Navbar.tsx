@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, ChevronDown } from 'lucide-react';
@@ -9,9 +10,11 @@ import {
   DropdownMenuTrigger 
 } from '@/components/ui/dropdown-menu';
 import { MobileNav } from './MobileNav';
+import { useAuth } from '@/hooks/useAuth';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isAuthenticated } = useAuth();
 
   return (
     <nav className="sticky top-0 z-50 bg-white shadow-md">
@@ -62,6 +65,11 @@ const Navbar = () => {
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
+                <Link to="/services/eligibility" className="w-full">
+                  Test d'éligibilité
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
                 <Link to="/services/recrutement" className="w-full">
                   Recrutement (Bientôt)
                 </Link>
@@ -87,9 +95,19 @@ const Navbar = () => {
         </div>
 
         {/* CTA Button */}
-        <Button className="hidden md:block bg-migrapro-terre-cuite hover:bg-opacity-90 text-white">
-          Réserver
-        </Button>
+        {isAuthenticated ? (
+          <Link to="/services/eligibility">
+            <Button className="hidden md:block bg-migrapro-terre-cuite hover:bg-opacity-90 text-white">
+              Test d'éligibilité
+            </Button>
+          </Link>
+        ) : (
+          <Link to="/auth">
+            <Button className="hidden md:block bg-migrapro-terre-cuite hover:bg-opacity-90 text-white">
+              Connexion
+            </Button>
+          </Link>
+        )}
 
         {/* Mobile Menu Button */}
         <Button

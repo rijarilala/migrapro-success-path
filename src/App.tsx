@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -43,6 +44,8 @@ const AppContent = () => {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Index />} />
+        {/* Auth Route */}
+        <Route path="/auth" element={<Auth />} />
         {/* Services Routes */}
         <Route path="/services" element={<Services />} />
         <Route path="/services/orientation" element={<OrientationPro />} />
