@@ -1,3 +1,4 @@
+
 import { Plane } from 'lucide-react';
 
 const ImmigrationHero = () => {
@@ -6,7 +7,7 @@ const ImmigrationHero = () => {
       <div 
         className="absolute inset-0 bg-cover bg-center bg-blend-overlay bg-black/30 bg-fixed" 
         style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1508693926297-1d61ee3df82a?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80')`,
+          backgroundImage: `url('https://images.unsplash.com/photo-1496568816309-51d7c20e3b21?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80')`,
           backgroundSize: 'cover'
         }}
       />

@@ -1,3 +1,4 @@
+
 import { GraduationCap } from 'lucide-react';
 
 const FormationHero = () => {
@@ -6,7 +7,7 @@ const FormationHero = () => {
       <div 
         className="absolute inset-0 bg-cover bg-center bg-blend-overlay bg-black/30 bg-fixed" 
         style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-1.2.1&auto=format&fit=crop&w=2426&q=80')`,
+          backgroundImage: `url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80')`,
           backgroundSize: 'cover'
         }}
       />

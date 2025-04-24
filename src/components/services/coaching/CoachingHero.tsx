@@ -1,3 +1,4 @@
+
 import { Award } from 'lucide-react';
 
 const CoachingHero = () => {
@@ -6,7 +7,7 @@ const CoachingHero = () => {
       <div 
         className="absolute inset-0 bg-cover bg-center bg-blend-overlay bg-black/30 bg-fixed" 
         style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1522881451255-f59ad836fdfb?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80')`,
+          backgroundImage: `url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80')`,
           backgroundSize: 'cover'
         }}
       />

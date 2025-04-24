@@ -1,3 +1,4 @@
+
 import { CompassIcon } from 'lucide-react';
 
 const OrientationHero = () => {
@@ -6,7 +7,7 @@ const OrientationHero = () => {
       <div 
         className="absolute inset-0 bg-cover bg-center bg-blend-overlay bg-black/30 bg-fixed" 
         style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80')`,
+          backgroundImage: `url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80')`,
           backgroundSize: 'cover'
         }}
       />
