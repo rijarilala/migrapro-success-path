@@ -1,6 +1,5 @@
-
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { 
@@ -20,11 +19,29 @@ import {
   MessageSquare,
   NewspaperIcon,
   ChevronDown,
-  X
+  X,
+  LogOut
 } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
+import { toast } from 'sonner';
+import { useAuth } from '@/hooks/useAuth';
 
 export const MobileNav = ({ isOpen, onOpenChange }: { isOpen: boolean; onOpenChange: (open: boolean) => void }) => {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await supabase.auth.signOut();
+      toast.success('Déconnexion réussie');
+      onOpenChange(false);
+      navigate('/');
+    } catch (error) {
+      console.error('Erreur lors de la déconnexion:', error);
+      toast.error('Erreur lors de la déconnexion');
+    }
+  };
 
   return (
     <Sheet open={isOpen} onOpenChange={onOpenChange}>
@@ -156,6 +173,19 @@ export const MobileNav = ({ isOpen, onOpenChange }: { isOpen: boolean; onOpenCha
             <span>Blog / Conseils</span>
           </Link>
         </nav>
+
+        {user && (
+          <div className="space-y-2 border-t pt-2">
+            <Button 
+              variant="ghost"
+              onClick={handleLogout}
+              className="flex w-full items-center justify-start space-x-3 rounded-md px-3 py-2 text-sm text-red-600 hover:bg-red-50"
+            >
+              <LogOut className="h-5 w-5" />
+              <span>Déconnexion</span>
+            </Button>
+          </div>
+        )}
       </SheetContent>
     </Sheet>
   );

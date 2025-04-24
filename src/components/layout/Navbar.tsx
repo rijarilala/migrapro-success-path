@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Menu, ChevronDown, User, LogOut } from 'lucide-react';
@@ -80,11 +79,6 @@ const Navbar = () => {
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link to="/services/eligibility" className="w-full">
-                  Test d'éligibilité
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
                 <Link to="/services/recrutement" className="w-full">
                   Recrutement (Bientôt)
                 </Link>
@@ -111,35 +105,30 @@ const Navbar = () => {
 
         {/* User Menu or CTA Button */}
         {isAuthenticated ? (
-          <div className="hidden md:flex items-center gap-4">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="flex items-center gap-2">
-                  <User className="h-4 w-4" />
-                  <span className="hidden lg:inline">{user?.email}</span>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56">
-                <DropdownMenuItem asChild>
-                  <Link to="/services/eligibility" className="w-full">
-                    Test d'éligibilité
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={handleLogout} className="text-red-600">
-                  <LogOut className="mr-2 h-4 w-4" />
-                  Déconnexion
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-        ) : (
-          <Link to="/auth">
-            <Button className="hidden md:block bg-migrapro-terre-cuite hover:bg-opacity-90 text-white">
-              Connexion
-            </Button>
-          </Link>
-        )}
+        <div className="hidden md:flex items-center gap-4">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="flex items-center gap-2">
+                <User className="h-4 w-4" />
+                <span className="hidden lg:inline">{user?.email}</span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-56">
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={handleLogout} className="text-red-600">
+                <LogOut className="mr-2 h-4 w-4" />
+                Déconnexion
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+      ) : (
+        <Link to="/auth">
+          <Button className="hidden md:block bg-migrapro-terre-cuite hover:bg-opacity-90 text-white">
+            Connexion
+          </Button>
+        </Link>
+      )}
 
         {/* Mobile Menu Button */}
         <Button
