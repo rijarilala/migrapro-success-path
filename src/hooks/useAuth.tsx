@@ -30,6 +30,6 @@ export const useAuth = () => {
     session,
     user,
     isLoading,
-    isAuthenticated: !!session,
+    isAuthenticated: !!session && session.user?.app_metadata?.provider === 'google',
   };
 };

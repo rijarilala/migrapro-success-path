@@ -5,15 +5,20 @@ import { useAuth } from '@/hooks/useAuth';
 import { toast } from "sonner";
 
 export const AuthRequired = ({ children }: { children: React.ReactNode }) => {
-  const { isAuthenticated, isLoading } = useAuth();
+  const { isAuthenticated, session, isLoading } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
-      toast.error("Veuillez vous connecter avec Google pour accéder au test d'éligibilité");
-      navigate('/auth');
+    if (!isLoading) {
+      // Check if user is authenticated AND logged in via Google
+      const isGoogleAuth = session?.user?.app_metadata?.provider === 'google';
+      
+      if (!isAuthenticated || !isGoogleAuth) {
+        toast.error("Veuillez vous connecter avec Google pour accéder au test d'éligibilité");
+        navigate('/auth');
+      }
     }
-  }, [isAuthenticated, isLoading, navigate]);
+  }, [isAuthenticated, isLoading, session, navigate]);
 
   if (isLoading) {
     return (
