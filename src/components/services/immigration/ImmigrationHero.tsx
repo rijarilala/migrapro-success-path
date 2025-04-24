@@ -1,10 +1,17 @@
-
 import { Plane } from 'lucide-react';
 
 const ImmigrationHero = () => {
   return (
-    <div className="bg-gradient-to-r from-migrapro-bleu-ciel to-migrapro-bleu-ciel/90 text-white">
-      <div className="container mx-auto px-4 py-16 md:py-24">
+    <div className="relative bg-gradient-to-r from-migrapro-bleu-ciel to-migrapro-bleu-ciel/90 text-white">
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-blend-overlay bg-black/30 bg-fixed" 
+        style={{
+          backgroundImage: `url('https://images.unsplash.com/photo-1508693926297-1d61ee3df82a?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80')`,
+          backgroundSize: 'cover'
+        }}
+      />
+      
+      <div className="container mx-auto px-4 py-16 md:py-24 relative">
         <div className="flex flex-col md:flex-row items-center justify-between">
           <div className="md:w-2/3 animate-fade-in">
             <div className="inline-block p-3 bg-white/10 rounded-full mb-6">
