@@ -2,23 +2,18 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Menu, ChevronDown, User, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { 
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-  DropdownMenuSeparator,
-} from '@/components/ui/dropdown-menu';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
 import { MobileNav } from './MobileNav';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { isAuthenticated, user } = useAuth();
+  const {
+    isAuthenticated,
+    user
+  } = useAuth();
   const navigate = useNavigate();
-
   const handleLogout = async () => {
     try {
       await supabase.auth.signOut();
@@ -29,14 +24,12 @@ const Navbar = () => {
       toast.error('Erreur lors de la déconnexion');
     }
   };
-
-  return (
-    <nav className="sticky top-0 z-50 bg-white shadow-md">
+  return <nav className="sticky top-0 z-50 bg-white shadow-md">
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
           <div className="font-heading font-bold text-2xl text-migrapro-bleu-ciel">
-            <span className="text-migrapro-terre-cuite">Migra</span>Pro
+            <span className="text-migrapro-terre-cuite">Sucess</span>Pro
           </div>
         </Link>
 
@@ -104,8 +97,7 @@ const Navbar = () => {
         </div>
 
         {/* User Menu or CTA Button */}
-        {isAuthenticated ? (
-        <div className="hidden md:flex items-center gap-4">
+        {isAuthenticated ? <div className="hidden md:flex items-center gap-4">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="flex items-center gap-2">
@@ -121,22 +113,14 @@ const Navbar = () => {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-        </div>
-      ) : (
-        <Link to="/auth">
+        </div> : <Link to="/auth">
           <Button className="hidden md:block bg-migrapro-terre-cuite hover:bg-opacity-90 text-white">
             Connexion
           </Button>
-        </Link>
-      )}
+        </Link>}
 
         {/* Mobile Menu Button */}
-        <Button
-          variant="ghost"
-          className="md:hidden"
-          size="icon"
-          onClick={() => setIsMenuOpen(true)}
-        >
+        <Button variant="ghost" className="md:hidden" size="icon" onClick={() => setIsMenuOpen(true)}>
           <Menu className="h-6 w-6" />
           <span className="sr-only">Menu</span>
         </Button>
@@ -144,8 +128,6 @@ const Navbar = () => {
 
       {/* Mobile Navigation */}
       <MobileNav isOpen={isMenuOpen} onOpenChange={setIsMenuOpen} />
-    </nav>
-  );
+    </nav>;
 };
-
 export default Navbar;
