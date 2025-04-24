@@ -1,20 +1,35 @@
 
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Menu, ChevronDown } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Menu, ChevronDown, User, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { 
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger 
+  DropdownMenuTrigger,
+  DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
 import { MobileNav } from './MobileNav';
 import { useAuth } from '@/hooks/useAuth';
+import { supabase } from '@/integrations/supabase/client';
+import { toast } from 'sonner';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await supabase.auth.signOut();
+      toast.success('Déconnexion réussie');
+      navigate('/');
+    } catch (error) {
+      console.error('Erreur lors de la déconnexion:', error);
+      toast.error('Erreur lors de la déconnexion');
+    }
+  };
 
   return (
     <nav className="sticky top-0 z-50 bg-white shadow-md">
@@ -94,13 +109,30 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* CTA Button */}
+        {/* User Menu or CTA Button */}
         {isAuthenticated ? (
-          <Link to="/services/eligibility">
-            <Button className="hidden md:block bg-migrapro-terre-cuite hover:bg-opacity-90 text-white">
-              Test d'éligibilité
-            </Button>
-          </Link>
+          <div className="hidden md:flex items-center gap-4">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="flex items-center gap-2">
+                  <User className="h-4 w-4" />
+                  <span className="hidden lg:inline">{user?.email}</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuItem asChild>
+                  <Link to="/services/eligibility" className="w-full">
+                    Test d'éligibilité
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={handleLogout} className="text-red-600">
+                  <LogOut className="mr-2 h-4 w-4" />
+                  Déconnexion
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         ) : (
           <Link to="/auth">
             <Button className="hidden md:block bg-migrapro-terre-cuite hover:bg-opacity-90 text-white">
