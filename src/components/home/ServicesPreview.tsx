@@ -12,35 +12,40 @@ const ServicesPreview = () => {
       description: "Diagnostic de profil, bilan de compétences, plan de carrière personnalisé.",
       icon: <CompassIcon className="h-8 w-8 text-migrapro-vert-foret" />,
       link: "/services/orientation",
-      color: "bg-gradient-to-br from-teal-50 to-green-50 border-migrapro-vert-foret/20"
+      color: "bg-gradient-to-br from-teal-50 to-green-50 border-migrapro-vert-foret/20",
+      bgImage: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
     }, 
     {
       title: "Formation",
       description: "Modules pratiques pour développer vos compétences clés à Madagascar et au Canada.",
       icon: <GraduationCap className="h-8 w-8 text-migrapro-terre-cuite" />,
       link: "/services/formation",
-      color: "bg-gradient-to-br from-amber-50 to-yellow-50 border-migrapro-terre-cuite/20"
+      color: "bg-gradient-to-br from-amber-50 to-yellow-50 border-migrapro-terre-cuite/20",
+      bgImage: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
     }, 
     {
       title: "Coaching",
       description: "Accompagnement sur mesure pour atteindre vos objectifs professionnels.",
       icon: <HeadphonesIcon className="h-8 w-8 text-migrapro-bleu-ciel" />,
       link: "/services/coaching",
-      color: "bg-gradient-to-br from-sky-50 to-blue-50 border-migrapro-bleu-ciel/20"
+      color: "bg-gradient-to-br from-sky-50 to-blue-50 border-migrapro-bleu-ciel/20",
+      bgImage: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
     }, 
     {
       title: "Pack Réussite",
       description: "CV, Lettre de Motivation et Coaching pour maximiser vos chances.",
       icon: <BookOpen className="h-8 w-8 text-migrapro-terre-cuite" />,
       link: "/services/pack-reussite",
-      color: "bg-gradient-to-br from-orange-50 to-red-50 border-migrapro-terre-cuite/20"
+      color: "bg-gradient-to-br from-orange-50 to-red-50 border-migrapro-terre-cuite/20",
+      bgImage: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
     }, 
     {
       title: "Immigration & Accompagnement",
       description: "Accompagnement complet pour votre projet d'immigration au Canada.",
       icon: <Plane className="h-8 w-8 text-migrapro-bleu-ciel" />,
       link: "/services/immigration",
-      color: "bg-gradient-to-br from-blue-50 to-indigo-50 border-migrapro-bleu-ciel/20"
+      color: "bg-gradient-to-br from-blue-50 to-indigo-50 border-migrapro-bleu-ciel/20",
+      bgImage: "https://images.unsplash.com/photo-1496568816309-51d7c20e3b21?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
     }, 
     {
       title: "Recrutement",
@@ -48,7 +53,8 @@ const ServicesPreview = () => {
       icon: <Users className="h-8 w-8 text-migrapro-jaune-soleil" />,
       link: "/services/recrutement",
       comingSoon: true,
-      color: "bg-gradient-to-br from-yellow-50 to-amber-50 border-migrapro-jaune-soleil/20"
+      color: "bg-gradient-to-br from-yellow-50 to-amber-50 border-migrapro-jaune-soleil/20",
+      bgImage: "https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
     }
   ];
 
@@ -66,30 +72,41 @@ const ServicesPreview = () => {
           {services.map((service, index) => (
             <Card 
               key={service.title} 
-              className={`hover-scale animate-fade-in border ${service.color}`} 
+              className={`hover-scale animate-fade-in relative overflow-hidden min-h-[320px] border-0 shadow-lg`}
               style={{ animationDelay: `${(index + 1) * 100}ms` }}
             >
-              <CardHeader>
-                <div className="mb-3">
-                  {service.icon}
-                </div>
-                <CardTitle className="font-heading text-xl flex items-center gap-2">
-                  {service.title}
-                  {service.comingSoon && <Badge className="bg-migrapro-jaune-soleil text-xs">Bientôt</Badge>}
-                </CardTitle>
-                <CardDescription>{service.description}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button 
-                  variant="outline" 
-                  className="w-full border-gray-300 hover:border-migrapro-terre-cuite hover:text-migrapro-terre-cuite" 
-                  asChild
-                >
-                  <Link to={service.link}>
-                    En savoir plus
-                  </Link>
-                </Button>
-              </CardContent>
+              <div 
+                className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                style={{ 
+                  backgroundImage: `url('${service.bgImage}')`,
+                  opacity: 0.15
+                }}
+              />
+              <div className={`absolute inset-0 ${service.color} opacity-90`} />
+              
+              <div className="relative z-10">
+                <CardHeader>
+                  <div className="mb-3 bg-white rounded-full w-16 h-16 flex items-center justify-center shadow-md">
+                    {service.icon}
+                  </div>
+                  <CardTitle className="font-heading text-xl flex items-center gap-2">
+                    {service.title}
+                    {service.comingSoon && <Badge className="bg-migrapro-jaune-soleil text-xs">Bientôt</Badge>}
+                  </CardTitle>
+                  <CardDescription className="text-base font-medium">{service.description}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Button 
+                    variant="outline" 
+                    className="w-full border-gray-300 bg-white/80 backdrop-blur-sm hover:bg-white hover:border-migrapro-terre-cuite hover:text-migrapro-terre-cuite" 
+                    asChild
+                  >
+                    <Link to={service.link}>
+                      En savoir plus
+                    </Link>
+                  </Button>
+                </CardContent>
+              </div>
             </Card>
           ))}
         </div>
