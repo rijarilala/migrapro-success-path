@@ -20,7 +20,8 @@ import {
   NewspaperIcon,
   ChevronDown,
   X,
-  LogOut
+  LogOut,
+  Contact as ContactIcon
 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
@@ -171,6 +172,15 @@ export const MobileNav = ({ isOpen, onOpenChange }: { isOpen: boolean; onOpenCha
           >
             <NewspaperIcon className="h-5 w-5" />
             <span>Blog / Conseils</span>
+          </Link>
+
+          <Link
+            to="/contact"
+            onClick={() => onOpenChange(false)}
+            className="flex items-center space-x-3 rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground"
+          >
+            <ContactIcon className="h-5 w-5" />
+            <span>Contact</span>
           </Link>
         </nav>
 
