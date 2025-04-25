@@ -53,10 +53,12 @@ const ImmigrationOverview = () => {
         
         <p >
         🎯 Vous souhaitez mettre toutes les chances de votre côté ?
-        Trouver un emploi au Canada demande plus que de bons documents — il faut une stratégie complète, adaptée et percutante.
-            C’est pourquoi nous avons créé le Pack Réussite :
-          un accompagnement 3-en-1 pensé pour vous aider à décrocher des entretiens et réussir votre intégration professionnelle
-            
+        </p>
+        <p >
+        Trouver un emploi au Canada demande plus que de bons documents </p>
+       <p> Il faut une stratégie complète, adaptée et percutante.</p>
+       <p> C’est pourquoi nous avons créé le Pack Réussite :</p>
+          un accompagnement 3-en-1 pensé pour vous aider à décrocher des entretiens et réussir votre intégration professionnelle 
           </p>
           <p>
         👇 Découvrez le contenu du pack 👇
