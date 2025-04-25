@@ -27,6 +27,16 @@ const PackReussitePro = () => {
     <section className="py-16 md:py-24 bg-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
+        <p className="text-gray-600 text-lg max-w-2xl mx-auto animate-fade-in animate-delay-100">
+        🎯 Vous souhaitez mettre toutes les chances de votre côté ?
+
+Trouver un emploi au Canada demande plus que de bons documents — il faut une stratégie complète, adaptée et percutante.
+
+C’est pourquoi nous avons créé le Pack Réussite :
+un accompagnement 3-en-1 pensé pour vous aider à décrocher des entretiens et réussir votre intégration professionnelle.
+
+👇 Découvrez le contenu du pack 👇
+          </p>
           <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4 animate-fade-in">
             Pack Réussite
           </h2>
