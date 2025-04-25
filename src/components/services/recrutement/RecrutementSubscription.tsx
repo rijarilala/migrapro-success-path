@@ -1,4 +1,3 @@
-
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,15 +8,17 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Textarea } from "@/components/ui/textarea";
 import { Check } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
-
 const formSchema = z.object({
-  name: z.string().min(2, { message: "Le nom est requis" }),
-  email: z.string().email({ message: "Email invalide" }),
+  name: z.string().min(2, {
+    message: "Le nom est requis"
+  }),
+  email: z.string().email({
+    message: "Email invalide"
+  }),
   company: z.string().optional(),
   position: z.string().optional(),
-  message: z.string().optional(),
+  message: z.string().optional()
 });
-
 const RecrutementSubscription = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -26,20 +27,17 @@ const RecrutementSubscription = () => {
       email: "",
       company: "",
       position: "",
-      message: "",
-    },
+      message: ""
+    }
   });
-
   function onSubmit(values: z.infer<typeof formSchema>) {
     toast({
       title: "Inscription enregistrée",
-      description: "Nous vous contacterons dès que notre service de recrutement sera lancé.",
+      description: "Nous vous contacterons dès que notre service de recrutement sera lancé."
     });
     form.reset();
   }
-
-  return (
-    <section className="py-16 bg-white">
+  return <section className="py-16 bg-white">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
@@ -62,15 +60,7 @@ const RecrutementSubscription = () => {
                     <p className="text-gray-600">Accès à des offres d'emploi exclusives au Canada avec des entreprises partenaires.</p>
                   </div>
                 </div>
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 mt-1">
-                    <Check className="h-5 w-5 text-migrapro-jaune-soleil" />
-                  </div>
-                  <div className="ml-3">
-                    <h3 className="text-lg font-medium">Pour les entreprises</h3>
-                    <p className="text-gray-600">Mettez-vous en relation avec des talents qualifiés et présélectionnés selon vos besoins.</p>
-                  </div>
-                </div>
+                
               </div>
 
               <p className="text-sm text-gray-500 italic">
@@ -86,85 +76,59 @@ const RecrutementSubscription = () => {
               <CardContent>
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                    <FormField
-                      control={form.control}
-                      name="name"
-                      render={({ field }) => (
-                        <FormItem>
+                    <FormField control={form.control} name="name" render={({
+                    field
+                  }) => <FormItem>
                           <FormLabel>Nom complet*</FormLabel>
                           <FormControl>
                             <Input placeholder="Votre nom" {...field} />
                           </FormControl>
                           <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                        </FormItem>} />
                     
-                    <FormField
-                      control={form.control}
-                      name="email"
-                      render={({ field }) => (
-                        <FormItem>
+                    <FormField control={form.control} name="email" render={({
+                    field
+                  }) => <FormItem>
                           <FormLabel>Email*</FormLabel>
                           <FormControl>
                             <Input type="email" placeholder="votre.email@exemple.com" {...field} />
                           </FormControl>
                           <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                        </FormItem>} />
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <FormField
-                        control={form.control}
-                        name="company"
-                        render={({ field }) => (
-                          <FormItem>
+                      <FormField control={form.control} name="company" render={({
+                      field
+                    }) => <FormItem>
                             <FormLabel>Entreprise (optionnel)</FormLabel>
                             <FormControl>
                               <Input placeholder="Votre entreprise" {...field} />
                             </FormControl>
                             <FormMessage />
-                          </FormItem>
-                        )}
-                      />
+                          </FormItem>} />
                       
-                      <FormField
-                        control={form.control}
-                        name="position"
-                        render={({ field }) => (
-                          <FormItem>
+                      <FormField control={form.control} name="position" render={({
+                      field
+                    }) => <FormItem>
                             <FormLabel>Poste (optionnel)</FormLabel>
                             <FormControl>
                               <Input placeholder="Votre poste" {...field} />
                             </FormControl>
                             <FormMessage />
-                          </FormItem>
-                        )}
-                      />
+                          </FormItem>} />
                     </div>
                     
-                    <FormField
-                      control={form.control}
-                      name="message"
-                      render={({ field }) => (
-                        <FormItem>
+                    <FormField control={form.control} name="message" render={({
+                    field
+                  }) => <FormItem>
                           <FormLabel>Message (optionnel)</FormLabel>
                           <FormControl>
-                            <Textarea 
-                              placeholder="Parlez-nous de vos besoins en recrutement ou de votre recherche d'emploi"
-                              {...field} 
-                            />
+                            <Textarea placeholder="Parlez-nous de vos besoins en recrutement ou de votre recherche d'emploi" {...field} />
                           </FormControl>
                           <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                        </FormItem>} />
                     
-                    <Button 
-                      type="submit" 
-                      className="w-full bg-migrapro-jaune-soleil hover:bg-migrapro-jaune-soleil/90 text-migrapro-bleu-ciel"
-                    >
+                    <Button type="submit" className="w-full bg-migrapro-jaune-soleil hover:bg-migrapro-jaune-soleil/90 text-migrapro-bleu-ciel">
                       M'inscrire à la liste d'attente
                     </Button>
                   </form>
@@ -174,8 +138,6 @@ const RecrutementSubscription = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default RecrutementSubscription;
