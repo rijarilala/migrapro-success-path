@@ -37,24 +37,16 @@ const ImmigrationOverview = () => {
                 </li>)}
             </ul>
 
-           
+            <Button size="lg" onClick={handleEligibilityClick} className="bg-migrapro-terre-cuite hover:bg-migrapro-terre-cuite/90 mx-[68px]">
+              Tester mon éligibilité
+            </Button>
           </div>
 
           <div className="md:w-1/2">
             <img src="https://images.unsplash.com/photo-1508693926297-1d61ee3df82a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Immigration Canada" className="rounded-lg shadow-xl w-full object-cover h-auto" />
           </div>
         </div>
-        
-        
       </div>
-      <Button size="lg" onClick={handleEligibilityClick} className="bg-migrapro-terre-cuite hover:bg-migrapro-terre-cuite/90 mx-[68px]">
-              Tester mon éligibilité
-            </Button>
-        
-      <p className="text-lg text-gray-600 mb-8">
-              Rejoignez des milliers de candidats qui ont déjà sauté le pas et transformez votre projet migratoire en réalité.
-            </p>
-          
     </section>;
 };
 export default ImmigrationOverview;
