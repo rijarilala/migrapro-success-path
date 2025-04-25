@@ -5,13 +5,13 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 const CoachingDetails = () => {
   const services = [
     {
-      title: "Module e-learning CV",
+      title: "CV Masterclass",
       subtitle: "Normes canadiennes & malgaches",
       description: "Formation complète sur les normes CV canadiennes et malgaches, les attentes des recruteurs, et techniques de mise en valeur de votre profil.",
       icon: <FileText className="h-16 w-16 text-migrapro-terre-cuite" />
     },
     {
-      title: "Module e-learning Lettre de Motivation",
+      title: "Lettre de Motivation efficace",
       subtitle: "Structuration & personnalisation",
       description: "Techniques de structuration et personnalisation pour capter l'attention des recruteurs avec une lettre percutante adaptée au poste convoité.",
       icon: <Mail className="h-16 w-16 text-migrapro-terre-cuite" />
