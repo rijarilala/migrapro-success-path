@@ -26,12 +26,16 @@ const Footer = () => {
                 <span>Moramanga, Madagascar</span>
               </div>
               <div className="flex items-center gap-2">
-                <Mail size={18} className="text-migrapro-terre-cuite" />
-                <span>contact@migrapro.com</span>
+              <Mail size={20} className="mr-2 text-brand-600" />
+                <a href="mailto:contact@successpath.com" className="text-gray-600 hover:text-brand-600 transition-colors">
+                  contact@successpath.com
+                </a>
               </div>
               <div className="flex items-center gap-2">
-                <Phone size={18} className="text-migrapro-terre-cuite" />
-                <span>+261 34 12 345 67</span>
+              <Phone size={20} className="mr-2 text-brand-600" />
+                <a href="tel:+261340535068" className="text-gray-600 hover:text-brand-600 transition-colors">
+                  +261 34 05 350 68
+                </a>
               </div>
             </div>
           </div>
