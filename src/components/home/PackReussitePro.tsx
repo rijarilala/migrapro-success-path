@@ -6,7 +6,7 @@ const PackReussitePro = () => {
   const services = [{
     title: "CV Professionnel",
     icon: <FileText className="h-10 w-10 text-migrapro-terre-cuite" />,
-    description: "Module e-learning complet sur les normes CV canadiennes et malgaches."
+    description: "Module complet sur les normes CV canadiennes et malgaches."
   }, {
     title: "Lettre de Motivation",
     icon: <Mail className="h-10 w-10 text-migrapro-vert-foret" />,
@@ -23,8 +23,10 @@ const PackReussitePro = () => {
             Pack Réussite
           </h2>
           <p className="text-gray-600 text-lg max-w-2xl mx-auto animate-fade-in animate-delay-100">
-            CV + Lettre de Motivation + Coaching Entretien : tout ce dont vous avez besoin pour 
-            maximiser vos chances de succès professionnel.
+          🎯 Prêt à booster vos chances au Canada ?
+Optez pour notre Pack Réussite : CV, lettre de motivation et coaching réunis pour maximiser votre impact auprès des recruteurs.
+
+👇 Découvrez le pack 👇
           </p>
         </div>
 
