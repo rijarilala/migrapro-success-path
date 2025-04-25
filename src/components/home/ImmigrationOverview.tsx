@@ -47,6 +47,13 @@ const ImmigrationOverview = () => {
           </div>
         </div>
       </div>
+      <p className="text-gray-600 text-lg max-w-2xl mx-auto animate-fade-in animate-delay-100">
+        🎯 Vous souhaitez mettre toutes les chances de votre côté ?
+        Trouver un emploi au Canada demande plus que de bons documents — il faut une stratégie complète, adaptée et percutante.
+            C’est pourquoi nous avons créé le Pack Réussite :
+          un accompagnement 3-en-1 pensé pour vous aider à décrocher des entretiens et réussir votre intégration professionnelle.
+            👇 Découvrez le contenu du pack 👇
+          </p>
     </section>;
 };
 export default ImmigrationOverview;
