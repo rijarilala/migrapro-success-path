@@ -17,7 +17,7 @@ const ContactInfo = () => {
           <Phone className="w-5 h-5 text-migrapro-terre-cuite mt-1" />
           <div>
           <h3 className="font-medium text-gray-900">Téléphone</h3>
-              <a href="tel:+261340535068" className="text-primary hover:underline">
+              <a href="tel:+261340535068" className="text-gray-600">
                 +261 34 05 350 68
               </a>
           </div>
@@ -26,7 +26,7 @@ const ContactInfo = () => {
           <Mail className="w-5 h-5 text-migrapro-terre-cuite mt-1" />
           <div>
           <h3 className="font-medium text-gray-900">Email</h3>
-              <a href="mailto:contact@migrapro.com" className="text-primary hover:underline">
+              <a href="mailto:contact@migrapro.com" className="text-gray-600">
                 contact@sucesspath.com
               </a>
           </div>
