@@ -37,7 +37,7 @@ const ImmigrationOverview = () => {
                 </li>)}
             </ul>
 
-            <Button size="lg" onClick={handleEligibilityClick} className="bg-migrapro-terre-cuite hover:bg-migrapro-terre-cuite/90 mx-[68px]">
+            <Button size="lg" onClick={handleEligibilityClick} className="bg-migrapro-terre-cuite hover:bg-migrapro-terre-cuite/90 font-light text-base text-center text-slate-50 py-0 my-0 mx-[236px] px-[47px] rounded-sm">
               Tester mon éligibilité
             </Button>
           </div>
