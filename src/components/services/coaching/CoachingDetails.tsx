@@ -29,7 +29,7 @@ const CoachingDetails = () => {
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto mb-12 text-center">
           <h2 className="font-heading text-3xl md:text-4xl font-bold mb-6">
-            Détail du Pack Réussite Pro
+            Détail du Pack Réussite
           </h2>
           <p className="text-lg text-gray-600">
             Un programme complet qui combine formation et coaching personnalisé 
