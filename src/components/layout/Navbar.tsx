@@ -28,7 +28,7 @@ const Navbar = () => {
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
-          <div className="font-heading font-bold text-2xl text-migrapro-bleu-ciel">
+          <div className="font-heading font-bold text-2xl text-succespath-bleu-ciel">
             <span className="text-migrapro-terre-cuite">Sucess</span>Pro
           </div>
         </Link>
