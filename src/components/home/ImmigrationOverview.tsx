@@ -37,7 +37,7 @@ const ImmigrationOverview = () => {
                 </li>)}
             </ul>
 
-            <Button size="lg" onClick={handleEligibilityClick} className="bg-migrapro-terre-cuite hover:bg-migrapro-terre-cuite/90 mx-[68px]">
+            <Button size="lg" onClick={handleEligibilityClick} className="bg-migrapro-terre-cuite hover:bg-migrapro-terre-cuite/90 font-light text-base my-[63px] py-[10px] px-[14px] text-center text-slate-50 rounded-lg mx-[240px]">
               Tester mon éligibilité
             </Button>
           </div>
@@ -46,16 +46,7 @@ const ImmigrationOverview = () => {
             <img src="https://images.unsplash.com/photo-1508693926297-1d61ee3df82a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Immigration Canada" className="rounded-lg shadow-xl w-full object-cover h-auto" />
           </div>
         </div>
-        <p >
-        🎯 Vous souhaitez mettre toutes les chances de votre côté ?
-        Trouver un emploi au Canada demande plus que de bons documents — il faut une stratégie complète, adaptée et percutante.
-            C’est pourquoi nous avons créé le Pack Réussite :
-          un accompagnement 3-en-1 pensé pour vous aider à décrocher des entretiens et réussir votre intégration professionnelle.
-            
-          </p>
-          <p>👇 Découvrez le contenu du pack 👇</p>
       </div>
-      
     </section>;
 };
 export default ImmigrationOverview;
