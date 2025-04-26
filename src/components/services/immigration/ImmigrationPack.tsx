@@ -27,7 +27,6 @@ const ImmigrationPack = () => {
           <CardContent className="pt-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <h3 className="text-xl font-heading font-semibold mb-4">Avant le départ</h3>
                 <ul className="space-y-3">
                   <li className="flex items-center">
                     <Check className="h-5 w-5 text-migrapro-bleu-ciel mr-3" />
@@ -53,7 +52,6 @@ const ImmigrationPack = () => {
               </div>
 
               <div>
-                <h3 className="text-xl font-heading font-semibold mb-4">Après l'arrivée</h3>
                 <ul className="space-y-3">
                   <li className="flex items-center">
                     <Check className="h-5 w-5 text-migrapro-bleu-ciel mr-3" />

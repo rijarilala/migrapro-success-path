@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 const ImmigrationOverview = () => {
-  const benefits = ["Évaluation gratuite et instantanée de votre profil", "Plan d'action dédié : dossier complet, accompagnement administratif, conseils d'installation", "Experts certifiés pour sécuriser votre visa et votre permis"];
+  const benefits = ["Évaluation gratuite et instantanée de votre profil", "Plan d'action dédié : dossier complet, accompagnement administratif, conseils d'installation et d'établissement", "Experts certifiés pour sécuriser votre visa et votre permis"];
   const navigate = useNavigate();
   const handleEligibilityClick = () => {
     // Utiliser navigate pour assurer que le comportement est cohérent
@@ -27,7 +27,7 @@ const ImmigrationOverview = () => {
             </h2>
             
             <p className="text-lg text-gray-600 mb-8">
-              Rejoignez des milliers de candidats qui ont déjà sauté le pas et transformez votre projet migratoire en réalité.
+            Rejoignez des milliers de candidats qui ont transformé leur rêve d’immigration en réalité.
             </p>
 
             <ul className="space-y-4 mb-8">

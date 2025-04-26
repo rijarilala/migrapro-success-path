@@ -11,7 +11,7 @@ const OrientationPrestations = () => {
     },
     {
       title: "Tests d'aptitude et évaluation",
-      description: "Outils en ligne et entretiens pour cerner vos points forts et axes d'amélioration.",
+      description: "Entretiens pour cerner vos points forts et axes d'amélioration.",
       icon: <BarChart className="h-10 w-10 text-migrapro-vert-foret" />
     },
     {
@@ -21,7 +21,7 @@ const OrientationPrestations = () => {
     },
     {
       title: "Valorisation de votre profil",
-      description: "Démarches d'équivalence de diplôme, formations complémentaires et certifications utiles.",
+      description: "Démarches d'équivalence de diplôme, formations complémentaires et certifications requises.",
       icon: <GraduationCap className="h-10 w-10 text-migrapro-vert-foret" />
     },
     {

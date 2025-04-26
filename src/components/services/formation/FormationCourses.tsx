@@ -8,7 +8,7 @@ const FormationCourses = () => {
     {
       title: "Rédaction de CV",
       subtitle: "Local & Canadien",
-      description: "Apprenez à rédiger un CV percutant et adapté aux standards malgaches et canadiens pour maximiser vos chances auprès des recruteurs.",
+      description: "Apprenez à rédiger un CV pertinente et adapté aux standards malgaches et canadiens pour maximiser vos chances auprès des recruteurs.",
       duration: "4h",
       format: ["En ligne", "Présentiel"],
       icon: <FileText className="h-12 w-12 text-migrapro-terre-cuite" />

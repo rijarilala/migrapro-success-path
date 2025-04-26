@@ -6,7 +6,7 @@ const CoachingServices = () => {
   const coachingTypes = [
     {
       title: "Coaching Entretien d'embauche",
-      description: "1h30 de simulation + feedback personnalisé pour vous préparer à vos entretiens et maximiser vos chances de réussite.",
+      description: "3h de simulation + feedback personnalisé pour vous préparer à vos entretiens et maximiser vos chances de réussite.",
       icon: <BookOpen className="h-10 w-10 text-migrapro-terre-cuite" />
     },
     {

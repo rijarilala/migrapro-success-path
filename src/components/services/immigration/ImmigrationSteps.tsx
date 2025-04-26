@@ -24,7 +24,7 @@ const ImmigrationSteps = () => {
     {
       icon: <Home className="w-12 h-12 text-migrapro-bleu-ciel" />,
       title: "Suivi post-arrivée",
-      description: "Support pour votre installation : recherche de logement, emploi, démarches administratives et intégration culturelle.",
+      description: "Support pour votre installation : recherche de logement, emploi, démarches administratives.",
       link: "#installation"
     }
   ];

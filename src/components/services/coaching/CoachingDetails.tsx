@@ -13,7 +13,7 @@ const CoachingDetails = () => {
     {
       title: "Lettre de Motivation efficace",
       subtitle: "Structuration & personnalisation",
-      description: "Techniques de structuration et personnalisation pour capter l'attention des recruteurs avec une lettre percutante adaptée au poste convoité.",
+      description: "Techniques de structuration et personnalisation pour capter l'attention des recruteurs avec une lettre pertinente adaptée au poste convoité.",
       icon: <Mail className="h-16 w-16 text-migrapro-terre-cuite" />
     },
     {

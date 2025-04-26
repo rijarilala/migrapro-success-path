@@ -14,7 +14,7 @@ const PackReussitePro = () => {
   }, {
     title: "Coaching Entretien",
     icon: <Video className="h-10 w-10 text-migrapro-bleu-ciel" />,
-    description: "Séance de coaching personnalisée de 1h30 avec simulations et feedback."
+    description: "Séance de coaching personnalisée de 3h avec simulations et feedback."
   }];
   return <section className="py-16 md:py-24 bg-white">
       <div className="container mx-auto px-4">
