@@ -29,7 +29,7 @@ const Navbar = () => {
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
           <div className="font-heading font-bold text-2xl text-succespath-bleu-ciel">
-            <span className="text-migrapro-terre-cuite">Success</span>Path
+            <span className="text-migrapro-terre-cuite">UMEGREAT</span>Pro
           </div>
         </Link>
 

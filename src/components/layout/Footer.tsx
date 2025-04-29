@@ -28,7 +28,7 @@ const Footer = () => {
               <div className="flex items-center gap-2">
               <Mail size={20} className="text-migrapro-terre-cuite" />
                 <a href="mailto:contact@successpath.com" >
-                  contact@successpath.com
+                  contact@umegreatpro.com
                 </a>
               </div>
               <div className="flex items-center gap-2">
@@ -108,7 +108,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-gray-600 mt-8 pt-8 text-center text-gray-300 text-sm">
-          <p>&copy; {new Date().getFullYear()} SuccessPath. Tous droits réservés.</p>
+          <p>&copy; {new Date().getFullYear()}UMEGREAT Pro. Tous droits réservés.</p>
         </div>
       </div>
     </footer>

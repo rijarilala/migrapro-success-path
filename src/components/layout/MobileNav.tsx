@@ -52,7 +52,7 @@ export const MobileNav = ({ isOpen, onOpenChange }: { isOpen: boolean; onOpenCha
       >
         <SheetHeader className="border-b pb-4 mb-4">
           <SheetTitle className="font-heading text-2xl text-left">
-            <span className="text-migrapro-terre-cuite">Migra</span>Pro
+            <span className="text-migrapro-terre-cuite">UMEGREAT</span>Pro
           </SheetTitle>
         </SheetHeader>
 

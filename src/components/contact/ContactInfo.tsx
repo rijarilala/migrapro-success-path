@@ -26,8 +26,8 @@ const ContactInfo = () => {
           <Mail className="w-5 h-5 text-migrapro-terre-cuite mt-1" />
           <div>
           <h3 className="font-medium text-gray-900">Email</h3>
-              <a href="mailto:contact@migrapro.com" className="text-gray-600">
-                contact@sucesspath.com
+              <a href="mailto:contact@umegreatpro.com" className="text-gray-600">
+                contact@umegreatpro.com
               </a>
           </div>
         </div>
