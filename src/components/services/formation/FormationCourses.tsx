@@ -39,8 +39,8 @@ const FormationCourses = () => {
     },
     {
       title: "Gestion des Ressources Humaines",
-      subtitle: "Fondamentaux, stratégie & pratique",
-      description: "Assimilez les bases et les stratégies RH, et découvrez la mise en œuvre concrète grâce à des exercices pratiques.",
+      subtitle: "Fondamentaux, stratégie & pratique – adaptés à votre secteur",
+      description: "Maîtrisez les bases et les stratégies RH, tout en découvrant leur mise en œuvre concrète à travers des exercices pratiques. Notre programme est conçu pour être modulable, permettant une adaptation aux spécificités de votre domaine d'activité (industrie, services, santé, etc.), afin de répondre au mieux à vos besoins opérationnels.",
       duration: "6h",
       format: ["En ligne", "Présentiel"],
       icon: <Briefcase className="h-12 w-12 text-migrapro-terre-cuite" />
