@@ -15,7 +15,7 @@ const Formation = () => {
         <ServiceCTA 
           title="Prêt à développer vos compétences ?" 
           subtitle="Nos formations vous préparent aux exigences du marché du travail local et canadien"
-          buttonText="Découvrir nos formations" 
+          buttonText="reserver une formation" 
           buttonLink="/contact?service=formation" 
         />
       </main>
