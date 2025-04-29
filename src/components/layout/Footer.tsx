@@ -10,7 +10,7 @@ const Footer = () => {
           {/* Logo & Description */}
           <div className="space-y-4">
             <div className="font-heading font-bold text-2xl">
-              <span className="text-migrapro-terre-cuite">Success</span>Path
+              <span className="text-migrapro-terre-cuite">UMEGREAT</span>Pro
             </div>
             <p className="text-gray-300">
               Votre partenaire pour un avenir professionnel réussi, spécialisé dans l'orientation professionnelle et l'immigration au Canada.

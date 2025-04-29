@@ -5,7 +5,7 @@ const TestimonialsHero = () => {
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            Ils ont réussi grâce à MigraPro
+            Ils ont réussi grâce à UMEGREAT Pro
           </h1>
           <p className="text-lg md:text-xl text-gray-100">
             Découvrez les parcours inspirants de nos clients

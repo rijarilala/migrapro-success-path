@@ -8,21 +8,21 @@ const testimonials = [
     role: "Développeur Web",
     company: "Tech Solutions Inc., Montréal",
     image: "/placeholder.svg",
-    content: "Grâce à MigraPro, j'ai pu optimiser mon CV et réussir mes entretiens. Aujourd'hui, je travaille comme développeur à Montréal !"
+    content: "Grâce à UMEGREAT Pro, j'ai pu optimiser mon CV et réussir mes entretiens. Aujourd'hui, je travaille comme développeur à Montréal !"
   },
   {
     name: "Soa Razafy",
     role: "Infirmière",
     company: "Hôpital Général, Québec",
     image: "/placeholder.svg",
-    content: "L'accompagnement pour l'immigration et l'intégration a été crucial. MigraPro m'a guidée à chaque étape."
+    content: "L'accompagnement pour l'immigration et l'intégration a été crucial. UMEGREAT Pro m'a guidée à chaque étape."
   },
   {
     name: "Patrick Ranaivo",
     role: "Comptable",
     company: "Finance Plus, Toronto",
     image: "/placeholder.svg",
-    content: "Le pack réussite pro a été déterminant. Les conseils personnalisés m'ont permis de me démarquer."
+    content: "Le pack réussite a été déterminant. Les conseils personnalisés m'ont permis de me démarquer."
   }
 ];
 
