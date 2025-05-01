@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
@@ -50,10 +51,17 @@ export const MobileNav = ({ isOpen, onOpenChange }: { isOpen: boolean; onOpenCha
         side="right" 
         className="w-[300px] sm:w-[400px] bg-white dark:bg-gray-950 overflow-y-auto"
       >
-        <SheetHeader className="border-b pb-4 mb-4">
-          <SheetTitle className="font-heading text-2xl text-left">
-            <span className="text-migrapro-terre-cuite">UMEGREAT</span>Pro
-          </SheetTitle>
+        <SheetHeader className="border-b pb-4 mb-4 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <img 
+              src="/lovable-uploads/0f7066c6-64a1-4c7c-819c-5a6157fc5732.png" 
+              alt="UMEGREAT Pro Logo" 
+              className="h-10 w-auto"
+            />
+            <SheetTitle className="font-heading text-2xl text-left">
+              UMEGREAT<span className="text-migrapro-terre-cuite">Pro</span>
+            </SheetTitle>
+          </div>
         </SheetHeader>
 
         <nav className="space-y-2">
