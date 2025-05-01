@@ -6,14 +6,14 @@ import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 
 const BlogPreview = () => {
-  const blogPosts = [
+  const faqPreviews = [
     {
       title: "5 étapes pour préparer son dossier d'immigration au Canada",
       excerpt: "Découvrez les documents essentiels et les astuces pour maximiser vos chances d'obtenir un visa...",
       date: "15 avril 2025",
       category: "Immigration",
       image: "https://images.unsplash.com/photo-1508693926297-1d61ee3df82a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-      slug: "/blog/5-etapes-pour-preparer-son-dossier-immigration"
+      slug: "/blog#immigration"
     },
     {
       title: "Comment rédiger un CV qui se démarque au Canada",
@@ -21,7 +21,7 @@ const BlogPreview = () => {
       date: "8 avril 2025",
       category: "CV & Lettre",
       image: "https://images.unsplash.com/photo-1586281380117-5a60ae2050cc?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-      slug: "/blog/rediger-cv-qui-se-demarque"
+      slug: "/blog#cv"
     },
     {
       title: "Les secteurs qui recrutent à Madagascar en 2025",
@@ -29,7 +29,7 @@ const BlogPreview = () => {
       date: "2 avril 2025",
       category: "Marché de l'emploi",
       image: "https://images.unsplash.com/photo-1488085061387-422e29b40080?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-      slug: "/blog/secteurs-qui-recrutent-madagascar"
+      slug: "/blog#emploi"
     }
   ];
 
@@ -51,15 +51,15 @@ const BlogPreview = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4 animate-fade-in">
-            Blog & Conseils
+            FAQ & Conseils
           </h2>
           <p className="text-gray-600 text-lg max-w-2xl mx-auto animate-fade-in animate-delay-100">
-            Nos derniers articles pour vous guider dans votre parcours professionnel.
+            Trouvez des réponses à vos questions sur l'immigration et l'expatriation.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {blogPosts.map((post, index) => (
+          {faqPreviews.map((post, index) => (
             <Card 
               key={post.title} 
               className="overflow-hidden hover-scale border-none shadow-md animate-fade-in"
@@ -91,7 +91,7 @@ const BlogPreview = () => {
               <CardFooter>
                 <Button variant="ghost" className="w-full hover:text-migrapro-terre-cuite" asChild>
                   <Link to={post.slug}>
-                    Lire l'article
+                    Voir la réponse
                   </Link>
                 </Button>
               </CardFooter>
@@ -105,7 +105,7 @@ const BlogPreview = () => {
             asChild
           >
             <Link to="/blog">
-              Tous les articles
+              Toutes les FAQ
             </Link>
           </Button>
         </div>
