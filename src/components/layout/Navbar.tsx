@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Menu, ChevronDown, User, LogOut } from 'lucide-react';
@@ -8,12 +7,13 @@ import { MobileNav } from './MobileNav';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { isAuthenticated, user } = useAuth();
+  const {
+    isAuthenticated,
+    user
+  } = useAuth();
   const navigate = useNavigate();
-
   const handleLogout = async () => {
     try {
       await supabase.auth.signOut();
@@ -24,18 +24,12 @@ const Navbar = () => {
       toast.error('Erreur lors de la déconnexion');
     }
   };
-
-  return (
-    <nav className="sticky top-0 z-50 bg-white shadow-md">
+  return <nav className="sticky top-0 z-50 bg-white shadow-md">
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-        {/* Logo with Shield */}
+        {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
-          <div className="h-12">
-            <img 
-              src="/lovable-uploads/0f7066c6-64a1-4c7c-819c-5a6157fc5732.png" 
-              alt="UMEGREAT Pro Logo" 
-              className="h-full w-auto"
-            />
+          <div className="font-heading font-bold text-2xl text-succespath-bleu-ciel">
+            <span className="text-migrapro-terre-cuite">UMEGREAT</span>Pro
           </div>
         </Link>
 
@@ -103,31 +97,27 @@ const Navbar = () => {
         </div>
 
         {/* User Menu or CTA Button */}
-        {isAuthenticated ? (
-          <div className="hidden md:flex items-center gap-4">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="flex items-center gap-2">
-                  <User className="h-4 w-4" />
-                  <span className="hidden lg:inline">{user?.email}</span>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56">
-                <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={handleLogout} className="text-red-600">
-                  <LogOut className="mr-2 h-4 w-4" />
-                  Déconnexion
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-        ) : (
-          <Link to="/auth">
-            <Button className="hidden md:block bg-migrapro-terre-cuite hover:bg-opacity-90 text-white">
-              Connexion
-            </Button>
-          </Link>
-        )}
+        {isAuthenticated ? <div className="hidden md:flex items-center gap-4">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="flex items-center gap-2">
+                <User className="h-4 w-4" />
+                <span className="hidden lg:inline">{user?.email}</span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-56">
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={handleLogout} className="text-red-600">
+                <LogOut className="mr-2 h-4 w-4" />
+                Déconnexion
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div> : <Link to="/auth">
+          <Button className="hidden md:block bg-migrapro-terre-cuite hover:bg-opacity-90 text-white">
+            Connexion
+          </Button>
+        </Link>}
 
         {/* Mobile Menu Button */}
         <Button variant="ghost" className="md:hidden" size="icon" onClick={() => setIsMenuOpen(true)}>
@@ -138,8 +128,6 @@ const Navbar = () => {
 
       {/* Mobile Navigation */}
       <MobileNav isOpen={isMenuOpen} onOpenChange={setIsMenuOpen} />
-    </nav>
-  );
+    </nav>;
 };
-
 export default Navbar;

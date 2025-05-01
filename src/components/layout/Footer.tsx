@@ -9,12 +9,8 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Logo & Description */}
           <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <img 
-                src="/lovable-uploads/0f7066c6-64a1-4c7c-819c-5a6157fc5732.png" 
-                alt="UMEGREAT Pro Logo"
-                className="h-14 w-auto" 
-              />
+            <div className="font-heading font-bold text-2xl">
+              <span className="text-migrapro-terre-cuite">UMEGREAT</span>Pro
             </div>
             <p className="text-gray-300">
               Votre partenaire pour un avenir professionnel réussi, spécialisé dans l'orientation professionnelle et l'immigration au Canada.
@@ -30,13 +26,13 @@ const Footer = () => {
                 <span>Moramanga, Madagascar</span>
               </div>
               <div className="flex items-center gap-2">
-                <Mail size={20} className="text-migrapro-terre-cuite" />
-                <a href="mailto:contact@umegreatpro.com" >
+              <Mail size={20} className="text-migrapro-terre-cuite" />
+                <a href="mailto:contact@successpath.com" >
                   contact@umegreatpro.com
                 </a>
               </div>
               <div className="flex items-center gap-2">
-                <Phone size={20} className="text-migrapro-terre-cuite"  />
+              <Phone size={20}className="text-migrapro-terre-cuite"  />
                 <a href="tel:+261340535068">
                   +261 34 05 350 68
                 </a>
@@ -112,7 +108,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-gray-600 mt-8 pt-8 text-center text-gray-300 text-sm">
-          <p>&copy; {new Date().getFullYear()} UMEGREAT Pro. Tous droits réservés.</p>
+          <p>&copy; {new Date().getFullYear()}UMEGREAT Pro. Tous droits réservés.</p>
         </div>
       </div>
     </footer>
