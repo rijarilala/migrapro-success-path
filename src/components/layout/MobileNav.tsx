@@ -22,7 +22,8 @@ import {
   ChevronDown,
   X,
   LogOut,
-  Contact as ContactIcon
+  Contact as ContactIcon,
+  School
 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
@@ -112,6 +113,14 @@ export const MobileNav = ({ isOpen, onOpenChange }: { isOpen: boolean; onOpenCha
               >
                 <Target className="h-5 w-5" />
                 <span>Coaching</span>
+              </Link>
+              <Link
+                to="/services/etudes-canada"
+                onClick={() => onOpenChange(false)}
+                className="flex items-center space-x-3 rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground"
+              >
+                <School className="h-5 w-5" />
+                <span>Études au Canada</span>
               </Link>
               <Link
                 to="/services/pack-reussite"

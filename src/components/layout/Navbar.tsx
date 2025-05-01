@@ -66,6 +66,11 @@ const Navbar = () => {
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
+                <Link to="/services/etudes-canada" className="w-full">
+                  Études au Canada
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
                 <Link to="/services/pack-reussite" className="w-full">
                   Pack Réussite
                 </Link>

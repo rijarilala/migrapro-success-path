@@ -1,5 +1,5 @@
 
-import { CompassIcon, BookOpen, Plane, Users, GraduationCap, HeadphonesIcon } from 'lucide-react';
+import { CompassIcon, BookOpen, Plane, Users, GraduationCap, HeadphonesIcon, School } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -31,6 +31,14 @@ const ServicesPreview = () => {
       color: "from-sky-50 to-blue-50 border-migrapro-bleu-ciel/20",
       bgImage: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
     }, 
+    {
+      title: "Études au Canada",
+      description: "Accompagnement pour vos démarches d'études supérieures au Canada.",
+      icon: <School className="h-8 w-8 text-migrapro-bleu-ciel" />,
+      link: "/services/etudes-canada",
+      color: "from-blue-50 to-violet-50 border-migrapro-bleu-ciel/20",
+      bgImage: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
+    },
     {
       title: "Pack Réussite",
       description: "CV, Lettre de Motivation et Coaching pour maximiser vos chances.",

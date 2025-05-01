@@ -14,6 +14,7 @@ import PackReussite from "./pages/services/PackReussitePro";
 import Immigration from "./pages/services/Immigration";
 import Eligibility from "./pages/services/Eligibility";
 import Recrutement from "./pages/services/Recrutement";
+import EtudesCanada from "./pages/services/EtudesCanada";
 import About from "./pages/About";
 import Testimonials from "./pages/Testimonials";
 import Blog from "./pages/Blog";
@@ -51,6 +52,7 @@ const AppContent = () => {
         <Route path="/services/orientation" element={<OrientationPro />} />
         <Route path="/services/formation" element={<Formation />} />
         <Route path="/services/coaching" element={<Coaching />} />
+        <Route path="/services/etudes-canada" element={<EtudesCanada />} />
         <Route path="/services/pack-reussite" element={<PackReussite />} />
         <Route path="/services/immigration" element={<Immigration />} />
         <Route path="/services/eligibility" element={<Eligibility />} />
