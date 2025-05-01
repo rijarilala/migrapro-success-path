@@ -61,7 +61,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link to="/blog" className="hover:text-migrapro-terre-cuite transition-colors">
-                  Blog / Conseils
+                  FAQ
                 </Link>
               </li>
               <li>

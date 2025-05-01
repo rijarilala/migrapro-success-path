@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Menu, ChevronDown, User, LogOut } from 'lucide-react';
@@ -7,6 +8,7 @@ import { MobileNav } from './MobileNav';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
+
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const {
@@ -14,6 +16,7 @@ const Navbar = () => {
     user
   } = useAuth();
   const navigate = useNavigate();
+
   const handleLogout = async () => {
     try {
       await supabase.auth.signOut();
@@ -24,6 +27,7 @@ const Navbar = () => {
       toast.error('Erreur lors de la déconnexion');
     }
   };
+
   return <nav className="sticky top-0 z-50 bg-white shadow-md">
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         {/* Logo */}
@@ -88,7 +92,7 @@ const Navbar = () => {
           </Link>
           
           <Link to="/blog" className="text-gray-700 hover:text-migrapro-terre-cuite transition-colors">
-            Blog / Conseils
+            FAQ
           </Link>
           
           <Link to="/contact" className="text-gray-700 hover:text-migrapro-terre-cuite transition-colors">
@@ -130,4 +134,5 @@ const Navbar = () => {
       <MobileNav isOpen={isMenuOpen} onOpenChange={setIsMenuOpen} />
     </nav>;
 };
+
 export default Navbar;
