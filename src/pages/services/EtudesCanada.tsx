@@ -20,7 +20,7 @@ const EtudesCanada = () => {
         <EtudesSteps />
         <ServiceCTA 
           title="Prêt à réaliser votre rêve d'études au Canada ?"
-          description="Contactez-nous dès aujourd'hui pour bénéficier de notre expertise et maximiser vos chances de réussite."
+          subtitle="Contactez-nous dès aujourd'hui pour bénéficier de notre expertise et maximiser vos chances de réussite."
           buttonText="Demander un accompagnement"
           buttonLink="/contact"
         />
