@@ -5,7 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetFooter } from '@/components/ui/sheet';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Briefcase, FileText, GraduationCap, Mail, Users, Clock, Info, X } from 'lucide-react';
+import { Briefcase, FileText, GraduationCap, Mail, Users, Clock, Info, X, Package } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 // Define formation type
