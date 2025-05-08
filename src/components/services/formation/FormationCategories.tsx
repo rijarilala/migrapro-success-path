@@ -40,7 +40,7 @@ const FormationCategories = () => {
       category: 'professional',
       icon: <FileText className="h-12 w-12 text-migrapro-terre-cuite" />,
       includedInPacks: ['pack-insertion-pro'],
-      image: "/lovable-uploads/573c5d58-f10a-48aa-8acf-5c1f51fedcf1.png"
+      image: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?q=80&w=800&auto=format&fit=crop"
     },
     {
       id: 'lm',
@@ -54,7 +54,7 @@ const FormationCategories = () => {
       category: 'professional',
       icon: <Mail className="h-12 w-12 text-migrapro-terre-cuite" />,
       includedInPacks: ['pack-insertion-pro'],
-      image: "/lovable-uploads/170795ed-7709-41fc-adec-2471a8ad3c20.png"
+      image: "https://images.unsplash.com/photo-1586282391129-76a2df06b8fe?q=80&w=800&auto=format&fit=crop"
     },
     {
       id: 'recherche-emploi',
@@ -68,7 +68,7 @@ const FormationCategories = () => {
       category: 'professional',
       icon: <Briefcase className="h-12 w-12 text-migrapro-terre-cuite" />,
       includedInPacks: ['pack-insertion-pro'],
-      image: "/lovable-uploads/573c5d58-f10a-48aa-8acf-5c1f51fedcf1.png"
+      image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=800&auto=format&fit=crop"
     },
     {
       id: 'transition',
@@ -82,7 +82,7 @@ const FormationCategories = () => {
       category: 'professional',
       icon: <GraduationCap className="h-12 w-12 text-migrapro-terre-cuite" />,
       includedInPacks: ['pack-insertion-pro'],
-      image: "/lovable-uploads/170795ed-7709-41fc-adec-2471a8ad3c20.png"
+      image: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=800&auto=format&fit=crop"
     },
     {
       id: 'grh',
@@ -96,7 +96,7 @@ const FormationCategories = () => {
       category: 'hr',
       icon: <Users className="h-12 w-12 text-migrapro-terre-cuite" />,
       includedInPacks: ['pack-rh-starter'],
-      image: "/lovable-uploads/573c5d58-f10a-48aa-8acf-5c1f51fedcf1.png"
+      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&auto=format&fit=crop"
     }
   ];
 

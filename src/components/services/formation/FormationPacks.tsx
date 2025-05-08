@@ -50,7 +50,7 @@ const FormationPacks = () => {
       targetAudience: "Jeunes diplômés, personnes en reconversion, candidats à l'immigration, chercheurs d'emploi",
       color: "migrapro-terre-cuite",
       icon: <Package className="h-12 w-12 text-migrapro-terre-cuite" />,
-      image: "/lovable-uploads/573c5d58-f10a-48aa-8acf-5c1f51fedcf1.png",
+      image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=800&auto=format&fit=crop",
       formations: [
         {
           id: 'cv',
@@ -58,7 +58,7 @@ const FormationPacks = () => {
           description: "Apprenez à rédiger un CV pertinent et adapté aux standards malgaches et canadiens pour maximiser vos chances auprès des recruteurs.",
           duration: "4h",
           icon: <FileText className="h-6 w-6 text-migrapro-terre-cuite" />,
-          image: "/lovable-uploads/573c5d58-f10a-48aa-8acf-5c1f51fedcf1.png"
+          image: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?q=80&w=800&auto=format&fit=crop"
         },
         {
           id: 'lm',
@@ -66,7 +66,7 @@ const FormationPacks = () => {
           description: "Maîtrisez l'art de la lettre de motivation efficace avec des techniques concrètes et des modèles adaptés à chaque situation.",
           duration: "3h",
           icon: <Mail className="h-6 w-6 text-migrapro-terre-cuite" />,
-          image: "/lovable-uploads/170795ed-7709-41fc-adec-2471a8ad3c20.png"
+          image: "https://images.unsplash.com/photo-1586282391129-76a2df06b8fe?q=80&w=800&auto=format&fit=crop"
         },
         {
           id: 'recherche-emploi',
@@ -74,7 +74,7 @@ const FormationPacks = () => {
           description: "Découvrez les stratégies, méthodes de prospection, et outils indispensables pour décrocher rapidement votre premier ou nouveau poste.",
           duration: "5h",
           icon: <Briefcase className="h-6 w-6 text-migrapro-terre-cuite" />,
-          image: "/lovable-uploads/573c5d58-f10a-48aa-8acf-5c1f51fedcf1.png"
+          image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=800&auto=format&fit=crop"
         },
         {
           id: 'transition',
@@ -82,7 +82,7 @@ const FormationPacks = () => {
           description: "Facilitez votre passage des études au marché du travail grâce à un accompagnement ciblé pour valoriser vos compétences et bien démarrer.",
           duration: "4h",
           icon: <GraduationCap className="h-6 w-6 text-migrapro-terre-cuite" />,
-          image: "/lovable-uploads/170795ed-7709-41fc-adec-2471a8ad3c20.png"
+          image: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=800&auto=format&fit=crop"
         }
       ]
     },
@@ -101,7 +101,7 @@ const FormationPacks = () => {
       targetAudience: "Managers, assistants RH, entrepreneurs, responsables d'équipe",
       color: "migrapro-bleu-ciel",
       icon: <Package className="h-12 w-12 text-migrapro-bleu-ciel" />,
-      image: "/lovable-uploads/170795ed-7709-41fc-adec-2471a8ad3c20.png",
+      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&auto=format&fit=crop",
       formations: [
         {
           id: 'grh',
@@ -109,7 +109,7 @@ const FormationPacks = () => {
           description: "Maîtrisez les bases et les stratégies RH, tout en découvrant leur mise en œuvre concrète à travers des exercices pratiques adaptés à votre secteur d'activité.",
           duration: "6h",
           icon: <Users className="h-6 w-6 text-migrapro-bleu-ciel" />,
-          image: "/lovable-uploads/573c5d58-f10a-48aa-8acf-5c1f51fedcf1.png"
+          image: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&auto=format&fit=crop"
         },
         {
           id: 'rh-bonus',
@@ -117,7 +117,7 @@ const FormationPacks = () => {
           description: "Ressources additionnelles, modèles et conseils pratiques pour mettre en œuvre une gestion RH efficace dans votre organisation.",
           duration: "2h",
           icon: <Briefcase className="h-6 w-6 text-migrapro-bleu-ciel" />,
-          image: "/lovable-uploads/170795ed-7709-41fc-adec-2471a8ad3c20.png"
+          image: "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=800&auto=format&fit=crop"
         }
       ]
     }
