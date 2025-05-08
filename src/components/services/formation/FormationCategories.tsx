@@ -21,6 +21,7 @@ type Formation = {
   category: 'professional' | 'hr';
   icon: JSX.Element;
   includedInPacks: string[];
+  image: string;
 };
 
 const FormationCategories = () => {
@@ -38,7 +39,8 @@ const FormationCategories = () => {
       format: ["En ligne", "Présentiel"],
       category: 'professional',
       icon: <FileText className="h-12 w-12 text-migrapro-terre-cuite" />,
-      includedInPacks: ['insertion-pro']
+      includedInPacks: ['pack-insertion-pro'],
+      image: "/placeholder.svg"
     },
     {
       id: 'lm',
@@ -51,7 +53,8 @@ const FormationCategories = () => {
       format: ["En ligne", "Présentiel"],
       category: 'professional',
       icon: <Mail className="h-12 w-12 text-migrapro-terre-cuite" />,
-      includedInPacks: ['insertion-pro']
+      includedInPacks: ['pack-insertion-pro'],
+      image: "/placeholder.svg"
     },
     {
       id: 'recherche-emploi',
@@ -64,7 +67,8 @@ const FormationCategories = () => {
       format: ["En ligne", "Présentiel"],
       category: 'professional',
       icon: <Briefcase className="h-12 w-12 text-migrapro-terre-cuite" />,
-      includedInPacks: ['insertion-pro']
+      includedInPacks: ['pack-insertion-pro'],
+      image: "/placeholder.svg"
     },
     {
       id: 'transition',
@@ -77,7 +81,8 @@ const FormationCategories = () => {
       format: ["En ligne", "Présentiel"],
       category: 'professional',
       icon: <GraduationCap className="h-12 w-12 text-migrapro-terre-cuite" />,
-      includedInPacks: ['insertion-pro']
+      includedInPacks: ['pack-insertion-pro'],
+      image: "/placeholder.svg"
     },
     {
       id: 'grh',
@@ -90,7 +95,8 @@ const FormationCategories = () => {
       format: ["En ligne", "Présentiel"],
       category: 'hr',
       icon: <Users className="h-12 w-12 text-migrapro-terre-cuite" />,
-      includedInPacks: ['rh-starter']
+      includedInPacks: ['pack-rh-starter'],
+      image: "/placeholder.svg"
     }
   ];
 
@@ -122,8 +128,15 @@ const FormationCategories = () => {
               className="border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
             >
               <CardHeader className="pb-2 flex flex-col items-center text-center">
-                <div className="bg-gray-50 p-4 rounded-full mb-4">
-                  {formation.icon}
+                <div className="w-full h-40 overflow-hidden mb-4 rounded-t-lg">
+                  <img 
+                    src={formation.image} 
+                    alt={formation.title} 
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute top-2 right-2 bg-white/80 p-1 rounded-full">
+                    {formation.icon}
+                  </div>
                 </div>
                 <CardTitle className="text-xl">{formation.title}</CardTitle>
                 <p className="text-migrapro-terre-cuite font-medium text-sm">{formation.subtitle}</p>
@@ -169,8 +182,15 @@ const FormationCategories = () => {
               className="border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
             >
               <CardHeader className="pb-2 flex flex-col items-center text-center">
-                <div className="bg-gray-50 p-4 rounded-full mb-4">
-                  {formation.icon}
+                <div className="w-full h-40 overflow-hidden mb-4 rounded-t-lg">
+                  <img 
+                    src={formation.image} 
+                    alt={formation.title} 
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute top-2 right-2 bg-white/80 p-1 rounded-full">
+                    {formation.icon}
+                  </div>
                 </div>
                 <CardTitle className="text-xl">{formation.title}</CardTitle>
                 <p className="text-migrapro-bleu-ciel font-medium text-sm">{formation.subtitle}</p>
@@ -225,6 +245,14 @@ const FormationCategories = () => {
 
               <ScrollArea className="flex-1 overflow-auto px-6 py-4">
                 <div className="space-y-5">
+                  <div className="w-full h-48 overflow-hidden rounded-md mb-6">
+                    <img 
+                      src={getCurrentFormation()?.image} 
+                      alt={getCurrentFormation()?.title} 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  
                   <div>
                     <h4 className="font-medium text-sm text-gray-500 mb-1">Description</h4>
                     <p>{getCurrentFormation()?.description}</p>
@@ -267,17 +295,51 @@ const FormationCategories = () => {
                         Cette formation est incluse dans :
                       </p>
                       <div className="flex gap-2 mt-2">
-                        {getCurrentFormation()?.includedInPacks.includes('insertion-pro') && (
-                          <div className="bg-migrapro-terre-cuite/10 border border-migrapro-terre-cuite/20 rounded-md p-3 flex items-center gap-2">
+                        {getCurrentFormation()?.includedInPacks.includes('pack-insertion-pro') && (
+                          <Button
+                            variant="outline"
+                            className="bg-migrapro-terre-cuite/10 border border-migrapro-terre-cuite/20 hover:bg-migrapro-terre-cuite/20 rounded-md p-3 flex items-center gap-2 h-auto"
+                            onClick={() => {
+                              setOpenSheet(null);
+                              // Navigate to packs tab and scroll to the pack
+                              const tabsElement = document.querySelector('[value="packs"]');
+                              if (tabsElement) {
+                                (tabsElement as HTMLElement).click();
+                                setTimeout(() => {
+                                  const packElement = document.getElementById('pack-insertion-pro');
+                                  if (packElement) {
+                                    packElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                  }
+                                }, 300);
+                              }
+                            }}
+                          >
                             <Package className="h-5 w-5 text-migrapro-terre-cuite" />
                             <span className="font-medium">Pack Insertion Pro</span>
-                          </div>
+                          </Button>
                         )}
-                        {getCurrentFormation()?.includedInPacks.includes('rh-starter') && (
-                          <div className="bg-migrapro-bleu-ciel/10 border border-migrapro-bleu-ciel/20 rounded-md p-3 flex items-center gap-2">
+                        {getCurrentFormation()?.includedInPacks.includes('pack-rh-starter') && (
+                          <Button
+                            variant="outline"
+                            className="bg-migrapro-bleu-ciel/10 border border-migrapro-bleu-ciel/20 hover:bg-migrapro-bleu-ciel/20 rounded-md p-3 flex items-center gap-2 h-auto"
+                            onClick={() => {
+                              setOpenSheet(null);
+                              // Navigate to packs tab and scroll to the pack
+                              const tabsElement = document.querySelector('[value="packs"]');
+                              if (tabsElement) {
+                                (tabsElement as HTMLElement).click();
+                                setTimeout(() => {
+                                  const packElement = document.getElementById('pack-rh-starter');
+                                  if (packElement) {
+                                    packElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                  }
+                                }, 300);
+                              }
+                            }}
+                          >
                             <Package className="h-5 w-5 text-migrapro-bleu-ciel" />
                             <span className="font-medium">Pack RH Starter</span>
-                          </div>
+                          </Button>
                         )}
                       </div>
                     </div>

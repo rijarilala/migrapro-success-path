@@ -19,12 +19,14 @@ type Pack = {
   targetAudience: string;
   color: string;
   icon: JSX.Element;
+  image: string;
   formations: {
     id: string;
     title: string;
     description: string;
     duration: string;
     icon: JSX.Element;
+    image: string;
   }[];
 };
 
@@ -48,34 +50,39 @@ const FormationPacks = () => {
       targetAudience: "Jeunes diplômés, personnes en reconversion, candidats à l'immigration, chercheurs d'emploi",
       color: "migrapro-terre-cuite",
       icon: <Package className="h-12 w-12 text-migrapro-terre-cuite" />,
+      image: "/placeholder.svg",
       formations: [
         {
           id: 'cv',
           title: "Rédaction de CV",
           description: "Apprenez à rédiger un CV pertinent et adapté aux standards malgaches et canadiens pour maximiser vos chances auprès des recruteurs.",
           duration: "4h",
-          icon: <FileText className="h-6 w-6 text-migrapro-terre-cuite" />
+          icon: <FileText className="h-6 w-6 text-migrapro-terre-cuite" />,
+          image: "/placeholder.svg"
         },
         {
           id: 'lm',
           title: "Lettres de Motivation",
           description: "Maîtrisez l'art de la lettre de motivation efficace avec des techniques concrètes et des modèles adaptés à chaque situation.",
           duration: "3h",
-          icon: <Mail className="h-6 w-6 text-migrapro-terre-cuite" />
+          icon: <Mail className="h-6 w-6 text-migrapro-terre-cuite" />,
+          image: "/placeholder.svg"
         },
         {
           id: 'recherche-emploi',
           title: "Préparation à la recherche d'emploi",
           description: "Découvrez les stratégies, méthodes de prospection, et outils indispensables pour décrocher rapidement votre premier ou nouveau poste.",
           duration: "5h",
-          icon: <Briefcase className="h-6 w-6 text-migrapro-terre-cuite" />
+          icon: <Briefcase className="h-6 w-6 text-migrapro-terre-cuite" />,
+          image: "/placeholder.svg"
         },
         {
           id: 'transition',
           title: "Transition vie étudiante - vie professionnelle",
           description: "Facilitez votre passage des études au marché du travail grâce à un accompagnement ciblé pour valoriser vos compétences et bien démarrer.",
           duration: "4h",
-          icon: <GraduationCap className="h-6 w-6 text-migrapro-terre-cuite" />
+          icon: <GraduationCap className="h-6 w-6 text-migrapro-terre-cuite" />,
+          image: "/placeholder.svg"
         }
       ]
     },
@@ -94,20 +101,23 @@ const FormationPacks = () => {
       targetAudience: "Managers, assistants RH, entrepreneurs, responsables d'équipe",
       color: "migrapro-bleu-ciel",
       icon: <Package className="h-12 w-12 text-migrapro-bleu-ciel" />,
+      image: "/placeholder.svg",
       formations: [
         {
           id: 'grh',
           title: "Gestion des Ressources Humaines",
           description: "Maîtrisez les bases et les stratégies RH, tout en découvrant leur mise en œuvre concrète à travers des exercices pratiques adaptés à votre secteur d'activité.",
           duration: "6h",
-          icon: <Users className="h-6 w-6 text-migrapro-bleu-ciel" />
+          icon: <Users className="h-6 w-6 text-migrapro-bleu-ciel" />,
+          image: "/placeholder.svg"
         },
         {
           id: 'rh-bonus',
           title: "Bonus: Outils et pratiques RH",
           description: "Ressources additionnelles, modèles et conseils pratiques pour mettre en œuvre une gestion RH efficace dans votre organisation.",
           duration: "2h",
-          icon: <Briefcase className="h-6 w-6 text-migrapro-bleu-ciel" />
+          icon: <Briefcase className="h-6 w-6 text-migrapro-bleu-ciel" />,
+          image: "/placeholder.svg"
         }
       ]
     }
@@ -139,10 +149,18 @@ const FormationPacks = () => {
         {packs.map((pack) => (
           <Card 
             key={pack.id}
+            id={pack.id}
             className={`border-2 border-${pack.color}/20 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden`}
           >
-            <div className={`bg-${pack.color}/10 p-4 flex justify-center`}>
-              {pack.icon}
+            <div className="w-full h-48 overflow-hidden">
+              <img 
+                src={pack.image} 
+                alt={pack.title} 
+                className="w-full h-full object-cover"
+              />
+              <div className={`absolute top-0 left-0 w-full h-full bg-gradient-to-b from-${pack.color}/50 to-transparent flex items-center justify-center`}>
+                {pack.icon}
+              </div>
             </div>
             <CardHeader>
               <CardTitle className="text-2xl text-center">{pack.title}</CardTitle>
@@ -199,102 +217,117 @@ const FormationPacks = () => {
                 Voir le détail complet
                 <ArrowRight className="h-4 w-4" />
               </Button>
-
-              <Sheet open={openSheet === pack.id} onOpenChange={(open) => setOpenSheet(open ? pack.id : null)}>
-                <SheetContent 
-                  side="right" 
-                  className="w-full sm:w-[540px] max-w-full p-0 overflow-hidden flex flex-col"
-                >
-                  <div className={`bg-${getCurrentPackColor()}/10 py-4 px-6 flex justify-between items-center`}>
-                    <div className="flex items-center gap-3">
-                      {getCurrentPack()?.icon}
-                      <SheetTitle className="text-2xl">{getCurrentPack()?.title}</SheetTitle>
-                    </div>
-                    <Button 
-                      variant="ghost" 
-                      size="icon" 
-                      className="rounded-full hover:bg-gray-200" 
-                      onClick={() => setOpenSheet(null)}
-                    >
-                      <X className="h-5 w-5" />
-                    </Button>
-                  </div>
-                  
-                  <SheetHeader className="px-6 py-3 border-b">
-                    <SheetDescription className={`text-${getCurrentPackColor()} font-medium`}>
-                      {getCurrentPack()?.description}
-                    </SheetDescription>
-                  </SheetHeader>
-
-                  <ScrollArea className="flex-1 overflow-auto px-6 py-4">
-                    <div className="space-y-6">
-                      <div className="space-y-3">
-                        <h4 className="font-medium text-lg">Modules inclus</h4>
-                        <div className="space-y-4">
-                          {getCurrentPack()?.formations.map((formation) => (
-                            <Card key={formation.id} className="hover:bg-gray-50 cursor-pointer transition-colors" onClick={() => handleModuleClick(openSheet, formation.id)}>
-                              <CardContent className="p-4 flex gap-3 items-start">
-                                <div className="mt-1">{formation.icon}</div>
-                                <div>
-                                  <h5 className="font-medium">{formation.title}</h5>
-                                  <p className="text-sm text-gray-600">{formation.description}</p>
-                                  <div className="flex items-center gap-1 mt-1">
-                                    <Clock className="h-3 w-3 text-gray-500" />
-                                    <span className="text-xs text-gray-500">{formation.duration}</span>
-                                  </div>
-                                </div>
-                              </CardContent>
-                            </Card>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div className="bg-gray-50 p-4 rounded-md">
-                        <h4 className="font-medium mb-2">Informations clés</h4>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                          <div>
-                            <h5 className="text-sm text-gray-500">Public cible</h5>
-                            <p className="text-sm">{getCurrentPack()?.targetAudience}</p>
-                          </div>
-                          <div>
-                            <h5 className="text-sm text-gray-500">Tarif pack complet</h5>
-                            <p className="text-sm font-medium">{getCurrentPack()?.price}</p>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div>
-                        <h4 className="font-medium mb-2">Avantages du pack</h4>
-                        <ul className="space-y-2">
-                          {getCurrentPack()?.benefits.map((benefit, index) => (
-                            <li key={index} className="flex items-center gap-2 text-sm">
-                              <Check className="h-4 w-4 text-green-500 flex-shrink-0" />
-                              <span>{benefit}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                      
-                      <div className="h-20"></div> {/* Espace pour éviter que le contenu soit caché derrière le footer */}
-                    </div>
-                  </ScrollArea>
-
-                  <SheetFooter className="px-6 py-4 border-t flex flex-col sm:flex-row gap-2 bg-white">
-                    <Button variant="outline" onClick={() => setOpenSheet(null)} className="w-full sm:w-auto">
-                      Retour aux packs
-                    </Button>
-                    <Button asChild className="w-full sm:w-auto">
-                      <Link to={`/contact?service=formation&pack=${openSheet}`}>
-                        Demander plus d'infos
-                      </Link>
-                    </Button>
-                  </SheetFooter>
-                </SheetContent>
-              </Sheet>
             </CardContent>
           </Card>
         ))}
       </div>
+
+      {/* Sheet pour le détail des packs */}
+      <Sheet open={openSheet === 'pack-insertion-pro' || openSheet === 'pack-rh-starter'} onOpenChange={(open) => setOpenSheet(open ? openSheet : null)}>
+        <SheetContent 
+          side="right" 
+          className="w-full sm:w-[540px] max-w-full p-0 overflow-hidden flex flex-col"
+        >
+          <div className={`bg-${getCurrentPackColor()}/10 py-4 px-6 flex justify-between items-center`}>
+            <div className="flex items-center gap-3">
+              {getCurrentPack()?.icon}
+              <SheetTitle className="text-2xl">{getCurrentPack()?.title}</SheetTitle>
+            </div>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="rounded-full hover:bg-gray-200" 
+              onClick={() => setOpenSheet(null)}
+            >
+              <X className="h-5 w-5" />
+            </Button>
+          </div>
+          
+          <SheetHeader className="px-6 py-3 border-b">
+            <SheetDescription className={`text-${getCurrentPackColor()} font-medium`}>
+              {getCurrentPack()?.description}
+            </SheetDescription>
+          </SheetHeader>
+
+          <ScrollArea className="flex-1 overflow-auto px-6 py-4">
+            <div className="space-y-6">
+              <div className="w-full h-48 overflow-hidden rounded-md mb-6">
+                <img 
+                  src={getCurrentPack()?.image} 
+                  alt={getCurrentPack()?.title} 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              
+              <div className="space-y-3">
+                <h4 className="font-medium text-lg">Modules inclus</h4>
+                <div className="space-y-4">
+                  {getCurrentPack()?.formations.map((formation) => (
+                    <Card key={formation.id} className="hover:bg-gray-50 cursor-pointer transition-colors" onClick={() => handleModuleClick(openSheet, formation.id)}>
+                      <CardContent className="p-4 flex gap-3 items-start">
+                        <div className="h-12 w-12 rounded-md overflow-hidden flex-shrink-0">
+                          <img
+                            src={formation.image}
+                            alt={formation.title}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div>
+                          <h5 className="font-medium">{formation.title}</h5>
+                          <p className="text-sm text-gray-600">{formation.description}</p>
+                          <div className="flex items-center gap-1 mt-1">
+                            <Clock className="h-3 w-3 text-gray-500" />
+                            <span className="text-xs text-gray-500">{formation.duration}</span>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+
+              <div className="bg-gray-50 p-4 rounded-md">
+                <h4 className="font-medium mb-2">Informations clés</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <h5 className="text-sm text-gray-500">Public cible</h5>
+                    <p className="text-sm">{getCurrentPack()?.targetAudience}</p>
+                  </div>
+                  <div>
+                    <h5 className="text-sm text-gray-500">Tarif pack complet</h5>
+                    <p className="text-sm font-medium">{getCurrentPack()?.price}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h4 className="font-medium mb-2">Avantages du pack</h4>
+                <ul className="space-y-2">
+                  {getCurrentPack()?.benefits.map((benefit, index) => (
+                    <li key={index} className="flex items-center gap-2 text-sm">
+                      <Check className="h-4 w-4 text-green-500 flex-shrink-0" />
+                      <span>{benefit}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              
+              <div className="h-20"></div> {/* Espace pour éviter que le contenu soit caché derrière le footer */}
+            </div>
+          </ScrollArea>
+
+          <SheetFooter className="px-6 py-4 border-t flex flex-col sm:flex-row gap-2 bg-white">
+            <Button variant="outline" onClick={() => setOpenSheet(null)} className="w-full sm:w-auto">
+              Retour aux packs
+            </Button>
+            <Button asChild className="w-full sm:w-auto">
+              <Link to={`/contact?service=formation&pack=${openSheet}`}>
+                Demander plus d'infos
+              </Link>
+            </Button>
+          </SheetFooter>
+        </SheetContent>
+      </Sheet>
     </div>
   );
 };
