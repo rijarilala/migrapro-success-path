@@ -50,7 +50,7 @@ const FormationPacks = () => {
       targetAudience: "Jeunes diplômés, personnes en reconversion, candidats à l'immigration, chercheurs d'emploi",
       color: "migrapro-terre-cuite",
       icon: <Package className="h-12 w-12 text-migrapro-terre-cuite" />,
-      image: "/placeholder.svg",
+      image: "/lovable-uploads/573c5d58-f10a-48aa-8acf-5c1f51fedcf1.png",
       formations: [
         {
           id: 'cv',
@@ -58,7 +58,7 @@ const FormationPacks = () => {
           description: "Apprenez à rédiger un CV pertinent et adapté aux standards malgaches et canadiens pour maximiser vos chances auprès des recruteurs.",
           duration: "4h",
           icon: <FileText className="h-6 w-6 text-migrapro-terre-cuite" />,
-          image: "/placeholder.svg"
+          image: "/lovable-uploads/573c5d58-f10a-48aa-8acf-5c1f51fedcf1.png"
         },
         {
           id: 'lm',
@@ -66,7 +66,7 @@ const FormationPacks = () => {
           description: "Maîtrisez l'art de la lettre de motivation efficace avec des techniques concrètes et des modèles adaptés à chaque situation.",
           duration: "3h",
           icon: <Mail className="h-6 w-6 text-migrapro-terre-cuite" />,
-          image: "/placeholder.svg"
+          image: "/lovable-uploads/170795ed-7709-41fc-adec-2471a8ad3c20.png"
         },
         {
           id: 'recherche-emploi',
@@ -74,7 +74,7 @@ const FormationPacks = () => {
           description: "Découvrez les stratégies, méthodes de prospection, et outils indispensables pour décrocher rapidement votre premier ou nouveau poste.",
           duration: "5h",
           icon: <Briefcase className="h-6 w-6 text-migrapro-terre-cuite" />,
-          image: "/placeholder.svg"
+          image: "/lovable-uploads/573c5d58-f10a-48aa-8acf-5c1f51fedcf1.png"
         },
         {
           id: 'transition',
@@ -82,7 +82,7 @@ const FormationPacks = () => {
           description: "Facilitez votre passage des études au marché du travail grâce à un accompagnement ciblé pour valoriser vos compétences et bien démarrer.",
           duration: "4h",
           icon: <GraduationCap className="h-6 w-6 text-migrapro-terre-cuite" />,
-          image: "/placeholder.svg"
+          image: "/lovable-uploads/170795ed-7709-41fc-adec-2471a8ad3c20.png"
         }
       ]
     },
@@ -101,7 +101,7 @@ const FormationPacks = () => {
       targetAudience: "Managers, assistants RH, entrepreneurs, responsables d'équipe",
       color: "migrapro-bleu-ciel",
       icon: <Package className="h-12 w-12 text-migrapro-bleu-ciel" />,
-      image: "/placeholder.svg",
+      image: "/lovable-uploads/170795ed-7709-41fc-adec-2471a8ad3c20.png",
       formations: [
         {
           id: 'grh',
@@ -109,7 +109,7 @@ const FormationPacks = () => {
           description: "Maîtrisez les bases et les stratégies RH, tout en découvrant leur mise en œuvre concrète à travers des exercices pratiques adaptés à votre secteur d'activité.",
           duration: "6h",
           icon: <Users className="h-6 w-6 text-migrapro-bleu-ciel" />,
-          image: "/placeholder.svg"
+          image: "/lovable-uploads/573c5d58-f10a-48aa-8acf-5c1f51fedcf1.png"
         },
         {
           id: 'rh-bonus',
@@ -117,7 +117,7 @@ const FormationPacks = () => {
           description: "Ressources additionnelles, modèles et conseils pratiques pour mettre en œuvre une gestion RH efficace dans votre organisation.",
           duration: "2h",
           icon: <Briefcase className="h-6 w-6 text-migrapro-bleu-ciel" />,
-          image: "/placeholder.svg"
+          image: "/lovable-uploads/170795ed-7709-41fc-adec-2471a8ad3c20.png"
         }
       ]
     }
@@ -152,11 +152,14 @@ const FormationPacks = () => {
             id={pack.id}
             className={`border-2 border-${pack.color}/20 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden`}
           >
-            <div className="w-full h-48 overflow-hidden">
+            <div className="w-full h-48 overflow-hidden relative">
               <img 
                 src={pack.image} 
                 alt={pack.title} 
                 className="w-full h-full object-cover"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = "/placeholder.svg";
+                }}
               />
               <div className={`absolute top-0 left-0 w-full h-full bg-gradient-to-b from-${pack.color}/50 to-transparent flex items-center justify-center`}>
                 {pack.icon}
@@ -256,6 +259,9 @@ const FormationPacks = () => {
                   src={getCurrentPack()?.image} 
                   alt={getCurrentPack()?.title} 
                   className="w-full h-full object-cover"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = "/placeholder.svg";
+                  }}
                 />
               </div>
               
@@ -265,11 +271,14 @@ const FormationPacks = () => {
                   {getCurrentPack()?.formations.map((formation) => (
                     <Card key={formation.id} className="hover:bg-gray-50 cursor-pointer transition-colors" onClick={() => handleModuleClick(openSheet, formation.id)}>
                       <CardContent className="p-4 flex gap-3 items-start">
-                        <div className="h-12 w-12 rounded-md overflow-hidden flex-shrink-0">
+                        <div className="h-12 w-12 rounded-md overflow-hidden flex-shrink-0 relative">
                           <img
                             src={formation.image}
                             alt={formation.title}
                             className="w-full h-full object-cover"
+                            onError={(e) => {
+                              (e.target as HTMLImageElement).src = "/placeholder.svg";
+                            }}
                           />
                         </div>
                         <div>

@@ -40,7 +40,7 @@ const FormationCategories = () => {
       category: 'professional',
       icon: <FileText className="h-12 w-12 text-migrapro-terre-cuite" />,
       includedInPacks: ['pack-insertion-pro'],
-      image: "/placeholder.svg"
+      image: "/lovable-uploads/573c5d58-f10a-48aa-8acf-5c1f51fedcf1.png"
     },
     {
       id: 'lm',
@@ -54,7 +54,7 @@ const FormationCategories = () => {
       category: 'professional',
       icon: <Mail className="h-12 w-12 text-migrapro-terre-cuite" />,
       includedInPacks: ['pack-insertion-pro'],
-      image: "/placeholder.svg"
+      image: "/lovable-uploads/170795ed-7709-41fc-adec-2471a8ad3c20.png"
     },
     {
       id: 'recherche-emploi',
@@ -68,7 +68,7 @@ const FormationCategories = () => {
       category: 'professional',
       icon: <Briefcase className="h-12 w-12 text-migrapro-terre-cuite" />,
       includedInPacks: ['pack-insertion-pro'],
-      image: "/placeholder.svg"
+      image: "/lovable-uploads/573c5d58-f10a-48aa-8acf-5c1f51fedcf1.png"
     },
     {
       id: 'transition',
@@ -82,7 +82,7 @@ const FormationCategories = () => {
       category: 'professional',
       icon: <GraduationCap className="h-12 w-12 text-migrapro-terre-cuite" />,
       includedInPacks: ['pack-insertion-pro'],
-      image: "/placeholder.svg"
+      image: "/lovable-uploads/170795ed-7709-41fc-adec-2471a8ad3c20.png"
     },
     {
       id: 'grh',
@@ -96,7 +96,7 @@ const FormationCategories = () => {
       category: 'hr',
       icon: <Users className="h-12 w-12 text-migrapro-terre-cuite" />,
       includedInPacks: ['pack-rh-starter'],
-      image: "/placeholder.svg"
+      image: "/lovable-uploads/573c5d58-f10a-48aa-8acf-5c1f51fedcf1.png"
     }
   ];
 
@@ -128,11 +128,14 @@ const FormationCategories = () => {
               className="border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
             >
               <CardHeader className="pb-2 flex flex-col items-center text-center">
-                <div className="w-full h-40 overflow-hidden mb-4 rounded-t-lg">
+                <div className="w-full h-40 overflow-hidden mb-4 rounded-t-lg relative">
                   <img 
                     src={formation.image} 
                     alt={formation.title} 
                     className="w-full h-full object-cover"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = "/placeholder.svg";
+                    }}
                   />
                   <div className="absolute top-2 right-2 bg-white/80 p-1 rounded-full">
                     {formation.icon}
@@ -182,11 +185,14 @@ const FormationCategories = () => {
               className="border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
             >
               <CardHeader className="pb-2 flex flex-col items-center text-center">
-                <div className="w-full h-40 overflow-hidden mb-4 rounded-t-lg">
+                <div className="w-full h-40 overflow-hidden mb-4 rounded-t-lg relative">
                   <img 
                     src={formation.image} 
                     alt={formation.title} 
                     className="w-full h-full object-cover"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = "/placeholder.svg";
+                    }}
                   />
                   <div className="absolute top-2 right-2 bg-white/80 p-1 rounded-full">
                     {formation.icon}
@@ -250,6 +256,9 @@ const FormationCategories = () => {
                       src={getCurrentFormation()?.image} 
                       alt={getCurrentFormation()?.title} 
                       className="w-full h-full object-cover"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = "/placeholder.svg";
+                      }}
                     />
                   </div>
                   

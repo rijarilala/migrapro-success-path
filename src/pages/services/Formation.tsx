@@ -10,7 +10,7 @@ import { useLocation } from 'react-router-dom';
 const Formation = () => {
   const location = useLocation();
 
-  // Handle direct links to packs
+  // Handle direct links to packs or formations
   useEffect(() => {
     const hash = location.hash;
     if (hash) {
