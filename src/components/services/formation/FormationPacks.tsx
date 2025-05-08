@@ -3,8 +3,9 @@ import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
-import { Package, FileText, Mail, Briefcase, GraduationCap, Users, Clock, Check, ArrowRight } from 'lucide-react';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetFooter } from '@/components/ui/sheet';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Package, FileText, Mail, Briefcase, GraduationCap, Users, Clock, Check, ArrowRight, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 // Define pack type
@@ -28,7 +29,8 @@ type Pack = {
 };
 
 const FormationPacks = () => {
-  const [openDialog, setOpenDialog] = useState<string | null>(null);
+  const [openSheet, setOpenSheet] = useState<string | null>(null);
+  const [selectedModule, setSelectedModule] = useState<string | null>(null);
 
   const packs: Pack[] = [
     {
@@ -111,8 +113,17 @@ const FormationPacks = () => {
     }
   ];
 
-  const handleModuleClick = (packId: string, moduleId: string) => {
-    setOpenDialog(moduleId);
+  const handleModuleClick = (packId: string | null, moduleId: string) => {
+    setSelectedModule(moduleId);
+  };
+
+  const getCurrentPack = () => {
+    return packs.find(pack => pack.id === openSheet);
+  };
+
+  const getCurrentPackColor = () => {
+    const pack = getCurrentPack();
+    return pack ? pack.color : 'migrapro-terre-cuite';
   };
 
   return (
@@ -181,87 +192,105 @@ const FormationPacks = () => {
                 </ul>
               </div>
 
-              <Dialog open={openDialog === pack.id} onOpenChange={(open) => setOpenDialog(open ? pack.id : null)}>
-                <Button 
-                  onClick={() => setOpenDialog(pack.id)} 
-                  className={`w-full bg-${pack.color} hover:bg-${pack.color}/90 mt-4 flex items-center justify-center gap-1`}
+              <Button 
+                onClick={() => setOpenSheet(pack.id)} 
+                className={`w-full bg-${pack.color} hover:bg-${pack.color}/90 mt-4 flex items-center justify-center gap-1`}
+              >
+                Voir le détail complet
+                <ArrowRight className="h-4 w-4" />
+              </Button>
+
+              <Sheet open={openSheet === pack.id} onOpenChange={(open) => setOpenSheet(open ? pack.id : null)}>
+                <SheetContent 
+                  side="right" 
+                  className="w-full sm:w-[540px] max-w-full p-0 overflow-hidden flex flex-col"
                 >
-                  Voir le détail complet
-                  <ArrowRight className="h-4 w-4" />
-                </Button>
-                
-                <DialogContent className="max-w-xl">
-                  <DialogHeader>
-                    <DialogTitle className="flex items-center gap-2 text-2xl">
-                      {pack.icon}
-                      <span>{pack.title}</span>
-                    </DialogTitle>
-                    <DialogDescription className={`text-${pack.color}`}>
-                      {pack.description}
-                    </DialogDescription>
-                  </DialogHeader>
-
-                  <div className="space-y-6 py-4">
-                    <div className="space-y-3">
-                      <h4 className="font-medium">Modules inclus</h4>
-                      <div className="space-y-4">
-                        {pack.formations.map((formation) => (
-                          <Card key={formation.id} className="hover:bg-gray-50 cursor-pointer transition-colors" onClick={() => handleModuleClick(pack.id, formation.id)}>
-                            <CardContent className="p-4 flex gap-3 items-start">
-                              {formation.icon}
-                              <div>
-                                <h5 className="font-medium">{formation.title}</h5>
-                                <p className="text-sm text-gray-600">{formation.description}</p>
-                                <div className="flex items-center gap-1 mt-1">
-                                  <Clock className="h-3 w-3 text-gray-500" />
-                                  <span className="text-xs text-gray-500">{formation.duration}</span>
-                                </div>
-                              </div>
-                            </CardContent>
-                          </Card>
-                        ))}
-                      </div>
+                  <div className={`bg-${getCurrentPackColor()}/10 py-4 px-6 flex justify-between items-center`}>
+                    <div className="flex items-center gap-3">
+                      {getCurrentPack()?.icon}
+                      <SheetTitle className="text-2xl">{getCurrentPack()?.title}</SheetTitle>
                     </div>
-
-                    <div className="bg-gray-50 p-4 rounded-md">
-                      <h4 className="font-medium mb-2">Informations clés</h4>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                          <h5 className="text-sm text-gray-500">Public cible</h5>
-                          <p className="text-sm">{pack.targetAudience}</p>
-                        </div>
-                        <div>
-                          <h5 className="text-sm text-gray-500">Tarif pack complet</h5>
-                          <p className="text-sm font-medium">{pack.price}</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div>
-                      <h4 className="font-medium mb-2">Avantages du pack</h4>
-                      <ul className="space-y-2">
-                        {pack.benefits.map((benefit, index) => (
-                          <li key={index} className="flex items-center gap-2 text-sm">
-                            <Check className="h-4 w-4 text-green-500 flex-shrink-0" />
-                            <span>{benefit}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-
-                  <DialogFooter className="flex-col sm:flex-row gap-2">
-                    <Button variant="outline" onClick={() => setOpenDialog(null)}>
-                      Fermer
+                    <Button 
+                      variant="ghost" 
+                      size="icon" 
+                      className="rounded-full hover:bg-gray-200" 
+                      onClick={() => setOpenSheet(null)}
+                    >
+                      <X className="h-5 w-5" />
                     </Button>
-                    <Button asChild>
-                      <Link to={`/contact?service=formation&pack=${pack.id}`}>
+                  </div>
+                  
+                  <SheetHeader className="px-6 py-3 border-b">
+                    <SheetDescription className={`text-${getCurrentPackColor()} font-medium`}>
+                      {getCurrentPack()?.description}
+                    </SheetDescription>
+                  </SheetHeader>
+
+                  <ScrollArea className="flex-1 overflow-auto px-6 py-4">
+                    <div className="space-y-6">
+                      <div className="space-y-3">
+                        <h4 className="font-medium text-lg">Modules inclus</h4>
+                        <div className="space-y-4">
+                          {getCurrentPack()?.formations.map((formation) => (
+                            <Card key={formation.id} className="hover:bg-gray-50 cursor-pointer transition-colors" onClick={() => handleModuleClick(openSheet, formation.id)}>
+                              <CardContent className="p-4 flex gap-3 items-start">
+                                <div className="mt-1">{formation.icon}</div>
+                                <div>
+                                  <h5 className="font-medium">{formation.title}</h5>
+                                  <p className="text-sm text-gray-600">{formation.description}</p>
+                                  <div className="flex items-center gap-1 mt-1">
+                                    <Clock className="h-3 w-3 text-gray-500" />
+                                    <span className="text-xs text-gray-500">{formation.duration}</span>
+                                  </div>
+                                </div>
+                              </CardContent>
+                            </Card>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="bg-gray-50 p-4 rounded-md">
+                        <h4 className="font-medium mb-2">Informations clés</h4>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div>
+                            <h5 className="text-sm text-gray-500">Public cible</h5>
+                            <p className="text-sm">{getCurrentPack()?.targetAudience}</p>
+                          </div>
+                          <div>
+                            <h5 className="text-sm text-gray-500">Tarif pack complet</h5>
+                            <p className="text-sm font-medium">{getCurrentPack()?.price}</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <h4 className="font-medium mb-2">Avantages du pack</h4>
+                        <ul className="space-y-2">
+                          {getCurrentPack()?.benefits.map((benefit, index) => (
+                            <li key={index} className="flex items-center gap-2 text-sm">
+                              <Check className="h-4 w-4 text-green-500 flex-shrink-0" />
+                              <span>{benefit}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      
+                      <div className="h-20"></div> {/* Espace pour éviter que le contenu soit caché derrière le footer */}
+                    </div>
+                  </ScrollArea>
+
+                  <SheetFooter className="px-6 py-4 border-t flex flex-col sm:flex-row gap-2 bg-white">
+                    <Button variant="outline" onClick={() => setOpenSheet(null)} className="w-full sm:w-auto">
+                      Retour aux packs
+                    </Button>
+                    <Button asChild className="w-full sm:w-auto">
+                      <Link to={`/contact?service=formation&pack=${openSheet}`}>
                         Demander plus d'infos
                       </Link>
                     </Button>
-                  </DialogFooter>
-                </DialogContent>
-              </Dialog>
+                  </SheetFooter>
+                </SheetContent>
+              </Sheet>
             </CardContent>
           </Card>
         ))}

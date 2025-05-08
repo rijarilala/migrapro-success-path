@@ -3,8 +3,9 @@ import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from '@/components/ui/dialog';
-import { Briefcase, FileText, GraduationCap, Mail, Users, Clock, Info } from 'lucide-react';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetFooter } from '@/components/ui/sheet';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Briefcase, FileText, GraduationCap, Mail, Users, Clock, Info, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 // Define formation type
@@ -23,7 +24,7 @@ type Formation = {
 };
 
 const FormationCategories = () => {
-  const [openDialog, setOpenDialog] = useState<string | null>(null);
+  const [openSheet, setOpenSheet] = useState<string | null>(null);
 
   const formations: Formation[] = [
     {
@@ -93,6 +94,14 @@ const FormationCategories = () => {
     }
   ];
 
+  const getCurrentFormation = () => {
+    return formations.find(formation => formation.id === openSheet);
+  };
+
+  const getColorForCategory = (category: 'professional' | 'hr') => {
+    return category === 'professional' ? 'migrapro-terre-cuite' : 'migrapro-bleu-ciel';
+  };
+
   return (
     <div className="space-y-12">
       <div className="space-y-8">
@@ -126,86 +135,15 @@ const FormationCategories = () => {
                     <Clock className="h-4 w-4 text-gray-500" />
                     <span className="text-sm text-gray-700">{formation.duration}</span>
                   </div>
-                  <Dialog open={openDialog === formation.id} onOpenChange={(open) => setOpenDialog(open ? formation.id : null)}>
-                    <DialogTrigger asChild>
-                      <Button variant="outline" size="sm" className="flex gap-1">
-                        <Info className="h-4 w-4" />
-                        <span>Détails</span>
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent className="sm:max-w-[500px]">
-                      <DialogHeader>
-                        <DialogTitle className="flex items-center gap-2">
-                          {formation.title}
-                        </DialogTitle>
-                        <DialogDescription className="text-migrapro-terre-cuite">
-                          {formation.subtitle}
-                        </DialogDescription>
-                      </DialogHeader>
-                      <div className="space-y-4 py-4">
-                        <div>
-                          <h4 className="font-medium text-sm text-gray-500 mb-1">Description</h4>
-                          <p className="text-sm">{formation.description}</p>
-                        </div>
-                        <div>
-                          <h4 className="font-medium text-sm text-gray-500 mb-1">Objectif</h4>
-                          <p className="text-sm">{formation.objective}</p>
-                        </div>
-                        <div>
-                          <h4 className="font-medium text-sm text-gray-500 mb-1">Public cible</h4>
-                          <p className="text-sm">{formation.targetAudience}</p>
-                        </div>
-                        <div className="flex flex-wrap justify-between items-center p-3 bg-gray-50 rounded-md">
-                          <div>
-                            <h4 className="font-medium text-sm text-gray-500 mb-1">Durée</h4>
-                            <div className="flex items-center gap-1">
-                              <Clock className="h-4 w-4 text-migrapro-terre-cuite" />
-                              <span className="text-sm">{formation.duration}</span>
-                            </div>
-                          </div>
-                          <div>
-                            <h4 className="font-medium text-sm text-gray-500 mb-1">Format</h4>
-                            <div className="flex gap-2">
-                              {formation.format.map((fmt) => (
-                                <Badge key={fmt} variant="outline" className="bg-gray-50">
-                                  {fmt}
-                                </Badge>
-                              ))}
-                            </div>
-                          </div>
-                        </div>
-                        
-                        {formation.includedInPacks.length > 0 && (
-                          <div className="border-t pt-4 mt-4">
-                            <p className="text-sm font-medium">
-                              Cette formation est incluse dans :
-                            </p>
-                            <div className="flex gap-2 mt-2">
-                              {formation.includedInPacks.includes('insertion-pro') && (
-                                <Badge className="bg-migrapro-bleu-ciel cursor-pointer hover:bg-migrapro-bleu-ciel/80"
-                                  onClick={() => setOpenDialog('pack-insertion-pro')}>
-                                  Pack Insertion Pro
-                                </Badge>
-                              )}
-                              {formation.includedInPacks.includes('rh-starter') && (
-                                <Badge className="bg-migrapro-bleu-ciel cursor-pointer hover:bg-migrapro-bleu-ciel/80"
-                                  onClick={() => setOpenDialog('pack-rh-starter')}>
-                                  Pack RH Starter
-                                </Badge>
-                              )}
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                      <DialogFooter>
-                        <Button asChild>
-                          <Link to="/contact?service=formation&course=cv">
-                            Demander plus d'infos
-                          </Link>
-                        </Button>
-                      </DialogFooter>
-                    </DialogContent>
-                  </Dialog>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="flex gap-1"
+                    onClick={() => setOpenSheet(formation.id)}
+                  >
+                    <Info className="h-4 w-4" />
+                    <span>Détails</span>
+                  </Button>
                 </div>
               </CardContent>
             </Card>
@@ -244,86 +182,125 @@ const FormationCategories = () => {
                     <Clock className="h-4 w-4 text-gray-500" />
                     <span className="text-sm text-gray-700">{formation.duration}</span>
                   </div>
-                  <Dialog open={openDialog === formation.id} onOpenChange={(open) => setOpenDialog(open ? formation.id : null)}>
-                    <DialogTrigger asChild>
-                      <Button variant="outline" size="sm" className="flex gap-1">
-                        <Info className="h-4 w-4" />
-                        <span>Détails</span>
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent className="sm:max-w-[500px]">
-                      <DialogHeader>
-                        <DialogTitle className="flex items-center gap-2">
-                          {formation.title}
-                        </DialogTitle>
-                        <DialogDescription className="text-migrapro-bleu-ciel">
-                          {formation.subtitle}
-                        </DialogDescription>
-                      </DialogHeader>
-                      <div className="space-y-4 py-4">
-                        <div>
-                          <h4 className="font-medium text-sm text-gray-500 mb-1">Description</h4>
-                          <p className="text-sm">{formation.description}</p>
-                        </div>
-                        <div>
-                          <h4 className="font-medium text-sm text-gray-500 mb-1">Objectif</h4>
-                          <p className="text-sm">{formation.objective}</p>
-                        </div>
-                        <div>
-                          <h4 className="font-medium text-sm text-gray-500 mb-1">Public cible</h4>
-                          <p className="text-sm">{formation.targetAudience}</p>
-                        </div>
-                        <div className="flex flex-wrap justify-between items-center p-3 bg-gray-50 rounded-md">
-                          <div>
-                            <h4 className="font-medium text-sm text-gray-500 mb-1">Durée</h4>
-                            <div className="flex items-center gap-1">
-                              <Clock className="h-4 w-4 text-migrapro-bleu-ciel" />
-                              <span className="text-sm">{formation.duration}</span>
-                            </div>
-                          </div>
-                          <div>
-                            <h4 className="font-medium text-sm text-gray-500 mb-1">Format</h4>
-                            <div className="flex gap-2">
-                              {formation.format.map((fmt) => (
-                                <Badge key={fmt} variant="outline" className="bg-gray-50">
-                                  {fmt}
-                                </Badge>
-                              ))}
-                            </div>
-                          </div>
-                        </div>
-                        
-                        {formation.includedInPacks.length > 0 && (
-                          <div className="border-t pt-4 mt-4">
-                            <p className="text-sm font-medium">
-                              Cette formation est incluse dans :
-                            </p>
-                            <div className="flex gap-2 mt-2">
-                              {formation.includedInPacks.includes('rh-starter') && (
-                                <Badge className="bg-migrapro-bleu-ciel cursor-pointer hover:bg-migrapro-bleu-ciel/80"
-                                  onClick={() => setOpenDialog('pack-rh-starter')}>
-                                  Pack RH Starter
-                                </Badge>
-                              )}
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                      <DialogFooter>
-                        <Button asChild>
-                          <Link to="/contact?service=formation&course=grh">
-                            Demander plus d'infos
-                          </Link>
-                        </Button>
-                      </DialogFooter>
-                    </DialogContent>
-                  </Dialog>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="flex gap-1"
+                    onClick={() => setOpenSheet(formation.id)}
+                  >
+                    <Info className="h-4 w-4" />
+                    <span>Détails</span>
+                  </Button>
                 </div>
               </CardContent>
             </Card>
           ))}
         </div>
       </div>
+
+      {/* Sheet pour le détail des formations */}
+      <Sheet open={!!openSheet} onOpenChange={(open) => setOpenSheet(open ? openSheet : null)}>
+        <SheetContent 
+          side="right" 
+          className="w-full sm:w-[500px] max-w-full p-0 overflow-hidden flex flex-col"
+        >
+          {getCurrentFormation() && (
+            <>
+              <div className={`bg-${getColorForCategory(getCurrentFormation()?.category || 'professional')}/10 py-4 px-6 flex justify-between items-center`}>
+                <div className="flex flex-col">
+                  <SheetTitle className="text-2xl">{getCurrentFormation()?.title}</SheetTitle>
+                  <p className={`text-${getColorForCategory(getCurrentFormation()?.category || 'professional')} text-sm font-medium`}>
+                    {getCurrentFormation()?.subtitle}
+                  </p>
+                </div>
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="rounded-full hover:bg-gray-200" 
+                  onClick={() => setOpenSheet(null)}
+                >
+                  <X className="h-5 w-5" />
+                </Button>
+              </div>
+
+              <ScrollArea className="flex-1 overflow-auto px-6 py-4">
+                <div className="space-y-5">
+                  <div>
+                    <h4 className="font-medium text-sm text-gray-500 mb-1">Description</h4>
+                    <p>{getCurrentFormation()?.description}</p>
+                  </div>
+
+                  <div>
+                    <h4 className="font-medium text-sm text-gray-500 mb-1">Objectif</h4>
+                    <p>{getCurrentFormation()?.objective}</p>
+                  </div>
+
+                  <div>
+                    <h4 className="font-medium text-sm text-gray-500 mb-1">Public cible</h4>
+                    <p>{getCurrentFormation()?.targetAudience}</p>
+                  </div>
+
+                  <div className="flex flex-wrap justify-between items-center p-4 bg-gray-50 rounded-md">
+                    <div>
+                      <h4 className="font-medium text-sm text-gray-500 mb-1">Durée</h4>
+                      <div className="flex items-center gap-1">
+                        <Clock className={`h-4 w-4 text-${getColorForCategory(getCurrentFormation()?.category || 'professional')}`} />
+                        <span>{getCurrentFormation()?.duration}</span>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h4 className="font-medium text-sm text-gray-500 mb-1">Format</h4>
+                      <div className="flex gap-2">
+                        {getCurrentFormation()?.format.map((fmt) => (
+                          <Badge key={fmt} variant="outline" className="bg-gray-50">
+                            {fmt}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {getCurrentFormation()?.includedInPacks && getCurrentFormation()?.includedInPacks.length > 0 && (
+                    <div className="border-t pt-4 mt-4">
+                      <p className="font-medium mb-2">
+                        Cette formation est incluse dans :
+                      </p>
+                      <div className="flex gap-2 mt-2">
+                        {getCurrentFormation()?.includedInPacks.includes('insertion-pro') && (
+                          <div className="bg-migrapro-terre-cuite/10 border border-migrapro-terre-cuite/20 rounded-md p-3 flex items-center gap-2">
+                            <Package className="h-5 w-5 text-migrapro-terre-cuite" />
+                            <span className="font-medium">Pack Insertion Pro</span>
+                          </div>
+                        )}
+                        {getCurrentFormation()?.includedInPacks.includes('rh-starter') && (
+                          <div className="bg-migrapro-bleu-ciel/10 border border-migrapro-bleu-ciel/20 rounded-md p-3 flex items-center gap-2">
+                            <Package className="h-5 w-5 text-migrapro-bleu-ciel" />
+                            <span className="font-medium">Pack RH Starter</span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                  
+                  <div className="h-20"></div> {/* Espace pour éviter que le contenu soit caché derrière le footer */}
+                </div>
+              </ScrollArea>
+
+              <SheetFooter className="px-6 py-4 border-t flex flex-col sm:flex-row gap-2 bg-white">
+                <Button variant="outline" onClick={() => setOpenSheet(null)} className="w-full sm:w-auto">
+                  Retour aux formations
+                </Button>
+                <Button asChild className="w-full sm:w-auto">
+                  <Link to={`/contact?service=formation&course=${openSheet}`}>
+                    Demander plus d'infos
+                  </Link>
+                </Button>
+              </SheetFooter>
+            </>
+          )}
+        </SheetContent>
+      </Sheet>
     </div>
   );
 };
