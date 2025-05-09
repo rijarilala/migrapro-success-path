@@ -110,8 +110,15 @@ export default function SearchCommand({ className }: SearchCommandProps) {
   const [query, setQuery] = useState("");
   const [isSearching, setIsSearching] = useState(false);
   const [filteredResults, setFilteredResults] = useState<SearchResult[]>([]);
+  const [activeItemIndex, setActiveItemIndex] = useState<number>(-1);
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
+
+  // Initialize with all results
+  useEffect(() => {
+    setFilteredResults(searchResults);
+  }, []);
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -125,14 +132,18 @@ export default function SearchCommand({ className }: SearchCommandProps) {
     return () => document.removeEventListener('keydown', down);
   }, []);
 
+  // Handle filtering results in real-time
   useEffect(() => {
+    // Always show all results when query is empty
     if (!query) {
       setFilteredResults(searchResults);
+      setIsSearching(false);
       return;
     }
     
     setIsSearching(true);
     
+    // Use debounce for better performance
     const timer = setTimeout(() => {
       const results = searchResults.filter(
         item => 
@@ -141,15 +152,76 @@ export default function SearchCommand({ className }: SearchCommandProps) {
       );
       setFilteredResults(results);
       setIsSearching(false);
-    }, 150);
+      
+      // Reset active item when results change
+      setActiveItemIndex(-1);
+    }, 150); // Short debounce for responsive feel
     
     return () => clearTimeout(timer);
   }, [query]);
 
   const handleSelect = (item: SearchResult) => {
     setOpen(false);
+    setQuery("");
     navigate(item.url);
   };
+
+  // Handle keyboard navigation
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (!filteredResults.length) return;
+    
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault();
+        setActiveItemIndex(prev => 
+          prev < filteredResults.length - 1 ? prev + 1 : 0
+        );
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        setActiveItemIndex(prev => 
+          prev > 0 ? prev - 1 : filteredResults.length - 1
+        );
+        break;
+      case 'Enter':
+        e.preventDefault();
+        if (activeItemIndex >= 0) {
+          handleSelect(filteredResults[activeItemIndex]);
+        }
+        break;
+      case 'Escape':
+        // Let CommandDialog handle this
+        setActiveItemIndex(-1);
+        break;
+    }
+  };
+
+  // When dialog opens, reset state and focus input
+  const handleOpenChange = (newOpen: boolean) => {
+    setOpen(newOpen);
+    if (newOpen) {
+      setQuery("");
+      setFilteredResults(searchResults);
+      setActiveItemIndex(-1);
+      // Focus the input when dialog opens
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 0);
+    }
+  };
+
+  // Helper function to determine if an item should be visually selected
+  const isItemActive = (index: number): boolean => {
+    return index === activeItemIndex;
+  };
+
+  // Group results by category
+  const serviceResults = filteredResults.filter(item => item.category === 'service');
+  const packResults = filteredResults.filter(item => item.category === 'pack');
+  const formationResults = filteredResults.filter(item => item.category === 'formation');
+  const otherResults = filteredResults.filter(item => 
+    ['coaching', 'immigration', 'autre'].includes(item.category)
+  );
 
   return (
     <>
@@ -166,112 +238,137 @@ export default function SearchCommand({ className }: SearchCommandProps) {
         </kbd>
       </Button>
 
-      <CommandDialog open={open} onOpenChange={setOpen}>
-        <div role="search">
+      <CommandDialog open={open} onOpenChange={handleOpenChange}>
+        <div role="search" onKeyDown={handleKeyDown}>
           <CommandInput 
             placeholder="Rechercher un service, ex: 'CV', 'Immigration'..." 
             value={query}
             onValueChange={setQuery}
             ref={inputRef}
             aria-label="Tapez un mot-clé pour rechercher un service"
-            aria-expanded={filteredResults.length > 0}
+            aria-expanded={open}
             aria-owns="search-results-listbox"
+            aria-activedescendant={activeItemIndex >= 0 ? `search-result-${activeItemIndex}` : undefined}
             role="combobox"
+            autoFocus
           />
         </div>
         
-        <CommandList id="search-results-listbox" role="listbox">
+        <CommandList 
+          id="search-results-listbox" 
+          role="listbox"
+          ref={listRef}
+          className="transition-all duration-200"
+        >
           {isSearching ? (
             <div className="flex items-center justify-center py-6">
               <Loader2 className="h-6 w-6 animate-spin text-migrapro-terre-cuite" />
             </div>
           ) : filteredResults.length === 0 ? (
-            <CommandEmpty>Aucun résultat trouvé.</CommandEmpty>
+            <CommandEmpty>Aucun service trouvé pour "{query}".</CommandEmpty>
           ) : (
             <>
-              <CommandGroup heading="Services">
-                {filteredResults
-                  .filter(item => item.category === 'service')
-                  .map(item => (
-                    <CommandItem 
-                      key={item.id} 
-                      onSelect={() => handleSelect(item)}
-                      role="option"
-                    >
-                      <div className="flex flex-col">
-                        <span>{item.title}</span>
-                        <span className="text-sm text-muted-foreground">{item.description}</span>
-                      </div>
-                    </CommandItem>
-                  ))
-                }
-              </CommandGroup>
+              {serviceResults.length > 0 && (
+                <CommandGroup heading="Services">
+                  {serviceResults.map((item, index) => {
+                    const globalIndex = filteredResults.indexOf(item);
+                    return (
+                      <CommandItem 
+                        key={item.id} 
+                        onSelect={() => handleSelect(item)}
+                        role="option"
+                        id={`search-result-${globalIndex}`}
+                        aria-selected={isItemActive(globalIndex)}
+                        data-selected={isItemActive(globalIndex)}
+                        className={`transition-colors duration-100 ${isItemActive(globalIndex) ? 'bg-accent text-accent-foreground' : ''}`}
+                      >
+                        <div className="flex flex-col">
+                          <span>{item.title}</span>
+                          <span className="text-sm text-muted-foreground">{item.description}</span>
+                        </div>
+                      </CommandItem>
+                    );
+                  })}
+                </CommandGroup>
+              )}
               
-              {filteredResults.some(item => item.category === 'pack') && (
+              {packResults.length > 0 && (
                 <>
                   <CommandSeparator />
                   <CommandGroup heading="Packs">
-                    {filteredResults
-                      .filter(item => item.category === 'pack')
-                      .map(item => (
+                    {packResults.map((item) => {
+                      const globalIndex = filteredResults.indexOf(item);
+                      return (
                         <CommandItem 
                           key={item.id} 
                           onSelect={() => handleSelect(item)}
                           role="option"
+                          id={`search-result-${globalIndex}`}
+                          aria-selected={isItemActive(globalIndex)}
+                          data-selected={isItemActive(globalIndex)}
+                          className={`transition-colors duration-100 ${isItemActive(globalIndex) ? 'bg-accent text-accent-foreground' : ''}`}
                         >
                           <div className="flex flex-col">
                             <span>{item.title}</span>
                             <span className="text-sm text-muted-foreground">{item.description}</span>
                           </div>
                         </CommandItem>
-                      ))
-                    }
+                      );
+                    })}
                   </CommandGroup>
                 </>
               )}
               
-              {filteredResults.some(item => item.category === 'formation') && (
+              {formationResults.length > 0 && (
                 <>
                   <CommandSeparator />
                   <CommandGroup heading="Formations">
-                    {filteredResults
-                      .filter(item => item.category === 'formation')
-                      .map(item => (
+                    {formationResults.map((item) => {
+                      const globalIndex = filteredResults.indexOf(item);
+                      return (
                         <CommandItem 
                           key={item.id} 
                           onSelect={() => handleSelect(item)}
                           role="option"
+                          id={`search-result-${globalIndex}`}
+                          aria-selected={isItemActive(globalIndex)}
+                          data-selected={isItemActive(globalIndex)}
+                          className={`transition-colors duration-100 ${isItemActive(globalIndex) ? 'bg-accent text-accent-foreground' : ''}`}
                         >
                           <div className="flex flex-col">
                             <span>{item.title}</span>
                             <span className="text-sm text-muted-foreground">{item.description}</span>
                           </div>
                         </CommandItem>
-                      ))
-                    }
+                      );
+                    })}
                   </CommandGroup>
                 </>
               )}
               
-              {filteredResults.some(item => item.category === 'coaching' || item.category === 'immigration' || item.category === 'autre') && (
+              {otherResults.length > 0 && (
                 <>
                   <CommandSeparator />
                   <CommandGroup heading="Autres">
-                    {filteredResults
-                      .filter(item => ['coaching', 'immigration', 'autre'].includes(item.category))
-                      .map(item => (
+                    {otherResults.map((item) => {
+                      const globalIndex = filteredResults.indexOf(item);
+                      return (
                         <CommandItem 
                           key={item.id} 
                           onSelect={() => handleSelect(item)}
-                          role="option"
+                          role="option" 
+                          id={`search-result-${globalIndex}`}
+                          aria-selected={isItemActive(globalIndex)}
+                          data-selected={isItemActive(globalIndex)}
+                          className={`transition-colors duration-100 ${isItemActive(globalIndex) ? 'bg-accent text-accent-foreground' : ''}`}
                         >
                           <div className="flex flex-col">
                             <span>{item.title}</span>
                             <span className="text-sm text-muted-foreground">{item.description}</span>
                           </div>
                         </CommandItem>
-                      ))
-                    }
+                      );
+                    })}
                   </CommandGroup>
                 </>
               )}
