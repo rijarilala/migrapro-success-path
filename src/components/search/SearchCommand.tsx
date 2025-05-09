@@ -223,6 +223,11 @@ export default function SearchCommand({ className }: SearchCommandProps) {
     ['coaching', 'immigration', 'autre'].includes(item.category)
   );
 
+  // Handle input changes with debounce
+  const handleInputChange = (value: string) => {
+    setQuery(value);
+  };
+
   return (
     <>
       <Button 
@@ -243,7 +248,7 @@ export default function SearchCommand({ className }: SearchCommandProps) {
           <CommandInput 
             placeholder="Rechercher un service, ex: 'CV', 'Immigration'..." 
             value={query}
-            onValueChange={setQuery}
+            onValueChange={handleInputChange}
             ref={inputRef}
             aria-label="Tapez un mot-clé pour rechercher un service"
             aria-expanded={open}

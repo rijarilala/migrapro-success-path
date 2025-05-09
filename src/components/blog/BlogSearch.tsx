@@ -1,6 +1,4 @@
 
-import { Search } from "lucide-react";
-import { Input } from "@/components/ui/input";
 import SearchCommand from "@/components/search/SearchCommand";
 
 const BlogSearch = () => {
