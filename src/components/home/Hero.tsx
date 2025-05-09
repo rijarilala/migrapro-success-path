@@ -1,6 +1,9 @@
+
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import SearchCommand from '@/components/search/SearchCommand';
+
 const Hero = () => {
   return <div className="relative bg-gradient-to-r from-gray-50 to-gray-100">
       {/* Hero background image overlay with gradient */}
@@ -15,7 +18,12 @@ const Hero = () => {
             Votre avenir professionnel commence ici
           </h1>
           
-          <p className="text-lg md:text-xl text-white/90 mb-8 drop-shadow">Conseil, formation &amp; coaching : maîtrisez chaque étape de votre projet d’immigration</p>
+          <p className="text-lg md:text-xl text-white/90 mb-8 drop-shadow">Conseil, formation &amp; coaching : maîtrisez chaque étape de votre projet d'immigration</p>
+          
+          <div className="flex flex-col md:flex-row items-center gap-4 mb-8">
+            <SearchCommand className="w-full md:w-auto bg-white/90 hover:bg-white text-gray-800" />
+            <span className="text-white text-sm mt-2 md:mt-0 md:ml-2">Trouvez rapidement nos services</span>
+          </div>
           
           <div className="flex flex-wrap gap-4">
             <Button className="bg-migrapro-terre-cuite hover:bg-opacity-90 text-white text-lg px-8 py-6" asChild>
@@ -41,4 +49,5 @@ const Hero = () => {
       </div>
     </div>;
 };
+
 export default Hero;

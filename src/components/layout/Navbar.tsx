@@ -8,6 +8,7 @@ import { MobileNav } from './MobileNav';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
+import SearchCommand from '@/components/search/SearchCommand';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -105,34 +106,44 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* User Menu or CTA Button */}
-        {isAuthenticated ? <div className="hidden md:flex items-center gap-4">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="flex items-center gap-2">
-                <User className="h-4 w-4" />
-                <span className="hidden lg:inline">{user?.email}</span>
+        <div className="hidden md:flex items-center gap-4">
+          {/* Search Component */}
+          <SearchCommand className="ml-auto mr-2" />
+
+          {/* User Menu or CTA Button */}
+          {isAuthenticated ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="flex items-center gap-2">
+                  <User className="h-4 w-4" />
+                  <span className="hidden lg:inline">{user?.email}</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={handleLogout} className="text-red-600">
+                  <LogOut className="mr-2 h-4 w-4" />
+                  Déconnexion
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <Link to="/auth">
+              <Button className="bg-migrapro-terre-cuite hover:bg-opacity-90 text-white">
+                Connexion
               </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56">
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={handleLogout} className="text-red-600">
-                <LogOut className="mr-2 h-4 w-4" />
-                Déconnexion
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div> : <Link to="/auth">
-          <Button className="hidden md:block bg-migrapro-terre-cuite hover:bg-opacity-90 text-white">
-            Connexion
-          </Button>
-        </Link>}
+            </Link>
+          )}
+        </div>
 
         {/* Mobile Menu Button */}
-        <Button variant="ghost" className="md:hidden" size="icon" onClick={() => setIsMenuOpen(true)}>
-          <Menu className="h-6 w-6" />
-          <span className="sr-only">Menu</span>
-        </Button>
+        <div className="flex items-center gap-2 md:hidden">
+          <SearchCommand />
+          <Button variant="ghost" size="icon" onClick={() => setIsMenuOpen(true)}>
+            <Menu className="h-6 w-6" />
+            <span className="sr-only">Menu</span>
+          </Button>
+        </div>
       </div>
 
       {/* Mobile Navigation */}

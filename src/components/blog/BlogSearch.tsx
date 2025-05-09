@@ -1,17 +1,16 @@
 
-import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import SearchCommand from "@/components/search/SearchCommand";
 
 const BlogSearch = () => {
   return (
     <div className="mb-8">
-      <div className="relative">
-        <Input
-          type="search"
-          placeholder="Rechercher un article..."
-          className="pl-10"
-        />
-        <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+      <div className="relative flex items-center justify-center">
+        <SearchCommand className="w-full" />
+      </div>
+      <div className="mt-2 text-center text-sm text-gray-500">
+        Recherchez parmi toutes nos FAQ et services
       </div>
     </div>
   );
