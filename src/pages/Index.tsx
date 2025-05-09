@@ -5,7 +5,7 @@ import Hero from '@/components/home/Hero';
 import PackReussitePro from '@/components/home/PackReussitePro';
 import ServicesPreview from '@/components/home/ServicesPreview';
 import Testimonials from '@/components/home/Testimonials';
-import BlogPreview from '@/components/home/BlogPreview';
+import FAQ from '@/components/home/FAQ';
 import ImmigrationOverview from '@/components/home/ImmigrationOverview';
 
 const Index = () => {
@@ -18,7 +18,7 @@ const Index = () => {
         <PackReussitePro />
         <ServicesPreview />
         <Testimonials />
-        <BlogPreview />
+        <FAQ />
       </main>
       <Footer />
     </div>
