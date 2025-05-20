@@ -162,18 +162,18 @@ export function highlightMatch(text: string, query: string): string {
   return text.replace(regex, '<mark>$1</mark>');
 }
 
-// Fonction pour obtenir le lien correct avec les paramètres appropriés
+// Function to obtain the correct link with appropriate parameters
 export function getResultUrl(result: SearchResult): string {
   switch (result.type) {
     case 'formation':
-      // Ajouter un paramètre fromSearch=true pour indiquer une recherche active
+      // Add fromSearch=true parameter to indicate an active search
       const formationId = (result as SearchableFormation).formationId;
-      console.log(`searchService: Génération d'URL pour la formation avec ID=${formationId}`);
+      console.log(`searchService: Generating URL for formation with ID=${formationId}`);
       return `/services/formation?fromSearch=true#${formationId}`;
     case 'page':
       return (result as SearchablePage).path;
     case 'faq':
-      // Pour les FAQ, on ajoute la catégorie et l'ID comme paramètres
+      // For FAQs, add the category and ID as parameters
       const faq = result as SearchableFAQ;
       return `/blog?category=${faq.faqCategory}&question=${faq.id}`;
     default:
