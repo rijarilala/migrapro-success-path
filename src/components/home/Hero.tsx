@@ -2,7 +2,6 @@
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
-import SearchCommand from '@/components/search/SearchCommand';
 import { useTranslation } from 'react-i18next';
 
 const Hero = () => {
@@ -24,8 +23,7 @@ const Hero = () => {
           <p className="text-lg md:text-xl text-white/90 mb-8 drop-shadow">{t('hero.subtitle')}</p>
           
           <div className="flex flex-col md:flex-row items-center gap-4 mb-8">
-            <SearchCommand className="w-full md:w-auto bg-white/90 hover:bg-white text-gray-800" />
-            <span className="text-white text-sm mt-2 md:mt-0 md:ml-2">{t('hero.searchPlaceholder')}</span>
+            <span className="text-white text-sm">{t('hero.searchPlaceholder')}</span>
           </div>
           
           <div className="flex flex-wrap gap-4">
