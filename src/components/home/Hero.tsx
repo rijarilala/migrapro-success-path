@@ -21,7 +21,7 @@ const Hero = () => {
             {t('hero.title')}
           </h1>
           
-          <p className="text-lg md:text-xl text-white/90 mb-8 drop-shadow">{t('hero.subtitle')}</p>
+          <p className="text-lg md:text-xl text-white/90 mb-8 drop-shadow whitespace-pre-line">{t('hero.subtitle')}</p>
           
           <div className="flex flex-col md:flex-row items-center gap-4 mb-8">
             <SearchCommand className="w-full md:w-auto bg-white/90 hover:bg-white text-gray-800" />
