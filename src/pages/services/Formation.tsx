@@ -50,57 +50,57 @@ const Formation = () => {
         }, 300);
       }, 100);
     } else {
-      // Handle hash navigation (for direct links to packs or formations)
+      // Handle hash navigation (for direct links to formations)
       const hash = location.hash;
       if (hash) {
         const hashWithoutPrefix = hash.substring(1); // Remove the # character
         
-        if (hash.includes('pack')) {
-          // Switch to packs tab
-          const tabsElement = document.querySelector('[value="packs"]');
-          if (tabsElement) {
-            setTimeout(() => {
-              (tabsElement as HTMLElement).click();
-              // After tab switch, scroll to the specific pack
-              setTimeout(() => {
-                const packElement = document.getElementById(hashWithoutPrefix);
-                if (packElement) {
-                  packElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                  
-                  // Add highlight effect
-                  packElement.classList.add('bg-yellow-50');
-                  setTimeout(() => {
-                    packElement.classList.remove('bg-yellow-50');
-                    packElement.classList.add('transition-colors', 'duration-1000');
-                  }, 2000);
-                }
-              }, 300);
-            }, 100);
-          }
-        } else {
-          // For other hash links (like individual formations)
-          // Need to be on the categories tab
+        // Laisser au DOM le temps de se charger complètement
+        setTimeout(() => {
+          // Par défaut, supposons qu'il s'agit d'un ID de formation dans l'onglet catégories
+          // Switch to categories tab (default)
           const tabsElement = document.querySelector('[value="categories"]');
           if (tabsElement) {
+            (tabsElement as HTMLElement).click();
+            
+            // Après le changement d'onglet, rechercher la formation et défiler vers elle
             setTimeout(() => {
-              (tabsElement as HTMLElement).click();
-              // After tab switch, scroll to the specific formation
-              setTimeout(() => {
-                const formationElement = document.getElementById(hashWithoutPrefix);
-                if (formationElement) {
-                  formationElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              // Rechercher la formation par son ID
+              const formationElement = document.getElementById(hashWithoutPrefix);
+              if (formationElement) {
+                formationElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Ajouter un effet de surbrillance
+                formationElement.classList.add('bg-yellow-50');
+                setTimeout(() => {
+                  formationElement.classList.remove('bg-yellow-50');
+                  formationElement.classList.add('transition-colors', 'duration-1000');
+                }, 2000);
+              } else {
+                // Si l'élément n'a pas été trouvé dans l'onglet catégories, essayer dans l'onglet packs
+                const packsTab = document.querySelector('[value="packs"]');
+                if (packsTab) {
+                  (packsTab as HTMLElement).click();
                   
-                  // Add highlight effect
-                  formationElement.classList.add('bg-yellow-50');
+                  // Après le changement d'onglet, rechercher dans les packs
                   setTimeout(() => {
-                    formationElement.classList.remove('bg-yellow-50');
-                    formationElement.classList.add('transition-colors', 'duration-1000');
-                  }, 2000);
+                    const packElement = document.getElementById(hashWithoutPrefix);
+                    if (packElement) {
+                      packElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                      
+                      // Ajouter un effet de surbrillance
+                      packElement.classList.add('bg-yellow-50');
+                      setTimeout(() => {
+                        packElement.classList.remove('bg-yellow-50');
+                        packElement.classList.add('transition-colors', 'duration-1000');
+                      }, 2000);
+                    }
+                  }, 300);
                 }
-              }, 300);
-            }, 100);
+              }
+            }, 300);
           }
-        }
+        }, 500); // Délai légèrement plus long pour s'assurer que tout est chargé
       }
     }
   }, [location, searchParams]);

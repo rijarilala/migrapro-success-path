@@ -1,4 +1,3 @@
-
 import Fuse from 'fuse.js';
 
 // Interfaces pour les différents types de résultats
@@ -8,7 +7,7 @@ export interface SearchableFormation {
   slug: string;
   category: string;
   type: 'formation';
-  formationId: string; // Pour ouvrir directement le modal de la formation
+  formationId: string; // Pour cibler directement la formation dans la page
 }
 
 export interface SearchablePage {
@@ -34,12 +33,12 @@ const formations: SearchableFormation[] = [
   { id: '2', title: 'Formation en Leadership', slug: 'leadership', category: 'Compétences', type: 'formation', formationId: 'leadership' },
   { id: '3', title: 'Cours de français professionnel', slug: 'francais', category: 'Langues', type: 'formation', formationId: 'francais-pro' },
   { id: '4', title: 'Préparation à l\'entretien d\'embauche', slug: 'entretien', category: 'Emploi', type: 'formation', formationId: 'entretien' },
-  { id: '6', title: 'Rédaction de CV (4h)', slug: 'redaction-cv', category: 'Documentation', type: 'formation', formationId: 'redaction-cv' },
-  { id: '7', title: 'Lettre de motivation (3h)', slug: 'lettre-motivation', category: 'Documentation', type: 'formation', formationId: 'lettre-motivation' },
-  { id: '8', title: 'Créer et optimiser son profil LinkedIn (3h)', slug: 'linkedin', category: 'Emploi', type: 'formation', formationId: 'linkedin-profile' },
-  { id: '9', title: 'Préparation à la recherche du premier emploi / nouveau emploi', slug: 'recherche-emploi', category: 'Insertion Professionnelle', type: 'formation', formationId: 'recherche-emploi' },
-  { id: '10', title: 'Transition vie étudiante – vie professionnelle (4h)', slug: 'transition', category: 'Orientation', type: 'formation', formationId: 'transition-pro' },
-  { id: '11', title: 'Gestion des Ressources Humaines – Fondamentaux, stratégie & pratique (6h)', slug: 'grh', category: 'Compétences RH', type: 'formation', formationId: 'grh-basics' },
+  { id: '5', title: 'Rédaction de CV (4h)', slug: 'redaction-cv', category: 'Documentation', type: 'formation', formationId: 'cv' },
+  { id: '6', title: 'Lettre de motivation (3h)', slug: 'lettre-motivation', category: 'Documentation', type: 'formation', formationId: 'lm' },
+  { id: '7', title: 'Créer et optimiser son profil LinkedIn (3h)', slug: 'linkedin', category: 'Emploi', type: 'formation', formationId: 'linkedin' },
+  { id: '8', title: 'Préparation à la recherche du premier emploi / nouveau emploi', slug: 'recherche-emploi', category: 'Insertion Professionnelle', type: 'formation', formationId: 'recherche-emploi' },
+  { id: '9', title: 'Transition vie étudiante – vie professionnelle (4h)', slug: 'transition', category: 'Orientation', type: 'formation', formationId: 'transition' },
+  { id: '10', title: 'Gestion des Ressources Humaines – Fondamentaux, stratégie & pratique (6h)', slug: 'grh', category: 'Compétences RH', type: 'formation', formationId: 'grh' },
 ];
 
 const pages: SearchablePage[] = [
@@ -160,8 +159,8 @@ export function highlightMatch(text: string, query: string): string {
 export function getResultUrl(result: SearchResult): string {
   switch (result.type) {
     case 'formation':
-      // Ajouter le paramètre showModal avec l'identifiant de la formation
-      return `/services/formation?showModal=${result.formationId}`;
+      // Ajouter le hash avec l'identifiant de la formation pour le ciblage direct
+      return `/services/formation#${(result as SearchableFormation).formationId}`;
     case 'page':
       return (result as SearchablePage).path;
     case 'faq':

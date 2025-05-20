@@ -76,8 +76,8 @@ export function SearchProvider({ children }: { children: ReactNode }) {
     
     switch (result.type) {
       case 'formation':
-        // Ne pas ouvrir le modal, juste naviguer vers la formation
-        url = `/services/formation#${result.id}`;
+        // Ne pas ouvrir le modal, naviguer vers la formation avec un hash
+        url = `/services/formation#${(result as any).formationId}`;
         toastMessage = `Redirection vers la formation: ${result.title}`;
         break;
       case 'page':
