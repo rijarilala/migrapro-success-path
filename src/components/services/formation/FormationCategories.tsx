@@ -114,7 +114,8 @@ const FormationCategories = () => {
     return category === 'professional' ? 'migrapro-terre-cuite' : 'migrapro-bleu-ciel';
   };
 
-  return <div className="space-y-12">
+  return (
+    <div className="space-y-12">
       <div className="space-y-8">
         <div className="flex flex-col items-center text-center mb-8">
           <Badge className="mb-4 bg-migrapro-terre-cuite/10 text-migrapro-terre-cuite border-migrapro-terre-cuite/20 hover:bg-migrapro-terre-cuite/20">
@@ -235,135 +236,138 @@ const FormationCategories = () => {
       <Dialog open={!!openDialog} onOpenChange={open => setOpenDialog(open ? openDialog : null)}>
         <DialogContent className="sm:max-w-[600px] p-0 max-h-[85vh] overflow-hidden flex flex-col">
           {getCurrentFormation() && (
-            <div className={`bg-${getColorForCategory(getCurrentFormation()?.category || 'professional')}/10 py-4 px-6 flex justify-between items-center`}>
-              <div className="flex flex-col">
-                <DialogTitle className="text-2xl">{getCurrentFormation()?.title}</DialogTitle>
-                <p className={`text-${getColorForCategory(getCurrentFormation()?.category || 'professional')} text-sm font-medium`}>
-                  {getCurrentFormation()?.subtitle}
-                </p>
+            <>
+              <div className={`bg-${getColorForCategory(getCurrentFormation()?.category || 'professional')}/10 py-4 px-6 flex justify-between items-center`}>
+                <div className="flex flex-col">
+                  <DialogTitle className="text-2xl">{getCurrentFormation()?.title}</DialogTitle>
+                  <p className={`text-${getColorForCategory(getCurrentFormation()?.category || 'professional')} text-sm font-medium`}>
+                    {getCurrentFormation()?.subtitle}
+                  </p>
+                </div>
+                <Button variant="ghost" size="icon" className="rounded-full hover:bg-gray-200" onClick={() => setOpenDialog(null)}>
+                  <X className="h-5 w-5" />
+                </Button>
               </div>
-              <Button variant="ghost" size="icon" className="rounded-full hover:bg-gray-200" onClick={() => setOpenDialog(null)}>
-                <X className="h-5 w-5" />
-              </Button>
-            </div>
 
-            <ScrollArea className="flex-1 overflow-auto px-6 py-4">
-              <div className="space-y-5">
-                <div className="w-full h-48 overflow-hidden rounded-md mb-6">
-                  <img 
-                    src={getCurrentFormation()?.image} 
-                    alt={getCurrentFormation()?.title} 
-                    className="w-full h-full object-cover" 
-                    onError={e => {
-                      (e.target as HTMLImageElement).src = "/placeholder.svg";
-                    }} 
-                  />
-                </div>
-                
-                <div>
-                  <h4 className="font-medium text-sm text-gray-500 mb-1">Description</h4>
-                  <p>{getCurrentFormation()?.description}</p>
-                </div>
-
-                <div>
-                  <h4 className="font-medium text-sm text-gray-500 mb-1">Objectif</h4>
-                  <p>{getCurrentFormation()?.objective}</p>
-                </div>
-
-                <div>
-                  <h4 className="font-medium text-sm text-gray-500 mb-1">Public cible</h4>
-                  <p>{getCurrentFormation()?.targetAudience}</p>
-                </div>
-
-                <div className="flex flex-wrap justify-between items-center p-4 bg-gray-50 rounded-md">
+              <ScrollArea className="flex-1 overflow-auto px-6 py-4">
+                <div className="space-y-5">
+                  <div className="w-full h-48 overflow-hidden rounded-md mb-6">
+                    <img 
+                      src={getCurrentFormation()?.image} 
+                      alt={getCurrentFormation()?.title} 
+                      className="w-full h-full object-cover" 
+                      onError={e => {
+                        (e.target as HTMLImageElement).src = "/placeholder.svg";
+                      }} 
+                    />
+                  </div>
+                  
                   <div>
-                    <h4 className="font-medium text-sm text-gray-500 mb-1">Durée</h4>
-                    <div className="flex items-center gap-1">
-                      <Clock className={`h-4 w-4 text-${getColorForCategory(getCurrentFormation()?.category || 'professional')}`} />
-                      <span>{getCurrentFormation()?.duration}</span>
-                    </div>
+                    <h4 className="font-medium text-sm text-gray-500 mb-1">Description</h4>
+                    <p>{getCurrentFormation()?.description}</p>
                   </div>
 
                   <div>
-                    <h4 className="font-medium text-sm text-gray-500 mb-1">Format</h4>
-                    <div className="flex gap-2">
-                      {getCurrentFormation()?.format.map(fmt => (
-                        <Badge key={fmt} variant="outline" className="bg-gray-50">
-                          {fmt}
-                        </Badge>
-                      ))}
-                    </div>
+                    <h4 className="font-medium text-sm text-gray-500 mb-1">Objectif</h4>
+                    <p>{getCurrentFormation()?.objective}</p>
                   </div>
-                </div>
-                
-                {getCurrentFormation()?.includedInPacks && getCurrentFormation()?.includedInPacks.length > 0 && (
-                  <div className="border-t pt-4 mt-4">
-                    <p className="font-medium mb-2">
-                      Cette formation est incluse dans :
-                    </p>
-                    <div className="flex gap-2 mt-2">
-                      {getCurrentFormation()?.includedInPacks.includes('pack-insertion-pro') && <Button variant="outline" className="bg-migrapro-terre-cuite/10 border border-migrapro-terre-cuite/20 hover:bg-migrapro-terre-cuite/20 rounded-md p-3 flex items-center gap-2 h-auto" onClick={() => {
-                        setOpenDialog(null);
-                        // Navigate to packs tab and scroll to the pack
-                        const tabsElement = document.querySelector('[value="packs"]');
-                        if (tabsElement) {
-                          (tabsElement as HTMLElement).click();
-                          setTimeout(() => {
-                            const packElement = document.getElementById('pack-insertion-pro');
-                            if (packElement) {
-                              packElement.scrollIntoView({
-                                behavior: 'smooth',
-                                block: 'center'
-                              });
-                            }
-                          }, 300);
-                        }
-                      }}>
-                        <Package className="h-5 w-5 text-migrapro-terre-cuite" />
-                        <span className="font-medium">Pack Insertion Pro</span>
-                      </Button>}
-                      {getCurrentFormation()?.includedInPacks.includes('pack-rh-starter') && <Button variant="outline" className="bg-migrapro-bleu-ciel/10 border border-migrapro-bleu-ciel/20 hover:bg-migrapro-bleu-ciel/20 rounded-md p-3 flex items-center gap-2 h-auto" onClick={() => {
-                        setOpenDialog(null);
-                        // Navigate to packs tab and scroll to the pack
-                        const tabsElement = document.querySelector('[value="packs"]');
-                        if (tabsElement) {
-                          (tabsElement as HTMLElement).click();
-                          setTimeout(() => {
-                            const packElement = document.getElementById('pack-rh-starter');
-                            if (packElement) {
-                              packElement.scrollIntoView({
-                                behavior: 'smooth',
-                                block: 'center'
-                              });
-                            }
-                          }, 300);
-                        }
-                      }}>
-                        <Package className="h-5 w-5 text-migrapro-bleu-ciel" />
-                        <span className="font-medium">Pack RH Starter</span>
-                      </Button>}
-                    </div>
-                  </div>
-                )}
-                
-                <div className="h-20"></div> {/* Espace pour éviter que le contenu soit caché derrière le footer */}
-              </div>
-            </ScrollArea>
 
-            <DialogFooter className="px-6 py-4 border-t flex flex-col sm:flex-row gap-2 bg-white">
-              <Button variant="outline" onClick={() => setOpenDialog(null)} className="w-full sm:w-auto mx-0 my-0 py-[16px] px-0">
-                Retour aux formations
-              </Button>
-              <Button asChild className="w-full sm:w-auto">
-                <Link to={`/contact?service=formation&course=${openDialog}`}>
-                  Demander plus d'infos
-                </Link>
-              </Button>
-            </DialogFooter>
+                  <div>
+                    <h4 className="font-medium text-sm text-gray-500 mb-1">Public cible</h4>
+                    <p>{getCurrentFormation()?.targetAudience}</p>
+                  </div>
+
+                  <div className="flex flex-wrap justify-between items-center p-4 bg-gray-50 rounded-md">
+                    <div>
+                      <h4 className="font-medium text-sm text-gray-500 mb-1">Durée</h4>
+                      <div className="flex items-center gap-1">
+                        <Clock className={`h-4 w-4 text-${getColorForCategory(getCurrentFormation()?.category || 'professional')}`} />
+                        <span>{getCurrentFormation()?.duration}</span>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h4 className="font-medium text-sm text-gray-500 mb-1">Format</h4>
+                      <div className="flex gap-2">
+                        {getCurrentFormation()?.format.map(fmt => (
+                          <Badge key={fmt} variant="outline" className="bg-gray-50">
+                            {fmt}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {getCurrentFormation()?.includedInPacks && getCurrentFormation()?.includedInPacks.length > 0 && (
+                    <div className="border-t pt-4 mt-4">
+                      <p className="font-medium mb-2">
+                        Cette formation est incluse dans :
+                      </p>
+                      <div className="flex gap-2 mt-2">
+                        {getCurrentFormation()?.includedInPacks.includes('pack-insertion-pro') && <Button variant="outline" className="bg-migrapro-terre-cuite/10 border border-migrapro-terre-cuite/20 hover:bg-migrapro-terre-cuite/20 rounded-md p-3 flex items-center gap-2 h-auto" onClick={() => {
+                          setOpenDialog(null);
+                          // Navigate to packs tab and scroll to the pack
+                          const tabsElement = document.querySelector('[value="packs"]');
+                          if (tabsElement) {
+                            (tabsElement as HTMLElement).click();
+                            setTimeout(() => {
+                              const packElement = document.getElementById('pack-insertion-pro');
+                              if (packElement) {
+                                packElement.scrollIntoView({
+                                  behavior: 'smooth',
+                                  block: 'center'
+                                });
+                              }
+                            }, 300);
+                          }
+                        }}>
+                          <Package className="h-5 w-5 text-migrapro-terre-cuite" />
+                          <span className="font-medium">Pack Insertion Pro</span>
+                        </Button>}
+                        {getCurrentFormation()?.includedInPacks.includes('pack-rh-starter') && <Button variant="outline" className="bg-migrapro-bleu-ciel/10 border border-migrapro-bleu-ciel/20 hover:bg-migrapro-bleu-ciel/20 rounded-md p-3 flex items-center gap-2 h-auto" onClick={() => {
+                          setOpenDialog(null);
+                          // Navigate to packs tab and scroll to the pack
+                          const tabsElement = document.querySelector('[value="packs"]');
+                          if (tabsElement) {
+                            (tabsElement as HTMLElement).click();
+                            setTimeout(() => {
+                              const packElement = document.getElementById('pack-rh-starter');
+                              if (packElement) {
+                                packElement.scrollIntoView({
+                                  behavior: 'smooth',
+                                  block: 'center'
+                                });
+                              }
+                            }, 300);
+                          }
+                        }}>
+                          <Package className="h-5 w-5 text-migrapro-bleu-ciel" />
+                          <span className="font-medium">Pack RH Starter</span>
+                        </Button>}
+                      </div>
+                    </div>
+                  )}
+                  
+                  <div className="h-20"></div> {/* Espace pour éviter que le contenu soit caché derrière le footer */}
+                </div>
+              </ScrollArea>
+
+              <DialogFooter className="px-6 py-4 border-t flex flex-col sm:flex-row gap-2 bg-white">
+                <Button variant="outline" onClick={() => setOpenDialog(null)} className="w-full sm:w-auto mx-0 my-0 py-[16px] px-0">
+                  Retour aux formations
+                </Button>
+                <Button asChild className="w-full sm:w-auto">
+                  <Link to={`/contact?service=formation&course=${openDialog}`}>
+                    Demander plus d'infos
+                  </Link>
+                </Button>
+              </DialogFooter>
+            </>
           )}
         </DialogContent>
       </Dialog>
-    </div>;
+    </div>
+  );
 };
 
 export default FormationCategories;
