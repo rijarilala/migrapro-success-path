@@ -2,7 +2,6 @@
 import { createContext, useContext, useState, ReactNode, useCallback } from 'react';
 import { SearchResult, searchAll, groupSearchResults } from '@/services/searchService';
 import { useDebounce } from '@/hooks/use-debounce';
-import { useNavigate } from 'react-router-dom';
 import { useToast } from '@/components/ui/use-toast';
 
 interface SearchContextType {
@@ -28,7 +27,6 @@ export function SearchProvider({ children }: { children: ReactNode }) {
   const [groupedResults, setGroupedResults] = useState<Record<string, SearchResult[]>>({});
   const [isLoading, setIsLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const navigate = useNavigate();
   const { toast } = useToast();
 
   // Utiliser useDebounce pour éviter trop de recherches pendant la frappe
@@ -69,59 +67,21 @@ export function SearchProvider({ children }: { children: ReactNode }) {
     setSelectedCategory(null);
   }, []);
 
-  // Méthode améliorée pour gérer les clics sur les résultats avec navigation robuste
+  // Gestion simplifiée des clics sur les résultats, sans redirection spécifique
   const handleResultClick = useCallback((result: SearchResult) => {
-    console.log("Handling result click:", result);
-    
-    // Fermer la boîte de dialogue de recherche d'abord
+    // Fermer la boîte de dialogue de recherche
     setIsOpen(false);
     
     // Effacer la recherche
     clearSearch();
     
-    // Déterminer l'URL en fonction du type de résultat
-    let url = '';
-    let toastMessage = '';
-    let toastTitle = '';
-    
-    switch (result.type) {
-      case 'formation':
-        url = `/services/formation?showModal=${result.formationId}`;
-        toastTitle = "Formation trouvée";
-        toastMessage = 'Redirection vers la formation spécifique...';
-        console.log(`Navigating to formation: ${result.formationId}`);
-        break;
-      case 'faq':
-        url = `/blog?category=${(result as any).faqCategory}&question=${result.id}`;
-        toastTitle = "FAQ trouvée";
-        toastMessage = 'Redirection vers la question spécifique...';
-        console.log(`Navigating to FAQ: ${result.id} in category ${(result as any).faqCategory}`);
-        break;
-      case 'page':
-        url = (result as any).path;
-        toastTitle = "Page trouvée";
-        toastMessage = 'Redirection vers la page...';
-        break;
-      default:
-        url = '/';
-        toastTitle = "Redirection";
-        toastMessage = 'Redirection en cours...';
-    }
-
-    // Afficher le toast pour informer l'utilisateur 
+    // Afficher un toast générique
     toast({
-      title: toastTitle,
-      description: toastMessage,
-      duration: 3000, // Plus long pour donner l'impression que l'action est en cours
+      title: "Information",
+      description: "La fonctionnalité de redirection spécifique a été désactivée.",
+      duration: 3000,
     });
-    
-    // Ajouter un délai avant la navigation pour s'assurer que le modal est bien fermé
-    // et donner le temps au toast d'être visible
-    setTimeout(() => {
-      console.log(`Navigating to URL: ${url}`);
-      navigate(url);
-    }, 500); // Délai augmenté pour assurer la fermeture du dialogue avant la navigation
-  }, [navigate, clearSearch, toast]);
+  }, [clearSearch, toast]);
 
   return (
     <SearchContext.Provider
