@@ -61,5 +61,13 @@
   "languageSwitcher": {
     "fr": "FR",
     "en": "EN"
+  },
+  "blog": {
+    "title": "Conseils & Actualités",
+    "subtitle": "Restez informé sur l'immigration, la carrière et l'expatriation"
+  },
+  "faq": {
+    "title": "Foire Aux Questions",
+    "subtitle": "Trouvez rapidement des réponses à vos questions les plus fréquentes"
   }
 }
