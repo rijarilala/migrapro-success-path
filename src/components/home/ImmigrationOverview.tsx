@@ -15,6 +15,9 @@ const ImmigrationOverview = () => {
       behavior: 'smooth'
     });
   };
+
+  // Extract benefits as array with proper typing
+  const benefits = t('immigration.benefits', { returnObjects: true }) as string[];
   
   return <section className="py-16 md:py-24 bg-gradient-to-br from-migrapro-bleu-ciel/5 to-white">
       <div className="container mx-auto px-4">
@@ -33,7 +36,7 @@ const ImmigrationOverview = () => {
             </p>
 
             <ul className="space-y-4 mb-8">
-              {t('immigration.benefits', { returnObjects: true }).map((benefit: string, index: number) => (
+              {benefits.map((benefit: string, index: number) => (
                 <li key={index} className="flex items-center gap-3">
                   <CheckCircle className="h-5 w-5 text-migrapro-bleu-ciel" />
                   <span className="text-gray-700">{benefit}</span>
