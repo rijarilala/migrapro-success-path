@@ -3,6 +3,7 @@ import { createContext, useContext, useState, ReactNode, useCallback } from 'rea
 import { SearchResult, searchAll, groupSearchResults } from '@/services/searchService';
 import { useDebounce } from '@/hooks/use-debounce';
 import { useToast } from '@/components/ui/use-toast';
+import { useNavigate } from 'react-router-dom';
 
 interface SearchContextType {
   isOpen: boolean;
@@ -28,6 +29,7 @@ export function SearchProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   // Utiliser useDebounce pour éviter trop de recherches pendant la frappe
   const debouncedSearch = useDebounce(async (searchQuery: string) => {
@@ -67,21 +69,56 @@ export function SearchProvider({ children }: { children: ReactNode }) {
     setSelectedCategory(null);
   }, []);
 
-  // Gestion simplifiée des clics sur les résultats, sans redirection spécifique
+  // Enhanced result click handler with navigation
   const handleResultClick = useCallback((result: SearchResult) => {
-    // Fermer la boîte de dialogue de recherche
+    // Close the search dialog
     setIsOpen(false);
     
-    // Effacer la recherche
+    // Clear the search
     clearSearch();
     
-    // Afficher un toast générique
-    toast({
-      title: "Information",
-      description: "La fonctionnalité de redirection spécifique a été désactivée.",
-      duration: 3000,
-    });
-  }, [clearSearch, toast]);
+    // Handle navigation based on result type
+    setTimeout(() => {
+      switch (result.type) {
+        case 'formation':
+          // Navigate to formation page with modal parameter
+          toast({
+            title: "Redirection",
+            description: `Navigation vers la formation: ${result.title}`,
+            duration: 2000,
+          });
+          navigate(`/services/formation?showModal=${result.formationId}`);
+          break;
+          
+        case 'faq':
+          // Navigate to FAQ page with category and question parameters
+          toast({
+            title: "Redirection",
+            description: `Navigation vers la FAQ: ${result.question}`,
+            duration: 2000,
+          });
+          navigate(`/blog?category=${result.faqCategory}&question=${result.id}`);
+          break;
+          
+        case 'page':
+          // Simple page navigation
+          toast({
+            title: "Redirection",
+            description: `Navigation vers: ${result.title}`,
+            duration: 2000,
+          });
+          navigate(result.path);
+          break;
+          
+        default:
+          toast({
+            title: "Information",
+            description: "Redirection non disponible pour ce type de résultat.",
+            duration: 3000,
+          });
+      }
+    }, 100); // Small delay to ensure the dialog closes first
+  }, [clearSearch, navigate, toast]);
 
   return (
     <SearchContext.Provider

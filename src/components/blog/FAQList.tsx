@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { 
   Accordion, 
   AccordionContent, 
@@ -7,6 +7,12 @@ import {
   AccordionTrigger 
 } from "@/components/ui/accordion";
 import FAQCategories from "./FAQCategories";
+import { useToast } from '@/components/ui/use-toast';
+
+interface FAQListProps {
+  initialCategory?: string | null;
+  initialQuestionId?: string | null;
+}
 
 // Extended FAQ data with categories
 const faqsData = [
@@ -78,8 +84,64 @@ const faqsData = [
   }
 ];
 
-const FAQList = () => {
-  const [activeCategory, setActiveCategory] = useState<string>("general");
+const FAQList = ({ initialCategory = null, initialQuestionId = null }: FAQListProps) => {
+  const [activeCategory, setActiveCategory] = useState<string>(initialCategory || "general");
+  const [expandedItems, setExpandedItems] = useState<string[]>([]);
+  const accordionRefs = useRef<Record<string, HTMLElement | null>>({});
+  const { toast } = useToast();
+
+  useEffect(() => {
+    // Update active category if provided externally
+    if (initialCategory) {
+      setActiveCategory(initialCategory);
+    }
+  }, [initialCategory]);
+
+  useEffect(() => {
+    // If we have an initial question to expand
+    if (initialQuestionId) {
+      // Find the FAQ item with the matching ID
+      const faqItem = faqsData.find(faq => faq.id === initialQuestionId);
+      
+      if (faqItem) {
+        // Set the correct category first
+        setActiveCategory(faqItem.category);
+        
+        // Delay to ensure the DOM has updated with the new category
+        setTimeout(() => {
+          // Set the expanded item
+          setExpandedItems([`item-${faqsData.indexOf(faqItem)}`]);
+          
+          // Find and scroll to the FAQ item
+          const faqElement = document.getElementById(`faq-${faqItem.id}`);
+          if (faqElement) {
+            faqElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            // Add highlight effect
+            faqElement.classList.add('bg-yellow-100');
+            setTimeout(() => {
+              faqElement.classList.remove('bg-yellow-100');
+            }, 2000); // Remove highlight after 2 seconds
+            
+            // Show toast notification
+            toast({
+              title: "Question trouvée",
+              description: "Voici la réponse à votre question.",
+              duration: 3000,
+            });
+          } else {
+            console.error("FAQ element not found:", faqItem.id);
+            toast({
+              title: "Erreur",
+              description: "Impossible de trouver la question spécifiée.",
+              variant: "destructive",
+              duration: 3000,
+            });
+          }
+        }, 300);
+      }
+    }
+  }, [initialQuestionId, toast]);
 
   const filteredFaqs = faqsData.filter(faq => 
     activeCategory === "general" || faq.category === activeCategory
@@ -94,13 +156,22 @@ const FAQList = () => {
 
       <div className="bg-white shadow-sm rounded-lg">
         {filteredFaqs.length > 0 ? (
-          <Accordion type="single" collapsible className="divide-y">
+          <Accordion 
+            type="single" 
+            collapsible 
+            className="divide-y"
+            value={expandedItems[0]}
+            onValueChange={(value) => setExpandedItems(value ? [value] : [])}
+          >
             {filteredFaqs.map((faq, index) => (
               <AccordionItem 
                 key={index} 
                 value={`item-${index}`} 
-                className="border-none"
-                id={`faq-${faq.id}`} // Added ID for direct navigation
+                className="border-none transition-colors duration-300"
+                id={`faq-${faq.id}`}
+                ref={(el) => {
+                  if (el) accordionRefs.current[`faq-${faq.id}`] = el;
+                }}
               >
                 <AccordionTrigger 
                   className="px-4 md:px-6 py-3 md:py-4 text-left hover:no-underline text-sm md:text-base"
