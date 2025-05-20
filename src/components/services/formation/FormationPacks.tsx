@@ -57,7 +57,7 @@ const FormationPacks = () => {
         {
           id: 'cv',
           title: "Rédaction de CV",
-          description: "Apprenez à rédiger un CV pertinent et adapté aux standards malgaches et canadiens pour maximiser vos chances auprès des recruteurs.",
+          description: "Apprenez à rédiger un CV impactant et adapté aux standards malgaches et canadiens pour maximiser vos chances auprès des recruteurs.",
           duration: "4h",
           icon: <FileText className="h-6 w-6 text-migrapro-terre-cuite" />,
           image: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?q=80&w=800&auto=format&fit=crop"
@@ -354,3 +354,4 @@ const FormationPacks = () => {
 };
 
 export default FormationPacks;
+

@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -30,7 +31,7 @@ const FormationCategories = () => {
     id: 'cv',
     title: "Rédaction de CV",
     subtitle: "Local & Canadien",
-    description: "Apprenez à rédiger un CV pertinent et adapté aux standards malgaches et canadiens pour maximiser vos chances auprès des recruteurs.",
+    description: "Apprenez à rédiger un CV impactant et adapté aux standards malgaches et canadiens pour maximiser vos chances auprès des recruteurs.",
     objective: "Maîtriser la structure, le contenu et le format d'un CV efficace pour le marché local et international. Apprendre à valoriser ses compétences et expériences de manière stratégique.",
     targetAudience: "Jeunes diplômés, personnes en reconversion, candidats à l'immigration, chercheurs d'emploi",
     duration: "4h",
@@ -322,3 +323,4 @@ const FormationCategories = () => {
 };
 
 export default FormationCategories;
+
