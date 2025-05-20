@@ -11,7 +11,7 @@ const Hero = () => {
   return <div className="relative bg-gradient-to-r from-gray-50 to-gray-100">
       {/* Hero background image overlay with gradient */}
       <div className="absolute inset-0 bg-cover bg-center bg-blend-overlay bg-black/10 bg-fixed" style={{
-      backgroundImage: `url('https://images.unsplash.com/photo-1517935706615-2717063c2225?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80')`,
+      backgroundImage: `url('/lovable-uploads/3aed065b-d8e0-4844-9f24-d717e00a61cf.png')`,
       backgroundSize: 'cover'
     }}></div>
       
