@@ -43,10 +43,10 @@ const ScrollToTop = () => {
   return null;
 };
 
-// Define AppContent as a separate component that includes SearchProvider
+// Define AppContent as a separate component without SearchProvider
 const AppContent = () => {
   return (
-    <SearchProvider>
+    <>
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Index />} />
@@ -71,7 +71,7 @@ const AppContent = () => {
         <Route path="*" element={<NotFound />} />
       </Routes>
       <BackToTop />
-    </SearchProvider>
+    </>
   );
 };
 
@@ -84,7 +84,9 @@ function App() {
           <Toaster />
           <Sonner />
           <BrowserRouter>
-            <AppContent />
+            <SearchProvider>
+              <AppContent />
+            </SearchProvider>
           </BrowserRouter>
         </LanguageProvider>
       </TooltipProvider>
