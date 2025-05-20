@@ -39,6 +39,7 @@ const formations: SearchableFormation[] = [
   { id: '9', title: 'Préparation à la recherche d\'emploi (5h)', slug: 'recherche-emploi', category: 'Emploi', type: 'formation' },
   { id: '10', title: 'Transition vie étudiante – vie professionnelle (4h)', slug: 'transition', category: 'Orientation', type: 'formation' },
   { id: '11', title: 'Gestion des Ressources Humaines – Fondamentaux, stratégie & pratique (6h)', slug: 'grh', category: 'Compétences RH', type: 'formation' },
+  { id: '12', title: 'Préparation à la recherche du premier emploi / nouveau emploi', slug: 'premier-emploi', category: 'Insertion Professionnelle', type: 'formation' },
 ];
 
 const pages: SearchablePage[] = [
