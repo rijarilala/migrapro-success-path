@@ -1,10 +1,7 @@
-
 import { Link } from 'react-router-dom';
 import { Facebook, Twitter, Instagram, Mail, Phone, MapPin } from 'lucide-react';
-
 const Footer = () => {
-  return (
-    <footer className="bg-migrapro-bleu-ciel text-white">
+  return <footer className="bg-migrapro-bleu-ciel text-white">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Logo & Description */}
@@ -23,16 +20,16 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center gap-2">
                 <MapPin size={18} className="text-migrapro-terre-cuite" />
-                <span>Moramanga, Madagascar</span>
+                <span>Lot A351, Moramanga Ville 514</span>
               </div>
               <div className="flex items-center gap-2">
               <Mail size={20} className="text-migrapro-terre-cuite" />
-                <a href="mailto:contact@successpath.com" >
+                <a href="mailto:contact@successpath.com">
                   contact@umegreatpro.com
                 </a>
               </div>
               <div className="flex items-center gap-2">
-              <Phone size={20}className="text-migrapro-terre-cuite"  />
+              <Phone size={20} className="text-migrapro-terre-cuite" />
                 <a href="tel:+261340535068">
                   +261 34 05 350 68
                 </a>
@@ -76,31 +73,13 @@ const Footer = () => {
           <div className="space-y-4">
             <h3 className="font-heading font-semibold text-xl">Suivez-nous</h3>
             <div className="flex gap-4">
-              <a 
-                href="https://facebook.com" 
-                target="_blank" 
-                rel="noreferrer" 
-                className="bg-white bg-opacity-20 p-2 rounded-full hover:bg-migrapro-terre-cuite transition-colors"
-                aria-label="Facebook"
-              >
+              <a href="https://facebook.com" target="_blank" rel="noreferrer" className="bg-white bg-opacity-20 p-2 rounded-full hover:bg-migrapro-terre-cuite transition-colors" aria-label="Facebook">
                 <Facebook size={20} />
               </a>
-              <a 
-                href="https://twitter.com" 
-                target="_blank" 
-                rel="noreferrer" 
-                className="bg-white bg-opacity-20 p-2 rounded-full hover:bg-migrapro-terre-cuite transition-colors"
-                aria-label="Twitter"
-              >
+              <a href="https://twitter.com" target="_blank" rel="noreferrer" className="bg-white bg-opacity-20 p-2 rounded-full hover:bg-migrapro-terre-cuite transition-colors" aria-label="Twitter">
                 <Twitter size={20} />
               </a>
-              <a 
-                href="https://instagram.com" 
-                target="_blank" 
-                rel="noreferrer" 
-                className="bg-white bg-opacity-20 p-2 rounded-full hover:bg-migrapro-terre-cuite transition-colors"
-                aria-label="Instagram"
-              >
+              <a href="https://instagram.com" target="_blank" rel="noreferrer" className="bg-white bg-opacity-20 p-2 rounded-full hover:bg-migrapro-terre-cuite transition-colors" aria-label="Instagram">
                 <Instagram size={20} />
               </a>
             </div>
@@ -111,8 +90,6 @@ const Footer = () => {
           <p>&copy; {new Date().getFullYear()}UMEGREAT Pro. Tous droits réservés.</p>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
-
 export default Footer;
