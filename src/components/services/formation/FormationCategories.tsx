@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetFooter } from '@/components/ui/sheet';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Briefcase, FileText, GraduationCap, Mail, Users, Clock, Info, X, Package } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -23,7 +23,7 @@ type Formation = {
   image: string;
 };
 const FormationCategories = () => {
-  const [openSheet, setOpenSheet] = useState<string | null>(null);
+  const [openDialog, setOpenDialog] = useState<string | null>(null);
   const formations: Formation[] = [{
     id: 'cv',
     title: "Rédaction de CV",
@@ -91,7 +91,7 @@ const FormationCategories = () => {
     image: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&auto=format&fit=crop"
   }];
   const getCurrentFormation = () => {
-    return formations.find(formation => formation.id === openSheet);
+    return formations.find(formation => formation.id === openDialog);
   };
   const getColorForCategory = (category: 'professional' | 'hr') => {
     return category === 'professional' ? 'migrapro-terre-cuite' : 'migrapro-bleu-ciel';
@@ -129,7 +129,7 @@ const FormationCategories = () => {
                     <Clock className="h-4 w-4 text-gray-500" />
                     <span className="text-sm text-gray-700">{formation.duration}</span>
                   </div>
-                  <Button variant="outline" size="sm" className="flex gap-1" onClick={() => setOpenSheet(formation.id)}>
+                  <Button variant="outline" size="sm" className="flex gap-1" onClick={() => setOpenDialog(formation.id)}>
                     <Info className="h-4 w-4" />
                     <span>Détails</span>
                   </Button>
@@ -171,7 +171,7 @@ const FormationCategories = () => {
                     <Clock className="h-4 w-4 text-gray-500" />
                     <span className="text-sm text-gray-700">{formation.duration}</span>
                   </div>
-                  <Button variant="outline" size="sm" className="flex gap-1" onClick={() => setOpenSheet(formation.id)}>
+                  <Button variant="outline" size="sm" className="flex gap-1" onClick={() => setOpenDialog(formation.id)}>
                     <Info className="h-4 w-4" />
                     <span>Détails</span>
                   </Button>
@@ -181,18 +181,18 @@ const FormationCategories = () => {
         </div>
       </div>
 
-      {/* Sheet pour le détail des formations */}
-      <Sheet open={!!openSheet} onOpenChange={open => setOpenSheet(open ? openSheet : null)}>
-        <SheetContent side="right" className="w-full sm:w-[500px] max-w-full p-0 overflow-hidden flex flex-col">
+      {/* Dialog pour le détail des formations - Centré au milieu de l'écran */}
+      <Dialog open={!!openDialog} onOpenChange={open => setOpenDialog(open ? openDialog : null)}>
+        <DialogContent className="sm:max-w-[600px] p-0 max-h-[85vh] overflow-hidden flex flex-col">
           {getCurrentFormation() && <>
               <div className={`bg-${getColorForCategory(getCurrentFormation()?.category || 'professional')}/10 py-4 px-6 flex justify-between items-center`}>
                 <div className="flex flex-col">
-                  <SheetTitle className="text-2xl">{getCurrentFormation()?.title}</SheetTitle>
+                  <DialogTitle className="text-2xl">{getCurrentFormation()?.title}</DialogTitle>
                   <p className={`text-${getColorForCategory(getCurrentFormation()?.category || 'professional')} text-sm font-medium`}>
                     {getCurrentFormation()?.subtitle}
                   </p>
                 </div>
-                <Button variant="ghost" size="icon" className="rounded-full hover:bg-gray-200" onClick={() => setOpenSheet(null)}>
+                <Button variant="ghost" size="icon" className="rounded-full hover:bg-gray-200" onClick={() => setOpenDialog(null)}>
                   <X className="h-5 w-5" />
                 </Button>
               </div>
@@ -200,9 +200,14 @@ const FormationCategories = () => {
               <ScrollArea className="flex-1 overflow-auto px-6 py-4">
                 <div className="space-y-5">
                   <div className="w-full h-48 overflow-hidden rounded-md mb-6">
-                    <img src={getCurrentFormation()?.image} alt={getCurrentFormation()?.title} className="w-full h-full object-cover" onError={e => {
-                  (e.target as HTMLImageElement).src = "/placeholder.svg";
-                }} />
+                    <img 
+                      src={getCurrentFormation()?.image} 
+                      alt={getCurrentFormation()?.title} 
+                      className="w-full h-full object-cover" 
+                      onError={e => {
+                        (e.target as HTMLImageElement).src = "/placeholder.svg";
+                      }} 
+                    />
                   </div>
                   
                   <div>
@@ -232,20 +237,23 @@ const FormationCategories = () => {
                     <div>
                       <h4 className="font-medium text-sm text-gray-500 mb-1">Format</h4>
                       <div className="flex gap-2">
-                        {getCurrentFormation()?.format.map(fmt => <Badge key={fmt} variant="outline" className="bg-gray-50">
+                        {getCurrentFormation()?.format.map(fmt => (
+                          <Badge key={fmt} variant="outline" className="bg-gray-50">
                             {fmt}
-                          </Badge>)}
+                          </Badge>
+                        ))}
                       </div>
                     </div>
                   </div>
                   
-                  {getCurrentFormation()?.includedInPacks && getCurrentFormation()?.includedInPacks.length > 0 && <div className="border-t pt-4 mt-4">
+                  {getCurrentFormation()?.includedInPacks && getCurrentFormation()?.includedInPacks.length > 0 && (
+                    <div className="border-t pt-4 mt-4">
                       <p className="font-medium mb-2">
                         Cette formation est incluse dans :
                       </p>
                       <div className="flex gap-2 mt-2">
                         {getCurrentFormation()?.includedInPacks.includes('pack-insertion-pro') && <Button variant="outline" className="bg-migrapro-terre-cuite/10 border border-migrapro-terre-cuite/20 hover:bg-migrapro-terre-cuite/20 rounded-md p-3 flex items-center gap-2 h-auto" onClick={() => {
-                    setOpenSheet(null);
+                    setOpenDialog(null);
                     // Navigate to packs tab and scroll to the pack
                     const tabsElement = document.querySelector('[value="packs"]');
                     if (tabsElement) {
@@ -265,7 +273,7 @@ const FormationCategories = () => {
                             <span className="font-medium">Pack Insertion Pro</span>
                           </Button>}
                         {getCurrentFormation()?.includedInPacks.includes('pack-rh-starter') && <Button variant="outline" className="bg-migrapro-bleu-ciel/10 border border-migrapro-bleu-ciel/20 hover:bg-migrapro-bleu-ciel/20 rounded-md p-3 flex items-center gap-2 h-auto" onClick={() => {
-                    setOpenSheet(null);
+                    setOpenDialog(null);
                     // Navigate to packs tab and scroll to the pack
                     const tabsElement = document.querySelector('[value="packs"]');
                     if (tabsElement) {
@@ -285,25 +293,26 @@ const FormationCategories = () => {
                             <span className="font-medium">Pack RH Starter</span>
                           </Button>}
                       </div>
-                    </div>}
+                    </div>
+                  )}
                   
                   <div className="h-20"></div> {/* Espace pour éviter que le contenu soit caché derrière le footer */}
                 </div>
               </ScrollArea>
 
-              <SheetFooter className="px-6 py-4 border-t flex flex-col sm:flex-row gap-2 bg-white">
-                <Button variant="outline" onClick={() => setOpenSheet(null)} className="w-full sm:w-auto mx-0 my-0 py-[16px] px-0">
+              <DialogFooter className="px-6 py-4 border-t flex flex-col sm:flex-row gap-2 bg-white">
+                <Button variant="outline" onClick={() => setOpenDialog(null)} className="w-full sm:w-auto mx-0 my-0 py-[16px] px-0">
                   Retour aux formations
                 </Button>
                 <Button asChild className="w-full sm:w-auto">
-                  <Link to={`/contact?service=formation&course=${openSheet}`}>
+                  <Link to={`/contact?service=formation&course=${openDialog}`}>
                     Demander plus d'infos
                   </Link>
                 </Button>
-              </SheetFooter>
+              </DialogFooter>
             </>}
-        </SheetContent>
-      </Sheet>
+        </DialogContent>
+      </Dialog>
     </div>;
 };
 export default FormationCategories;
