@@ -26,6 +26,9 @@ const Blog = () => {
         });
       }
       
+      // Reset URL params to avoid issues with refreshing - do this early
+      window.history.replaceState({}, '', '/blog');
+      
       // Set a timeout to ensure DOM is fully loaded
       setTimeout(() => {
         try {
@@ -39,7 +42,7 @@ const Blog = () => {
               if (questionId) {
                 setTimeout(() => {
                   expandQuestion(questionId);
-                }, 500); // Increased timeout for better reliability
+                }, 800); // Increased timeout for better reliability
               }
             } else {
               console.error("Could not find category tab:", category);
@@ -48,15 +51,19 @@ const Blog = () => {
                 title: "Catégorie introuvable",
                 description: "La catégorie demandée n'a pas pu être trouvée",
               });
+              
+              // Try to expand the question anyway if it exists
+              if (questionId) {
+                setTimeout(() => {
+                  expandQuestion(questionId);
+                }, 500);
+              }
             }
           } 
           // If only question is specified, just expand it directly
           else if (questionId) {
             expandQuestion(questionId);
           }
-          
-          // Reset URL params to avoid issues with refreshing
-          window.history.replaceState({}, '', '/blog');
         } catch (error) {
           console.error("Error navigating to FAQ:", error);
           toast({
@@ -65,7 +72,7 @@ const Blog = () => {
             description: "Une erreur est survenue lors de l'accès à la FAQ",
           });
         }
-      }, 300);
+      }, 500);
     }
   }, [searchParams, toast]);
   
@@ -78,12 +85,11 @@ const Blog = () => {
         // Scroll to the question
         accordionItem.scrollIntoView({ behavior: 'smooth', block: 'start' });
         
-        // Add a highlight effect with more visibility
-        accordionItem.classList.add('bg-yellow-100');
+        // Add a stronger highlight effect with more visibility
+        accordionItem.classList.add('bg-yellow-200', 'transition-colors', 'duration-1500');
         setTimeout(() => {
-          accordionItem.classList.remove('bg-yellow-100');
-          accordionItem.classList.add('transition-colors', 'duration-1000');
-        }, 2000);
+          accordionItem.classList.remove('bg-yellow-200');
+        }, 2500);
         
         // Click to expand the accordion with retries if needed
         const trigger = accordionItem.querySelector('[data-state]');
@@ -95,16 +101,43 @@ const Blog = () => {
             if (trigger.getAttribute('data-state') === 'closed') {
               // Try one more time
               (trigger as HTMLElement).click();
+              
+              // Add another check
+              setTimeout(() => {
+                if (trigger.getAttribute('data-state') === 'closed') {
+                  console.error("Failed to expand FAQ accordion after multiple attempts");
+                  // Try a different approach - look for a button inside
+                  const button = accordionItem.querySelector('button');
+                  if (button) {
+                    button.click();
+                  }
+                }
+              }, 300);
             }
-          }, 300);
+          }, 400);
         }
       } else {
         console.error("Could not find FAQ with ID:", questionId);
-        toast({
-          variant: "destructive",
-          title: "Question introuvable",
-          description: "La question demandée n'a pas pu être trouvée",
-        });
+        
+        // Try with a delay as the DOM might still be updating
+        setTimeout(() => {
+          const retryAccordionItem = document.getElementById(`faq-${questionId}`);
+          if (retryAccordionItem) {
+            retryAccordionItem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            retryAccordionItem.classList.add('bg-yellow-200');
+            
+            const retryTrigger = retryAccordionItem.querySelector('[data-state]');
+            if (retryTrigger && retryTrigger.getAttribute('data-state') === 'closed') {
+              (retryTrigger as HTMLElement).click();
+            }
+          } else {
+            toast({
+              variant: "destructive",
+              title: "Question introuvable",
+              description: "La question demandée n'a pas pu être trouvée",
+            });
+          }
+        }, 1000);
       }
     } catch (error) {
       console.error("Error expanding question:", error);

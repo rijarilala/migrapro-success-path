@@ -14,10 +14,11 @@ const Formation = () => {
   const [shouldOpenModal, setShouldOpenModal] = useState<string | null>(null);
   const { toast } = useToast();
 
-  // Handle query params and hash navigation with improved timing
+  // Handle query params and hash navigation with improved timing and error handling
   useEffect(() => {
     // Check for showModal param which indicates a formation modal should be opened
     const modalToShow = searchParams.get('showModal');
+    
     if (modalToShow) {
       // Show toast to indicate that modal will open
       toast({
@@ -29,10 +30,9 @@ const Formation = () => {
       setShouldOpenModal(modalToShow);
       
       // Reset the URL so refreshing doesn't reopen the modal
-      // But keep this effect running only once per parameter change
       window.history.replaceState({}, '', '/services/formation');
       
-      // Use a slightly longer timeout to ensure DOM is fully loaded
+      // Use a longer timeout to ensure DOM is fully loaded
       setTimeout(() => {
         try {
           // Switch to formations tab if needed (as default is categories)
@@ -47,15 +47,14 @@ const Formation = () => {
                 // Scroll with animation to the element
                 formationElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 
-                // Apply highlight effect
-                formationElement.classList.add('bg-yellow-100');
+                // Apply stronger highlight effect
+                formationElement.classList.add('bg-yellow-200', 'transition-colors', 'duration-1000');
                 setTimeout(() => {
-                  formationElement.classList.remove('bg-yellow-100');
-                  formationElement.classList.add('transition-colors', 'duration-1000');
-                }, 1500);
+                  formationElement.classList.remove('bg-yellow-200');
+                }, 2000);
                 
                 // Find and click the "details" button for this formation
-                const detailButton = formationElement.querySelector('button');
+                const detailButton = formationElement.querySelector('button:last-child');
                 if (detailButton) {
                   detailButton.click(); // This will open the modal
                 } else {
@@ -71,10 +70,24 @@ const Formation = () => {
                 toast({
                   variant: "destructive",
                   title: "Formation introuvable",
-                  description: "La formation demandée n'a pas pu être trouvée",
+                  description: `La formation "${modalToShow}" n'a pas pu être trouvée`,
                 });
+                
+                // Fallback: Try again with a longer timeout
+                setTimeout(() => {
+                  const retryElement = document.getElementById(modalToShow);
+                  if (retryElement) {
+                    retryElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    retryElement.classList.add('bg-yellow-200', 'transition-colors', 'duration-1000');
+                    
+                    const retryButton = retryElement.querySelector('button:last-child');
+                    if (retryButton) {
+                      retryButton.click();
+                    }
+                  }
+                }, 1000);
               }
-            }, 500); // Increased timeout for better reliability
+            }, 800); // Increased timeout for better reliability
           }
         } catch (error) {
           console.error("Error opening formation modal:", error);
@@ -84,54 +97,56 @@ const Formation = () => {
             description: "Une erreur est survenue lors de l'ouverture de la formation",
           });
         }
-      }, 300); // Increased initial timeout for better reliability
+      }, 500); // Increased initial timeout for better reliability
     } else {
       // Handle hash navigation (for direct links to packs)
       const hash = location.hash;
       if (hash) {
         // Use a timeout to ensure DOM is ready
         setTimeout(() => {
-          if (hash.includes('pack')) {
-            // Switch to packs tab
-            const tabsElement = document.querySelector('[value="packs"]');
-            if (tabsElement) {
-              (tabsElement as HTMLElement).click();
-              // After tab switch, scroll to the specific pack
-              setTimeout(() => {
-                const packElement = document.querySelector(hash);
-                if (packElement) {
-                  packElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                  // Apply highlight effect
-                  packElement.classList.add('bg-yellow-100');
-                  setTimeout(() => {
-                    packElement.classList.remove('bg-yellow-100');
-                    packElement.classList.add('transition-colors', 'duration-1000');
-                  }, 1500);
-                }
-              }, 500);
+          try {
+            if (hash.includes('pack')) {
+              // Switch to packs tab
+              const tabsElement = document.querySelector('[value="packs"]');
+              if (tabsElement) {
+                (tabsElement as HTMLElement).click();
+                // After tab switch, scroll to the specific pack
+                setTimeout(() => {
+                  const packElement = document.querySelector(hash);
+                  if (packElement) {
+                    packElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    // Apply highlight effect
+                    packElement.classList.add('bg-yellow-200', 'transition-colors', 'duration-1500');
+                    setTimeout(() => {
+                      packElement.classList.remove('bg-yellow-200');
+                    }, 2000);
+                  }
+                }, 800);
+              }
+            } else {
+              // For other hash links (like individual formations)
+              // Need to be on the categories tab
+              const tabsElement = document.querySelector('[value="categories"]');
+              if (tabsElement) {
+                (tabsElement as HTMLElement).click();
+                // After tab switch, scroll to the specific formation
+                setTimeout(() => {
+                  const formationElement = document.querySelector(hash);
+                  if (formationElement) {
+                    formationElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    // Apply highlight effect
+                    formationElement.classList.add('bg-yellow-200', 'transition-colors', 'duration-1500');
+                    setTimeout(() => {
+                      formationElement.classList.remove('bg-yellow-200');
+                    }, 2000);
+                  }
+                }, 800);
+              }
             }
-          } else {
-            // For other hash links (like individual formations)
-            // Need to be on the categories tab
-            const tabsElement = document.querySelector('[value="categories"]');
-            if (tabsElement) {
-              (tabsElement as HTMLElement).click();
-              // After tab switch, scroll to the specific formation
-              setTimeout(() => {
-                const formationElement = document.querySelector(hash);
-                if (formationElement) {
-                  formationElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                  // Apply highlight effect
-                  formationElement.classList.add('bg-yellow-100');
-                  setTimeout(() => {
-                    formationElement.classList.remove('bg-yellow-100');
-                    formationElement.classList.add('transition-colors', 'duration-1000');
-                  }, 1500);
-                }
-              }, 500);
-            }
+          } catch (error) {
+            console.error("Error navigating to hash:", error, hash);
           }
-        }, 300);
+        }, 500);
       }
     }
   }, [location, searchParams, toast]);
