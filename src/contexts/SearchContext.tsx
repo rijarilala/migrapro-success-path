@@ -15,7 +15,7 @@ interface SearchContextType {
   setIsOpen: (isOpen: boolean) => void;
   clearSearch: () => void;
   setSelectedCategory: (category: string | null) => void;
-  handleResultClick: (result: SearchResult) => void; // Added method to handle result clicks
+  handleResultClick: (result: SearchResult) => void; // Méthode pour gérer les clics sur les résultats
 }
 
 const SearchContext = createContext<SearchContextType | undefined>(undefined);
@@ -67,31 +67,38 @@ export function SearchProvider({ children }: { children: ReactNode }) {
     setSelectedCategory(null);
   }, []);
 
-  // New method to handle result clicks with enhanced navigation
+  // Méthode améliorée pour gérer les clics sur les résultats
   const handleResultClick = useCallback((result: SearchResult) => {
-    // Determine the URL based on the result type and navigate
+    // Déterminer l'URL en fonction du type de résultat
     let url = '';
     
     switch (result.type) {
       case 'formation':
+        // Pour les formations, on utilise le paramètre showModal
         url = `/services/formation?showModal=${result.formationId}`;
         break;
       case 'page':
+        // Pour les pages, on utilise le chemin directement
         url = (result as any).path;
         break;
       case 'faq':
+        // Pour les FAQ, on ajoute la catégorie et l'index de la question
         url = `/blog?category=${(result as any).faqCategory}&question=${result.id}`;
         break;
       default:
         url = '/';
     }
 
-    // Close search dialog
+    // Fermer la boîte de dialogue de recherche
     setIsOpen(false);
-    // Clear search
+    
+    // Effacer la recherche
     clearSearch();
-    // Navigate to the URL
-    navigate(url);
+    
+    // Naviguer vers l'URL avec un délai pour permettre la fermeture du dialog
+    setTimeout(() => {
+      navigate(url);
+    }, 100);
   }, [navigate, clearSearch]);
 
   return (
