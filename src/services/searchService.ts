@@ -1,0 +1,171 @@
+
+import Fuse from 'fuse.js';
+
+// Interfaces pour les différents types de résultats
+export interface SearchableFormation {
+  id: string;
+  title: string;
+  slug: string;
+  category: string;
+  type: 'formation';
+}
+
+export interface SearchablePage {
+  title: string;
+  path: string;
+  type: 'page';
+}
+
+export interface SearchableFAQ {
+  id: string;
+  question: string;
+  answer: string;
+  category: string;
+  type: 'faq';
+}
+
+export type SearchResult = SearchableFormation | SearchablePage | SearchableFAQ;
+
+// Données de recherche mock - À remplacer par des données réelles
+const formations: SearchableFormation[] = [
+  { id: '1', title: 'Formation en Orientation Professionnelle', slug: 'orientation', category: 'Orientation', type: 'formation' },
+  { id: '2', title: 'Formation en Leadership', slug: 'leadership', category: 'Compétences', type: 'formation' },
+  { id: '3', title: 'Cours de français professionnel', slug: 'francais', category: 'Langues', type: 'formation' },
+  { id: '4', title: 'Préparation à l\'entretien d\'embauche', slug: 'entretien', category: 'Emploi', type: 'formation' },
+  { id: '5', title: 'Rédaction de CV canadien', slug: 'cv', category: 'Documentation', type: 'formation' },
+];
+
+const pages: SearchablePage[] = [
+  { title: 'Accueil', path: '/', type: 'page' },
+  { title: 'À propos', path: '/a-propos', type: 'page' },
+  { title: 'Services', path: '/services', type: 'page' },
+  { title: 'Contact', path: '/contact', type: 'page' },
+  { title: 'FAQ', path: '/blog', type: 'page' },
+  { title: 'Témoignages', path: '/temoignages', type: 'page' },
+  { title: 'Orientation Professionnelle', path: '/services/orientation', type: 'page' },
+  { title: 'Formation', path: '/services/formation', type: 'page' },
+  { title: 'Coaching', path: '/services/coaching', type: 'page' },
+  { title: 'Études au Canada', path: '/services/etudes-canada', type: 'page' },
+  { title: 'Pack Réussite', path: '/services/pack-reussite', type: 'page' },
+  { title: 'Immigration', path: '/services/immigration', type: 'page' },
+  { title: 'Recrutement', path: '/services/recrutement', type: 'page' },
+];
+
+const faqs: SearchableFAQ[] = [
+  { 
+    id: '1', 
+    question: 'Comment évaluer mon éligibilité pour l\'immigration au Canada?', 
+    answer: 'Vous pouvez utiliser notre outil d\'évaluation d\'éligibilité gratuit ou prendre rendez-vous pour une consultation personnalisée.',
+    category: 'Immigration',
+    type: 'faq'
+  },
+  { 
+    id: '2', 
+    question: 'Quels sont les documents nécessaires pour une demande de visa d\'études?', 
+    answer: 'Pour un visa d\'études, vous aurez besoin de votre lettre d\'acceptation, preuve de fonds suffisants, passeport valide et autres documents spécifiques.',
+    category: 'Études',
+    type: 'faq'
+  },
+  { 
+    id: '3', 
+    question: 'Comment fonctionne le Pack Réussite Professionnelle?', 
+    answer: 'Le Pack Réussite comprend la rédaction de CV, lettre de motivation et coaching d\'entretien, spécifiquement adaptés au marché canadien.',
+    category: 'Services',
+    type: 'faq'
+  },
+  { 
+    id: '4', 
+    question: 'Quelles sont les différences entre l\'Express Entry et le PEQ?', 
+    answer: 'L\'Express Entry est un système fédéral tandis que le PEQ est un programme provincial québécois, chacun avec des critères d\'admissibilité différents.',
+    category: 'Immigration',
+    type: 'faq'
+  },
+  { 
+    id: '5', 
+    question: 'Comment se préparer pour une entrevue d\'embauche au Canada?', 
+    answer: 'Notre service de coaching vous prépare avec des simulations d\'entretien, des conseils culturels et des techniques de présentation adaptées.',
+    category: 'Emploi',
+    type: 'faq'
+  },
+];
+
+// Configuration de Fuse.js pour la recherche floue
+const fuseOptions = {
+  includeScore: true,
+  threshold: 0.3,
+  keys: [
+    'title',
+    'question',
+    'path',
+    'category',
+    'answer'
+  ]
+};
+
+// Création de l'instance de Fuse avec toutes les données
+const allData: SearchResult[] = [...formations, ...pages, ...faqs];
+const fuse = new Fuse(allData, fuseOptions);
+
+// Fonction pour effectuer une recherche
+export function searchAll(query: string): SearchResult[] {
+  if (!query.trim()) return [];
+  
+  const results = fuse.search(query);
+  return results.map(result => result.item);
+}
+
+// Fonction pour regrouper les résultats par type
+export function groupSearchResults(results: SearchResult[]): Record<string, SearchResult[]> {
+  const grouped: Record<string, SearchResult[]> = {
+    formation: [],
+    page: [],
+    faq: []
+  };
+
+  results.forEach(result => {
+    grouped[result.type].push(result);
+  });
+
+  return grouped;
+}
+
+// Fonction pour mettre en surbrillance le texte correspondant
+export function highlightMatch(text: string, query: string): string {
+  if (!query.trim()) return text;
+  
+  // Échapper les caractères spéciaux pour éviter les problèmes de regex
+  const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  
+  // Créer une expression régulière pour trouver toutes les occurrences, insensible à la casse
+  const regex = new RegExp(`(${escapedQuery})`, 'gi');
+  
+  // Remplacer les correspondances par le même texte mais entouré de balises de surbrillance
+  return text.replace(regex, '<mark>$1</mark>');
+}
+
+// Fonction pour obtenir le lien correct pour chaque type de résultat
+export function getResultUrl(result: SearchResult): string {
+  switch (result.type) {
+    case 'formation':
+      return `/services/formation#${result.slug}`;
+    case 'page':
+      return (result as SearchablePage).path;
+    case 'faq':
+      return `/blog#faq-${result.id}`;
+    default:
+      return '/';
+  }
+}
+
+// Renvoie les catégories de résultats disponibles (pour l'affichage des filtres)
+export function getAvailableCategories(results: SearchResult[]): string[] {
+  const categories = new Set<string>();
+  
+  results.forEach(result => {
+    if (result.type === 'formation' || result.type === 'faq') {
+      categories.add((result as SearchableFormation | SearchableFAQ).category);
+    }
+  });
+  
+  return Array.from(categories);
+}

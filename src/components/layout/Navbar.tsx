@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Menu, ChevronDown, User, LogOut } from 'lucide-react';
@@ -7,6 +8,7 @@ import { MobileNav } from './MobileNav';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
+import SearchCommand from '@/components/search/SearchCommand';
 import LanguageSwitcher from './LanguageSwitcher';
 import { useTranslation } from 'react-i18next';
 
@@ -108,6 +110,9 @@ const Navbar = () => {
         <div className="hidden md:flex items-center gap-4">
           {/* Language Switcher */}
           <LanguageSwitcher />
+          
+          {/* Search Component */}
+          <SearchCommand className="ml-auto mr-2" />
 
           {/* User Menu or CTA Button */}
           {isAuthenticated ? (
@@ -140,6 +145,7 @@ const Navbar = () => {
           {/* Language Switcher for Mobile */}
           <LanguageSwitcher variant="minimal" />
           
+          <SearchCommand />
           <Button variant="ghost" size="icon" onClick={() => setIsMenuOpen(true)}>
             <Menu className="h-6 w-6" />
             <span className="sr-only">Menu</span>
