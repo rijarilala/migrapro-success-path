@@ -1,4 +1,3 @@
-
 import Fuse from 'fuse.js';
 
 // Interfaces pour les différents types de résultats
@@ -33,6 +32,12 @@ const formations: SearchableFormation[] = [
   { id: '3', title: 'Cours de français professionnel', slug: 'francais', category: 'Langues', type: 'formation' },
   { id: '4', title: 'Préparation à l\'entretien d\'embauche', slug: 'entretien', category: 'Emploi', type: 'formation' },
   { id: '5', title: 'Rédaction de CV canadien', slug: 'cv', category: 'Documentation', type: 'formation' },
+  { id: '6', title: 'Rédaction de CV (4h)', slug: 'redaction-cv', category: 'Documentation', type: 'formation' },
+  { id: '7', title: 'Lettre de motivation (3h)', slug: 'lettre-motivation', category: 'Documentation', type: 'formation' },
+  { id: '8', title: 'Créer et optimiser son profil LinkedIn (3h)', slug: 'linkedin', category: 'Emploi', type: 'formation' },
+  { id: '9', title: 'Préparation à la recherche d\'emploi (5h)', slug: 'recherche-emploi', category: 'Emploi', type: 'formation' },
+  { id: '10', title: 'Transition vie étudiante – vie professionnelle (4h)', slug: 'transition', category: 'Orientation', type: 'formation' },
+  { id: '11', title: 'Gestion des Ressources Humaines – Fondamentaux, stratégie & pratique (6h)', slug: 'grh', category: 'Compétences RH', type: 'formation' },
 ];
 
 const pages: SearchablePage[] = [
