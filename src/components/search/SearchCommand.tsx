@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef, KeyboardEvent } from 'react';
 import { Command } from 'cmdk';
 import { Search, Loader2, X } from 'lucide-react';
@@ -128,14 +127,15 @@ const SearchCommand = ({ className }: SearchCommandProps) => {
       <DialogTrigger asChild>
         <Button
           variant="outline"
+          size="icon"
           className={cn(
-            "relative w-full justify-start text-sm text-muted-foreground md:w-64 lg:w-80",
+            "relative justify-center",
             className
           )}
           onClick={() => setIsOpen(true)}
         >
-          <Search className="mr-2 h-4 w-4" />
-          <span>{t('hero.searchPlaceholder')}</span>
+          <Search className="h-4 w-4" />
+          <span className="sr-only">{t('hero.searchPlaceholder')}</span>
         </Button>
       </DialogTrigger>
       <DialogContent className="p-0 gap-0" onKeyDown={handleKeyDown}>

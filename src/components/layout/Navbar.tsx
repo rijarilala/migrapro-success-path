@@ -111,8 +111,8 @@ const Navbar = () => {
           {/* Language Switcher */}
           <LanguageSwitcher />
           
-          {/* Search Component */}
-          <SearchCommand className="ml-auto mr-2" />
+          {/* Search Component - réduction de la taille */}
+          <SearchCommand className="w-40" />
 
           {/* User Menu or CTA Button */}
           {isAuthenticated ? (
