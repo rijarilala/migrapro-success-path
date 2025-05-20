@@ -67,7 +67,7 @@ const FormationPacks = () => {
           description: "Maîtrisez l'art de la lettre de motivation convaincante avec des techniques concrètes et des modèles adaptés à chaque situation.",
           duration: "3h",
           icon: <Mail className="h-6 w-6 text-migrapro-terre-cuite" />,
-          image: "https://images.unsplash.com/photo-1586282391129-76a2df06b8fe?q=80&w=800&auto=format&fit=crop"
+          image: "/lovable-uploads/e3b8f6e0-84bd-41c2-b3f3-d515446dc1fc.png"
         },
         {
           id: 'recherche-emploi',

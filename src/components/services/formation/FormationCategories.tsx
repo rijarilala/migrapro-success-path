@@ -51,7 +51,7 @@ const FormationCategories = () => {
     category: 'professional',
     icon: <Mail className="h-12 w-12 text-migrapro-terre-cuite" />,
     includedInPacks: ['pack-insertion-pro'],
-    image: "https://images.unsplash.com/photo-1586282391129-76a2df06b8fe?q=80&w=800&auto=format&fit=crop"
+    image: "/lovable-uploads/e3b8f6e0-84bd-41c2-b3f3-d515446dc1fc.png"
   }, {
     id: 'recherche-emploi',
     title: "Préparation à la recherche d'emploi",
