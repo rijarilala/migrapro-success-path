@@ -16,6 +16,7 @@ type Pack = {
   benefits: string[];
   price: string;
   duration: string;
+  format: string;
   targetAudience: string;
   color: string;
   icon: JSX.Element;
@@ -47,6 +48,7 @@ const FormationPacks = () => {
       ],
       price: "Contactez-nous",
       duration: "16h",
+      format: "Présentiel",
       targetAudience: "Jeunes diplômés, personnes en reconversion, candidats à l'immigration, chercheurs d'emploi",
       color: "migrapro-terre-cuite",
       icon: <Package className="h-12 w-12 text-migrapro-terre-cuite" />,
@@ -98,6 +100,7 @@ const FormationPacks = () => {
       ],
       price: "Contactez-nous",
       duration: "8h",
+      format: "Présentiel",
       targetAudience: "Managers, assistants RH, entrepreneurs, responsables d'équipe",
       color: "migrapro-bleu-ciel",
       icon: <Package className="h-12 w-12 text-migrapro-bleu-ciel" />,
@@ -199,6 +202,11 @@ const FormationPacks = () => {
                   <span className="text-sm text-gray-500">Tarif</span>
                   <span className="font-medium">{pack.price}</span>
                 </div>
+              </div>
+
+              <div className="flex flex-col items-center bg-gray-50 p-3 rounded-md">
+                <span className="text-sm text-gray-500">Format</span>
+                <span className="font-medium">{pack.format}</span>
               </div>
 
               <div className="space-y-4 pt-2">
@@ -303,9 +311,13 @@ const FormationPacks = () => {
                     <p className="text-sm">{getCurrentPack()?.targetAudience}</p>
                   </div>
                   <div>
-                    <h5 className="text-sm text-gray-500">Tarif pack complet</h5>
-                    <p className="text-sm font-medium">{getCurrentPack()?.price}</p>
+                    <h5 className="text-sm text-gray-500">Format</h5>
+                    <p className="text-sm font-medium">{getCurrentPack()?.format}</p>
                   </div>
+                </div>
+                <div className="mt-4">
+                  <h5 className="text-sm text-gray-500">Tarif pack complet</h5>
+                  <p className="text-sm font-medium">{getCurrentPack()?.price}</p>
                 </div>
               </div>
 

@@ -10,7 +10,7 @@ const FormationCourses = () => {
       subtitle: "Local & Canadien",
       description: "Apprenez à rédiger un CV pertinente et adapté aux standards malgaches et canadiens pour maximiser vos chances auprès des recruteurs.",
       duration: "4h",
-      format: ["En ligne", "Présentiel"],
+      format: ["Présentiel"],
       icon: <FileText className="h-12 w-12 text-migrapro-terre-cuite" />
     },
     {
@@ -18,7 +18,7 @@ const FormationCourses = () => {
       subtitle: "Techniques & Exemples",
       description: "Maîtrisez l'art de la lettre de motivation efficace avec des techniques concrètes et des modèles adaptés à chaque situation.",
       duration: "3h",
-      format: ["En ligne", "Présentiel"],
+      format: ["Présentiel"],
       icon: <Mail className="h-12 w-12 text-migrapro-terre-cuite" />
     },
     {
@@ -26,7 +26,7 @@ const FormationCourses = () => {
       subtitle: "Démarches & outils",
       description: "Découvrez les stratégies, méthodes de prospection, et outils indispensables pour décrocher rapidement votre premier ou nouveau poste.",
       duration: "5h",
-      format: ["En ligne", "Présentiel"],
+      format: ["Présentiel"],
       icon: <Briefcase className="h-12 w-12 text-migrapro-terre-cuite" />
     },
     {
@@ -34,7 +34,7 @@ const FormationCourses = () => {
       subtitle: "Accompagnement personnalisé",
       description: "Facilitez votre passage des études au marché du travail grâce à un accompagnement ciblé pour valoriser vos compétences et bien démarrer.",
       duration: "4h",
-      format: ["En ligne", "Présentiel"],
+      format: ["Présentiel"],
       icon: <GraduationCap className="h-12 w-12 text-migrapro-terre-cuite" />
     },
     {
@@ -42,7 +42,7 @@ const FormationCourses = () => {
       subtitle: "Fondamentaux, stratégie & pratique – adaptés à votre secteur",
       description: "Maîtrisez les bases et les stratégies RH, tout en découvrant leur mise en œuvre concrète à travers des exercices pratiques. Notre programme est conçu pour être modulable, permettant une adaptation aux spécificités de votre domaine d'activité (industrie, services, santé, etc.), afin de répondre au mieux à vos besoins opérationnels.",
       duration: "6h",
-      format: ["En ligne", "Présentiel"],
+      format: ["Présentiel"],
       icon: <Briefcase className="h-12 w-12 text-migrapro-terre-cuite" />
     }
   ];
@@ -94,9 +94,9 @@ const FormationCourses = () => {
         </div>
 
         <div className="mt-12 text-center bg-gray-50 p-6 rounded-lg max-w-3xl mx-auto">
-          <h3 className="text-xl font-semibold mb-3 text-migrapro-terre-cuite">Formats disponibles</h3>
+          <h3 className="text-xl font-semibold mb-3 text-migrapro-terre-cuite">Format disponible</h3>
           <p className="text-gray-700">
-            Sessions en ligne via Zoom/Teams ou en présentiel à Moramanga<br />
+            Sessions en présentiel à Moramanga<br />
             Durées modulaires de 2h à 6h par module selon vos besoins
           </p>
         </div>

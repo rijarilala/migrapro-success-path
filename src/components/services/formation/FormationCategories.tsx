@@ -22,8 +22,10 @@ type Formation = {
   includedInPacks: string[];
   image: string;
 };
+
 const FormationCategories = () => {
   const [openDialog, setOpenDialog] = useState<string | null>(null);
+
   const formations: Formation[] = [{
     id: 'cv',
     title: "Rédaction de CV",
@@ -32,7 +34,7 @@ const FormationCategories = () => {
     objective: "Maîtriser la structure, le contenu et le format d'un CV efficace pour le marché local et international. Apprendre à valoriser ses compétences et expériences de manière stratégique.",
     targetAudience: "Jeunes diplômés, personnes en reconversion, candidats à l'immigration, chercheurs d'emploi",
     duration: "4h",
-    format: ["En ligne", "Présentiel"],
+    format: ["Présentiel"],
     category: 'professional',
     icon: <FileText className="h-12 w-12 text-migrapro-terre-cuite" />,
     includedInPacks: ['pack-insertion-pro'],
@@ -45,7 +47,7 @@ const FormationCategories = () => {
     objective: "Rédiger des lettres de motivation percutantes qui suscitent l'intérêt des recruteurs et valorisent votre candidature en lien avec le poste visé.",
     targetAudience: "Jeunes diplômés, personnes en reconversion, candidats à l'immigration, chercheurs d'emploi",
     duration: "3h",
-    format: ["En ligne", "Présentiel"],
+    format: ["Présentiel"],
     category: 'professional',
     icon: <Mail className="h-12 w-12 text-migrapro-terre-cuite" />,
     includedInPacks: ['pack-insertion-pro'],
@@ -58,7 +60,7 @@ const FormationCategories = () => {
     objective: "Élaborer une stratégie de recherche d'emploi efficace et acquérir les outils nécessaires pour prospecter, postuler et suivre vos candidatures.",
     targetAudience: "Jeunes diplômés, personnes en reconversion, candidats à l'immigration, chercheurs d'emploi",
     duration: "5h",
-    format: ["En ligne", "Présentiel"],
+    format: ["Présentiel"],
     category: 'professional',
     icon: <Briefcase className="h-12 w-12 text-migrapro-terre-cuite" />,
     includedInPacks: ['pack-insertion-pro'],
@@ -71,7 +73,7 @@ const FormationCategories = () => {
     objective: "Comprendre les exigences du monde professionnel, adapter son comportement et développer les compétences transversales attendues par les employeurs.",
     targetAudience: "Étudiants en fin d'études, jeunes diplômés",
     duration: "4h",
-    format: ["En ligne", "Présentiel"],
+    format: ["Présentiel"],
     category: 'professional',
     icon: <GraduationCap className="h-12 w-12 text-migrapro-terre-cuite" />,
     includedInPacks: ['pack-insertion-pro'],
@@ -84,18 +86,21 @@ const FormationCategories = () => {
     objective: "Acquérir les connaissances fondamentales en GRH et savoir les appliquer dans différents contextes organisationnels pour optimiser la gestion du capital humain.",
     targetAudience: "Managers, assistants RH, entrepreneurs, responsables d'équipe",
     duration: "6h",
-    format: ["En ligne", "Présentiel"],
+    format: ["Présentiel"],
     category: 'hr',
     icon: <Users className="h-12 w-12 text-migrapro-terre-cuite" />,
     includedInPacks: ['pack-rh-starter'],
     image: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&auto=format&fit=crop"
   }];
+
   const getCurrentFormation = () => {
     return formations.find(formation => formation.id === openDialog);
   };
+
   const getColorForCategory = (category: 'professional' | 'hr') => {
     return category === 'professional' ? 'migrapro-terre-cuite' : 'migrapro-bleu-ciel';
   };
+
   return <div className="space-y-12">
       <div className="space-y-8">
         <div className="flex flex-col items-center text-center mb-8">
@@ -315,4 +320,5 @@ const FormationCategories = () => {
       </Dialog>
     </div>;
 };
+
 export default FormationCategories;
