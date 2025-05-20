@@ -83,6 +83,18 @@ const SearchCommand = ({ className }: SearchCommandProps) => {
     return '';
   };
 
+  // Obtenir une description détaillée pour les toasts
+  const getResultDescription = (result: any) => {
+    if (isFormation(result)) {
+      return `Formation: ${result.title} (${result.category})`;
+    } else if (isFAQ(result)) {
+      return `FAQ: ${result.question}`;
+    } else if (isPage(result)) {
+      return `Page: ${result.title}`;
+    }
+    return 'Élément trouvé';
+  };
+
   const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
     // Navigation avec les flèches
     if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
@@ -148,6 +160,7 @@ const SearchCommand = ({ className }: SearchCommandProps) => {
         <DialogDescription id="search-description" className="sr-only">
           Recherchez des formations, des pages ou des FAQ
         </DialogDescription>
+        
         <div className="flex flex-col">
           <Command className="rounded-lg border shadow-md">
             <div className="flex items-center px-3 border-b">
@@ -223,6 +236,7 @@ const SearchCommand = ({ className }: SearchCommandProps) => {
                             selectedIndex === globalIndex ? "bg-accent text-accent-foreground" : "hover:bg-accent hover:text-accent-foreground"
                           )}
                           onClick={() => handleResultClick(item)}
+                          title={`Cliquez pour ouvrir la formation "${getDisplayTitle(item)}"`}
                         >
                           <div dangerouslySetInnerHTML={{ __html: highlightMatch(getDisplayTitle(item), query) }} />
                           {isFormation(item) && (
@@ -253,6 +267,7 @@ const SearchCommand = ({ className }: SearchCommandProps) => {
                             selectedIndex === globalIndex ? "bg-accent text-accent-foreground" : "hover:bg-accent hover:text-accent-foreground"
                           )}
                           onClick={() => handleResultClick(item)}
+                          title={`Cliquez pour accéder à la page "${getDisplayTitle(item)}"`}
                         >
                           <div dangerouslySetInnerHTML={{ __html: highlightMatch(getDisplayTitle(item), query) }} />
                         </div>
@@ -278,6 +293,7 @@ const SearchCommand = ({ className }: SearchCommandProps) => {
                             selectedIndex === globalIndex ? "bg-accent text-accent-foreground" : "hover:bg-accent hover:text-accent-foreground"
                           )}
                           onClick={() => handleResultClick(item)}
+                          title={`Cliquez pour accéder à la FAQ "${getDisplayTitle(item)}"`}
                         >
                           <div dangerouslySetInnerHTML={{ __html: highlightMatch(getDisplayTitle(item), query) }} />
                           {isFAQ(item) && (

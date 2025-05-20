@@ -3,6 +3,7 @@ import { createContext, useContext, useState, ReactNode, useCallback } from 'rea
 import { SearchResult, searchAll, groupSearchResults } from '@/services/searchService';
 import { useDebounce } from '@/hooks/use-debounce';
 import { useNavigate } from 'react-router-dom';
+import { useToast } from '@/components/ui/use-toast';
 
 interface SearchContextType {
   isOpen: boolean;
@@ -15,7 +16,7 @@ interface SearchContextType {
   setIsOpen: (isOpen: boolean) => void;
   clearSearch: () => void;
   setSelectedCategory: (category: string | null) => void;
-  handleResultClick: (result: SearchResult) => void; // Méthode pour gérer les clics sur les résultats
+  handleResultClick: (result: SearchResult) => void;
 }
 
 const SearchContext = createContext<SearchContextType | undefined>(undefined);
@@ -28,6 +29,7 @@ export function SearchProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   // Utiliser useDebounce pour éviter trop de recherches pendant la frappe
   const debouncedSearch = useDebounce(async (searchQuery: string) => {
@@ -67,39 +69,48 @@ export function SearchProvider({ children }: { children: ReactNode }) {
     setSelectedCategory(null);
   }, []);
 
-  // Méthode améliorée pour gérer les clics sur les résultats
+  // Méthode améliorée pour gérer les clics sur les résultats avec meilleure notification
   const handleResultClick = useCallback((result: SearchResult) => {
     // Déterminer l'URL en fonction du type de résultat
     let url = '';
+    let toastMessage = '';
     
     switch (result.type) {
       case 'formation':
-        // Pour les formations, on utilise le paramètre showModal
         url = `/services/formation?showModal=${result.formationId}`;
+        toastMessage = 'Redirection vers la formation...';
         break;
       case 'page':
-        // Pour les pages, on utilise le chemin directement
         url = (result as any).path;
+        toastMessage = 'Redirection vers la page...';
         break;
       case 'faq':
-        // Pour les FAQ, on ajoute la catégorie et l'index de la question
         url = `/blog?category=${(result as any).faqCategory}&question=${result.id}`;
+        toastMessage = 'Redirection vers la FAQ...';
         break;
       default:
         url = '/';
+        toastMessage = 'Redirection...';
     }
 
+    // Afficher le toast pour informer l'utilisateur
+    toast({
+      title: "Navigation en cours",
+      description: toastMessage,
+      duration: 2000,
+    });
+    
     // Fermer la boîte de dialogue de recherche
     setIsOpen(false);
     
     // Effacer la recherche
     clearSearch();
     
-    // Naviguer vers l'URL avec un délai pour permettre la fermeture du dialog
+    // Naviguer vers l'URL avec un délai suffisant
     setTimeout(() => {
       navigate(url);
-    }, 100);
-  }, [navigate, clearSearch]);
+    }, 300); // Délai augmenté pour assurer la fermeture du dialogue avant la navigation
+  }, [navigate, clearSearch, toast]);
 
   return (
     <SearchContext.Provider

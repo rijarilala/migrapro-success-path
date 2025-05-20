@@ -29,119 +29,130 @@ const Blog = () => {
       // Reset URL params to avoid issues with refreshing - do this early
       window.history.replaceState({}, '', '/blog');
       
-      // Set a timeout to ensure DOM is fully loaded
+      // Nouvelle approche avec intervalles pour une meilleure fiabilité
       setTimeout(() => {
         try {
-          // If category is specified, select that category tab
+          // Si une catégorie est spécifiée, sélectionner cet onglet
           if (category) {
-            const categoryButton = document.querySelector(`[value="${category}"]`);
-            if (categoryButton) {
-              (categoryButton as HTMLElement).click();
+            let categoryFound = false;
+            let attempts = 0;
+            const maxAttempts = 5;
+            
+            const trySelectCategory = () => {
+              attempts++;
+              const categoryButton = document.querySelector(`[value="${category}"]`);
               
-              // If both category and question are specified, wait for category tab to load then expand question
-              if (questionId) {
-                setTimeout(() => {
-                  expandQuestion(questionId);
-                }, 800); // Increased timeout for better reliability
+              if (categoryButton instanceof HTMLElement) {
+                categoryButton.click();
+                categoryFound = true;
+                
+                // Si à la fois catégorie et question sont spécifiées, attendre que l'onglet de catégorie se charge, puis développer la question
+                if (questionId) {
+                  setTimeout(() => {
+                    expandQuestion(questionId);
+                  }, 800);
+                }
+              } else if (attempts < maxAttempts) {
+                // Réessayer après un court délai
+                setTimeout(trySelectCategory, 300);
+              } else {
+                console.error("Catégorie introuvable après plusieurs tentatives:", category);
+                toast({
+                  variant: "destructive",
+                  title: "Catégorie introuvable",
+                  description: "La catégorie demandée n'a pas pu être trouvée",
+                });
+                
+                // Essayer quand même de développer la question si elle existe
+                if (questionId) {
+                  setTimeout(() => {
+                    expandQuestion(questionId);
+                  }, 500);
+                }
               }
-            } else {
-              console.error("Could not find category tab:", category);
-              toast({
-                variant: "destructive",
-                title: "Catégorie introuvable",
-                description: "La catégorie demandée n'a pas pu être trouvée",
-              });
-              
-              // Try to expand the question anyway if it exists
-              if (questionId) {
-                setTimeout(() => {
-                  expandQuestion(questionId);
-                }, 500);
-              }
-            }
+            };
+            
+            trySelectCategory();
           } 
-          // If only question is specified, just expand it directly
+          // Si seule la question est spécifiée, la développer directement
           else if (questionId) {
             expandQuestion(questionId);
           }
         } catch (error) {
-          console.error("Error navigating to FAQ:", error);
-          toast({
-            variant: "destructive",
-            title: "Erreur",
-            description: "Une erreur est survenue lors de l'accès à la FAQ",
-          });
+          console.error("Erreur lors de la navigation vers la FAQ:", error);
         }
       }, 500);
     }
   }, [searchParams, toast]);
   
-  // Function to find and expand a specific question with improved reliability
+  // Fonction pour trouver et développer une question spécifique avec une fiabilité améliorée
   const expandQuestion = (questionId: string) => {
-    try {
-      // Find the accordion item containing the question
-      const accordionItem = document.getElementById(`faq-${questionId}`);
-      if (accordionItem) {
-        // Scroll to the question
-        accordionItem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    let attempts = 0;
+    const maxAttempts = 5;
+    
+    const findAndExpandQuestion = () => {
+      attempts++;
+      try {
+        // Trouver l'élément d'accordéon contenant la question
+        const accordionItem = document.getElementById(`faq-${questionId}`);
         
-        // Add a stronger highlight effect with more visibility
-        accordionItem.classList.add('bg-yellow-200', 'transition-colors', 'duration-1500');
-        setTimeout(() => {
-          accordionItem.classList.remove('bg-yellow-200');
-        }, 2500);
-        
-        // Click to expand the accordion with retries if needed
-        const trigger = accordionItem.querySelector('[data-state]');
-        if (trigger && trigger.getAttribute('data-state') === 'closed') {
-          (trigger as HTMLElement).click();
+        if (accordionItem) {
+          // Faire défiler jusqu'à la question
+          accordionItem.scrollIntoView({ behavior: 'smooth', block: 'start' });
           
-          // Check if it actually expanded
+          // Ajouter un effet de surbrillance plus prononcé
+          accordionItem.classList.add('bg-yellow-200', 'transition-colors', 'duration-1500', 'p-2', 'rounded');
+          
+          // Cliquer pour développer l'accordéon avec plusieurs tentatives si nécessaire
           setTimeout(() => {
-            if (trigger.getAttribute('data-state') === 'closed') {
-              // Try one more time
-              (trigger as HTMLElement).click();
-              
-              // Add another check
-              setTimeout(() => {
-                if (trigger.getAttribute('data-state') === 'closed') {
-                  console.error("Failed to expand FAQ accordion after multiple attempts");
-                  // Try a different approach - look for a button inside
-                  const button = accordionItem.querySelector('button');
-                  if (button) {
-                    button.click();
-                  }
-                }
-              }, 300);
-            }
-          }, 400);
-        }
-      } else {
-        console.error("Could not find FAQ with ID:", questionId);
-        
-        // Try with a delay as the DOM might still be updating
-        setTimeout(() => {
-          const retryAccordionItem = document.getElementById(`faq-${questionId}`);
-          if (retryAccordionItem) {
-            retryAccordionItem.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            retryAccordionItem.classList.add('bg-yellow-200');
+            const trigger = accordionItem.querySelector('[data-state]');
             
-            const retryTrigger = retryAccordionItem.querySelector('[data-state]');
-            if (retryTrigger && retryTrigger.getAttribute('data-state') === 'closed') {
-              (retryTrigger as HTMLElement).click();
+            if (trigger instanceof HTMLElement) {
+              if (trigger.getAttribute('data-state') === 'closed') {
+                trigger.click();
+                
+                // Vérifier si l'accordéon s'est réellement développé
+                setTimeout(() => {
+                  if (trigger.getAttribute('data-state') === 'closed') {
+                    // Essayer encore une fois
+                    trigger.click();
+                    
+                    // Recherche de bouton alternatif si nécessaire
+                    setTimeout(() => {
+                      if (trigger.getAttribute('data-state') === 'closed') {
+                        const button = accordionItem.querySelector('button');
+                        if (button instanceof HTMLElement) {
+                          button.click();
+                        }
+                      }
+                    }, 300);
+                  }
+                }, 300);
+              }
             }
-          } else {
-            toast({
-              variant: "destructive",
-              title: "Question introuvable",
-              description: "La question demandée n'a pas pu être trouvée",
-            });
-          }
-        }, 1000);
+            
+            // Retirer la surbrillance après un délai
+            setTimeout(() => {
+              accordionItem.classList.remove('bg-yellow-200', 'p-2');
+            }, 2500);
+          }, 500);
+        } else if (attempts < maxAttempts) {
+          // Réessayer après un court délai
+          setTimeout(findAndExpandQuestion, 400);
+        } else {
+          console.error("FAQ introuvable après plusieurs tentatives:", questionId);
+          toast({
+            variant: "destructive",
+            title: "Question introuvable",
+            description: "La question demandée n'a pas pu être trouvée",
+          });
+        }
+      } catch (error) {
+        console.error("Erreur lors de l'expansion de la question:", error);
       }
-    } catch (error) {
-      console.error("Error expanding question:", error);
-    }
+    };
+    
+    findAndExpandQuestion();
   };
 
   return (

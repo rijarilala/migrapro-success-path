@@ -32,75 +32,74 @@ const Formation = () => {
       // Reset the URL so refreshing doesn't reopen the modal
       window.history.replaceState({}, '', '/services/formation');
       
-      // Give the component time to fully load and render
+      // Nouvelle approche avec temporisations plus fiables
       const timer = setTimeout(() => {
-        // Ensure we're on the categories tab first
-        const categoriesTab = document.querySelector('[value="categories"]');
-        if (categoriesTab && categoriesTab instanceof HTMLElement) {
-          // Switch to categories tab
-          categoriesTab.click();
-          
-          // After showing the categories tab, find and click on the formation
-          const formationTimer = setTimeout(() => {
-            // Try to find the formation element by ID
-            const formationElement = document.getElementById(modalToShow);
+        try {
+          // Localiser l'onglet des catégories et cliquer dessus
+          const categoriesTab = document.querySelector('[value="categories"]');
+          if (categoriesTab instanceof HTMLElement) {
+            categoriesTab.click();
             
-            if (formationElement) {
-              // Scroll to the formation with animation
-              formationElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-              
-              // Apply highlight effect
-              formationElement.classList.add('bg-yellow-200', 'transition-colors', 'duration-1000');
-              setTimeout(() => {
-                formationElement.classList.remove('bg-yellow-200');
-              }, 2000);
-              
-              // Find the details button (the last button in the formation card)
-              const detailButton = formationElement.querySelector('button:last-child');
-              if (detailButton && detailButton instanceof HTMLElement) {
-                // Open the formation details modal
-                detailButton.click();
-              } else {
-                console.error("Could not find the details button for formation:", modalToShow);
-                toast({
-                  variant: "destructive",
-                  title: "Erreur",
-                  description: "Impossible d'ouvrir les détails de la formation",
-                });
-              }
-            } else {
-              console.error("Could not find formation element with ID:", modalToShow);
-              toast({
-                variant: "destructive",
-                title: "Formation introuvable",
-                description: `La formation "${modalToShow}" n'a pas pu être trouvée`,
-              });
-              
-              // Fallback: Try one more time with a longer delay
-              const retryTimer = setTimeout(() => {
-                const retryElement = document.getElementById(modalToShow);
-                if (retryElement) {
-                  retryElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                  retryElement.classList.add('bg-yellow-200', 'transition-colors', 'duration-1000');
+            // Attendre que l'onglet soit chargé avant de chercher la formation
+            const findFormationTimer = setTimeout(() => {
+              try {
+                // Chercher la formation par ID avec plusieurs tentatives
+                let attempts = 0;
+                const maxAttempts = 5;
+                
+                function findAndOpenFormation() {
+                  attempts++;
+                  const formationElement = document.getElementById(modalToShow);
                   
-                  const retryButton = retryElement.querySelector('button:last-child');
-                  if (retryButton && retryButton instanceof HTMLElement) {
-                    retryButton.click();
+                  if (formationElement) {
+                    // Formation trouvée, faire défiler et mettre en évidence
+                    formationElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    formationElement.classList.add('bg-yellow-200', 'transition-colors', 'duration-1500');
+                    
+                    // Trouver et cliquer sur le bouton de détails
+                    setTimeout(() => {
+                      const detailButton = formationElement.querySelector('button:last-child');
+                      if (detailButton instanceof HTMLElement) {
+                        detailButton.click();
+                        
+                        // Retirer la surbrillance après un délai
+                        setTimeout(() => {
+                          formationElement.classList.remove('bg-yellow-200');
+                        }, 2000);
+                      } else {
+                        console.error("Bouton de détails non trouvé pour la formation:", modalToShow);
+                      }
+                    }, 300);
+                  } else if (attempts < maxAttempts) {
+                    // Réessayer après un court délai
+                    setTimeout(findAndOpenFormation, 400);
+                  } else {
+                    console.error("Formation non trouvée après plusieurs tentatives:", modalToShow);
+                    toast({
+                      variant: "destructive",
+                      title: "Formation introuvable",
+                      description: `Impossible de trouver la formation "${modalToShow}"`,
+                    });
                   }
                 }
-              }, 1500);
-              
-              // Clean up retry timer
-              return () => clearTimeout(retryTimer);
-            }
-          }, 1000);
-          
-          // Clean up formation timer
-          return () => clearTimeout(formationTimer);
+                
+                // Démarrer le processus de recherche
+                findAndOpenFormation();
+                
+              } catch (error) {
+                console.error("Erreur lors de la recherche de la formation:", error);
+              }
+            }, 600);
+            
+            return () => clearTimeout(findFormationTimer);
+          } else {
+            console.error("Onglet des catégories non trouvé");
+          }
+        } catch (error) {
+          console.error("Erreur lors de l'ouverture de la formation:", error);
         }
-      }, 800);
+      }, 500);
       
-      // Clean up main timer
       return () => clearTimeout(timer);
     } else {
       // Handle hash navigation (for direct links to packs)
@@ -111,7 +110,7 @@ const Formation = () => {
           if (hash.includes('pack')) {
             // Switch to packs tab
             const tabsElement = document.querySelector('[value="packs"]');
-            if (tabsElement && tabsElement instanceof HTMLElement) {
+            if (tabsElement instanceof HTMLElement) {
               tabsElement.click();
               
               // After tab switch, scroll to the specific pack
@@ -131,7 +130,7 @@ const Formation = () => {
             // For other hash links (like individual formations)
             // Need to be on the categories tab
             const tabsElement = document.querySelector('[value="categories"]');
-            if (tabsElement && tabsElement instanceof HTMLElement) {
+            if (tabsElement instanceof HTMLElement) {
               tabsElement.click();
               
               // After tab switch, scroll to the specific formation
