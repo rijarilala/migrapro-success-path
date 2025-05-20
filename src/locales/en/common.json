@@ -1,0 +1,65 @@
+
+{
+  "navbar": {
+    "home": "Home",
+    "services": "Services",
+    "about": "About",
+    "testimonials": "Testimonials",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "login": "Login"
+  },
+  "footer": {
+    "contact": "Contact",
+    "address": "Address",
+    "email": "Email",
+    "phone": "Phone",
+    "quickLinks": "Quick Links",
+    "services": "Services",
+    "about": "About",
+    "testimonials": "Testimonials",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "followUs": "Follow Us",
+    "copyright": "All rights reserved."
+  },
+  "hero": {
+    "title": "Your professional future starts here",
+    "subtitle": "Advice, training & coaching: master each step of your immigration project",
+    "searchPlaceholder": "Quickly find our services",
+    "discoverServices": "Discover our services",
+    "contactUs": "Contact us"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Our team is ready to answer your questions",
+    "ourCoordinates": "Our Contact Information",
+    "address": "Address",
+    "phone": "Phone",
+    "email": "Email",
+    "sendMessage": "Send us a message",
+    "fullName": "Full name",
+    "yourName": "Your name",
+    "yourEmail": "your@email.com",
+    "subject": "Subject",
+    "selectSubject": "Select a subject",
+    "message": "Message",
+    "yourMessage": "Your message...",
+    "send": "Send"
+  },
+  "subjects": {
+    "orientation": "Professional Orientation",
+    "packSuccess": "Professional Success Pack",
+    "immigration": "Canada Immigration",
+    "recruitment": "Recruitment",
+    "other": "Other"
+  },
+  "services": {
+    "title": "Our Services",
+    "subtitle": "Complete solutions for your professional success and settlement in Canada."
+  },
+  "languageSwitcher": {
+    "fr": "FR",
+    "en": "EN"
+  }
+}

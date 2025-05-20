@@ -1,5 +1,7 @@
+
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+
 const EtudesHero = () => {
   return <section className="relative py-20 overflow-hidden bg-gradient-to-b from-blue-50 via-blue-100 to-white">
       <div className="absolute inset-0 z-0 opacity-20 bg-pattern-grid"></div>

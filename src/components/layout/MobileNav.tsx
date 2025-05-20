@@ -1,7 +1,6 @@
-
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { 
   Collapsible,
@@ -20,19 +19,23 @@ import {
   MessageSquare,
   NewspaperIcon,
   ChevronDown,
-  X,
   LogOut,
   Contact as ContactIcon,
-  School
+  School,
+  Globe
 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { useAuth } from '@/hooks/useAuth';
+import { useTranslation } from 'react-i18next';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export const MobileNav = ({ isOpen, onOpenChange }: { isOpen: boolean; onOpenChange: (open: boolean) => void }) => {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const { user } = useAuth();
   const navigate = useNavigate();
+  const { t } = useTranslation();
+  const { currentLang, switchLanguage } = useLanguage();
 
   const handleLogout = async () => {
     try {
@@ -58,6 +61,26 @@ export const MobileNav = ({ isOpen, onOpenChange }: { isOpen: boolean; onOpenCha
           </SheetTitle>
         </SheetHeader>
 
+        {/* Language Switcher */}
+        <div className="mb-4 border-b pb-4 flex justify-start space-x-2">
+          <Button 
+            variant={currentLang === 'fr' ? 'default' : 'outline'} 
+            size="sm"
+            className={currentLang === 'fr' ? 'bg-migrapro-terre-cuite hover:bg-migrapro-terre-cuite/90' : ''}
+            onClick={() => switchLanguage('fr')}
+          >
+            {t('languageSwitcher.fr')}
+          </Button>
+          <Button 
+            variant={currentLang === 'en' ? 'default' : 'outline'} 
+            size="sm"
+            className={currentLang === 'en' ? 'bg-migrapro-terre-cuite hover:bg-migrapro-terre-cuite/90' : ''}
+            onClick={() => switchLanguage('en')}
+          >
+            {t('languageSwitcher.en')}
+          </Button>
+        </div>
+
         <nav className="space-y-2">
           <Link 
             to="/" 
@@ -65,7 +88,7 @@ export const MobileNav = ({ isOpen, onOpenChange }: { isOpen: boolean; onOpenCha
             className="flex items-center space-x-3 rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground"
           >
             <Home className="h-5 w-5" />
-            <span>Accueil</span>
+            <span>{t('navbar.home')}</span>
           </Link>
 
           <Collapsible 
@@ -80,7 +103,7 @@ export const MobileNav = ({ isOpen, onOpenChange }: { isOpen: boolean; onOpenCha
               >
                 <div className="flex items-center space-x-3">
                   <BookOpen className="h-5 w-5" />
-                  <span>Services</span>
+                  <span>{t('navbar.services')}</span>
                 </div>
                 <ChevronDown 
                   className={`h-4 w-4 transition-transform duration-200 ${
@@ -90,6 +113,7 @@ export const MobileNav = ({ isOpen, onOpenChange }: { isOpen: boolean; onOpenCha
               </Button>
             </CollapsibleTrigger>
             <CollapsibleContent className="space-y-2 pl-8">
+              {/* Keep existing services submenu */}
               <Link
                 to="/services/orientation"
                 onClick={() => onOpenChange(false)}
@@ -155,7 +179,7 @@ export const MobileNav = ({ isOpen, onOpenChange }: { isOpen: boolean; onOpenCha
             className="flex items-center space-x-3 rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground"
           >
             <Info className="h-5 w-5" />
-            <span>À propos</span>
+            <span>{t('navbar.about')}</span>
           </Link>
 
           <Link
@@ -164,7 +188,7 @@ export const MobileNav = ({ isOpen, onOpenChange }: { isOpen: boolean; onOpenCha
             className="flex items-center space-x-3 rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground"
           >
             <MessageSquare className="h-5 w-5" />
-            <span>Témoignages</span>
+            <span>{t('navbar.testimonials')}</span>
           </Link>
 
           <Link
@@ -173,7 +197,7 @@ export const MobileNav = ({ isOpen, onOpenChange }: { isOpen: boolean; onOpenCha
             className="flex items-center space-x-3 rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground"
           >
             <NewspaperIcon className="h-5 w-5" />
-            <span>FAQ</span>
+            <span>{t('navbar.faq')}</span>
           </Link>
 
           <Link
@@ -182,7 +206,7 @@ export const MobileNav = ({ isOpen, onOpenChange }: { isOpen: boolean; onOpenCha
             className="flex items-center space-x-3 rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground"
           >
             <ContactIcon className="h-5 w-5" />
-            <span>Contact</span>
+            <span>{t('navbar.contact')}</span>
           </Link>
         </nav>
 

@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Menu, ChevronDown, User, LogOut } from 'lucide-react';
@@ -9,14 +8,14 @@ import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import SearchCommand from '@/components/search/SearchCommand';
+import LanguageSwitcher from './LanguageSwitcher';
+import { useTranslation } from 'react-i18next';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const {
-    isAuthenticated,
-    user
-  } = useAuth();
+  const { isAuthenticated, user } = useAuth();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleLogout = async () => {
     try {
@@ -41,16 +40,17 @@ const Navbar = () => {
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-6">
           <Link to="/" className="text-gray-700 hover:text-migrapro-terre-cuite transition-colors">
-            Accueil
+            {t('navbar.home')}
           </Link>
           
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <button className="flex items-center gap-1 text-gray-700 hover:text-migrapro-terre-cuite transition-colors">
-                Services <ChevronDown size={16} />
+                {t('navbar.services')} <ChevronDown size={16} />
               </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56 bg-white">
+              {/* Keep existing menu items */}
               <DropdownMenuItem asChild>
                 <Link to="/services/orientation" className="w-full">
                   Conseil & Orientation Professionnelle
@@ -90,23 +90,26 @@ const Navbar = () => {
           </DropdownMenu>
 
           <Link to="/a-propos" className="text-gray-700 hover:text-migrapro-terre-cuite transition-colors">
-            À propos
+            {t('navbar.about')}
           </Link>
           
           <Link to="/temoignages" className="text-gray-700 hover:text-migrapro-terre-cuite transition-colors">
-            Témoignages
+            {t('navbar.testimonials')}
           </Link>
           
           <Link to="/blog" className="text-gray-700 hover:text-migrapro-terre-cuite transition-colors">
-            FAQ
+            {t('navbar.faq')}
           </Link>
           
           <Link to="/contact" className="text-gray-700 hover:text-migrapro-terre-cuite transition-colors">
-            Contact
+            {t('navbar.contact')}
           </Link>
         </div>
 
         <div className="hidden md:flex items-center gap-4">
+          {/* Language Switcher */}
+          <LanguageSwitcher />
+          
           {/* Search Component */}
           <SearchCommand className="ml-auto mr-2" />
 
@@ -130,7 +133,7 @@ const Navbar = () => {
           ) : (
             <Link to="/auth">
               <Button className="bg-migrapro-terre-cuite hover:bg-opacity-90 text-white">
-                Connexion
+                {t('navbar.login')}
               </Button>
             </Link>
           )}
@@ -138,6 +141,9 @@ const Navbar = () => {
 
         {/* Mobile Menu Button */}
         <div className="flex items-center gap-2 md:hidden">
+          {/* Language Switcher for Mobile */}
+          <LanguageSwitcher variant="minimal" />
+          
           <SearchCommand />
           <Button variant="ghost" size="icon" onClick={() => setIsMenuOpen(true)}>
             <Menu className="h-6 w-6" />

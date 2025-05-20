@@ -1,0 +1,65 @@
+
+{
+  "navbar": {
+    "home": "Accueil",
+    "services": "Services",
+    "about": "À propos",
+    "testimonials": "Témoignages",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "login": "Connexion"
+  },
+  "footer": {
+    "contact": "Contact",
+    "address": "Adresse",
+    "email": "Email",
+    "phone": "Téléphone",
+    "quickLinks": "Liens rapides",
+    "services": "Services",
+    "about": "À propos",
+    "testimonials": "Témoignages",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "followUs": "Suivez-nous",
+    "copyright": "Tous droits réservés."
+  },
+  "hero": {
+    "title": "Votre avenir professionnel commence ici",
+    "subtitle": "Conseil, formation & coaching : maîtrisez chaque étape de votre projet d'immigration",
+    "searchPlaceholder": "Trouvez rapidement nos services",
+    "discoverServices": "Découvrir nos services",
+    "contactUs": "Nous contacter"
+  },
+  "contact": {
+    "title": "Contactez-nous",
+    "subtitle": "Notre équipe est à votre écoute pour répondre à vos questions",
+    "ourCoordinates": "Nos Coordonnées",
+    "address": "Adresse",
+    "phone": "Téléphone",
+    "email": "Email",
+    "sendMessage": "Envoyez-nous un message",
+    "fullName": "Nom complet",
+    "yourName": "Votre nom",
+    "yourEmail": "votre@email.com",
+    "subject": "Sujet",
+    "selectSubject": "Sélectionnez un sujet",
+    "message": "Message",
+    "yourMessage": "Votre message...",
+    "send": "Envoyer"
+  },
+  "subjects": {
+    "orientation": "Orientation professionnelle",
+    "packSuccess": "Pack Réussite Pro",
+    "immigration": "Immigration Canada",
+    "recruitment": "Recrutement",
+    "other": "Autre"
+  },
+  "services": {
+    "title": "Nos Services",
+    "subtitle": "Des solutions complètes pour votre réussite professionnelle et votre installation au Canada."
+  },
+  "languageSwitcher": {
+    "fr": "FR",
+    "en": "EN"
+  }
+}

@@ -18,17 +18,11 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
-
-const subjects = [
-  "Orientation professionnelle",
-  "Pack Réussite Pro",
-  "Immigration Canada",
-  "Recrutement",
-  "Autre"
-];
+import { useTranslation } from "react-i18next";
 
 const ContactForm = () => {
   const form = useForm();
+  const { t } = useTranslation();
 
   const onSubmit = (data: any) => {
     console.log(data);
@@ -37,7 +31,7 @@ const ContactForm = () => {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-6">Envoyez-nous un message</h2>
+      <h2 className="text-2xl font-bold mb-6">{t('contact.sendMessage')}</h2>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <FormField
@@ -45,9 +39,9 @@ const ContactForm = () => {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Nom complet</FormLabel>
+                <FormLabel>{t('contact.fullName')}</FormLabel>
                 <FormControl>
-                  <Input placeholder="Votre nom" {...field} />
+                  <Input placeholder={t('contact.yourName')} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -58,9 +52,9 @@ const ContactForm = () => {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>{t('contact.email')}</FormLabel>
                 <FormControl>
-                  <Input type="email" placeholder="votre@email.com" {...field} />
+                  <Input type="email" placeholder={t('contact.yourEmail')} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -71,7 +65,7 @@ const ContactForm = () => {
             name="phone"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Téléphone</FormLabel>
+                <FormLabel>{t('contact.phone')}</FormLabel>
                 <FormControl>
                   <Input placeholder="+261 34 05 350 68" {...field} />
                 </FormControl>
@@ -84,19 +78,29 @@ const ContactForm = () => {
             name="subject"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Sujet</FormLabel>
+                <FormLabel>{t('contact.subject')}</FormLabel>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
                     <SelectTrigger>
-                      <SelectValue placeholder="Sélectionnez un sujet" />
+                      <SelectValue placeholder={t('contact.selectSubject')} />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {subjects.map((subject) => (
-                      <SelectItem key={subject} value={subject}>
-                        {subject}
-                      </SelectItem>
-                    ))}
+                    <SelectItem value={t('subjects.orientation')}>
+                      {t('subjects.orientation')}
+                    </SelectItem>
+                    <SelectItem value={t('subjects.packSuccess')}>
+                      {t('subjects.packSuccess')}
+                    </SelectItem>
+                    <SelectItem value={t('subjects.immigration')}>
+                      {t('subjects.immigration')}
+                    </SelectItem>
+                    <SelectItem value={t('subjects.recruitment')}>
+                      {t('subjects.recruitment')}
+                    </SelectItem>
+                    <SelectItem value={t('subjects.other')}>
+                      {t('subjects.other')}
+                    </SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -108,10 +112,10 @@ const ContactForm = () => {
             name="message"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Message</FormLabel>
+                <FormLabel>{t('contact.message')}</FormLabel>
                 <FormControl>
                   <Textarea 
-                    placeholder="Votre message..." 
+                    placeholder={t('contact.yourMessage')} 
                     className="min-h-[150px]"
                     {...field}
                   />
@@ -121,7 +125,7 @@ const ContactForm = () => {
             )}
           />
           <Button type="submit" className="w-full">
-            Envoyer
+            {t('contact.send')}
           </Button>
         </form>
       </Form>
