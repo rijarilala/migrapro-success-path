@@ -56,7 +56,10 @@
   },
   "services": {
     "title": "Nos Services",
-    "subtitle": "Des solutions complètes pour votre réussite professionnelle et votre installation au Canada."
+    "subtitle": "Des solutions complètes pour votre réussite professionnelle et votre installation au Canada.",
+    "readMore": "En savoir plus",
+    "ourExpertise": "Nos Compétences",
+    "servicesDescription": "Des solutions complètes pour votre réussite professionnelle et votre installation au Canada."
   },
   "languageSwitcher": {
     "fr": "FR",
@@ -64,10 +67,54 @@
   },
   "blog": {
     "title": "Conseils & Actualités",
-    "subtitle": "Restez informé sur l'immigration, la carrière et l'expatriation"
+    "subtitle": "Restez informé sur l'immigration, la carrière et l'expatriation",
+    "allFaq": "Toutes les FAQ",
+    "viewAnswer": "Voir la réponse",
+    "faqAndTips": "FAQ & Conseils",
+    "findAnswers": "Trouvez des réponses à vos questions sur l'immigration et l'expatriation"
   },
   "faq": {
     "title": "Foire Aux Questions",
-    "subtitle": "Trouvez rapidement des réponses à vos questions les plus fréquentes"
+    "subtitle": "Trouvez rapidement des réponses à vos questions les plus fréquentes",
+    "yourQuestionsOurAnswers": "FAQ – Vos questions, nos réponses",
+    "findAnswers": "Retrouvez les réponses aux questions les plus fréquentes sur nos services"
+  },
+  "immigration": {
+    "title": "Faites du Canada votre nouvelle adresse",
+    "subtitle": "Rejoignez des milliers de candidats qui ont transformé leur rêve d'immigration en réalité.",
+    "benefits": [
+      "Évaluation gratuite et instantanée de votre profil",
+      "Plan d'action dédié : dossier complet, accompagnement administratif, conseils d'installation et d'établissement",
+      "Experts certifiés pour sécuriser votre visa et votre permis"
+    ],
+    "testEligibility": "Tester mon éligibilité"
+  },
+  "packSuccess": {
+    "title": "Pack Réussite",
+    "subtitle": "🎯 Prêt à booster vos chances au Canada ? Optez pour notre Pack Réussite : CV, lettre de motivation et coaching réunis pour maximiser votre impact auprès des recruteurs.",
+    "services": {
+      "cv": {
+        "title": "CV Professionnel",
+        "description": "Module complet sur les normes CV canadiennes et malgaches."
+      },
+      "coverLetter": {
+        "title": "Lettre de Motivation",
+        "description": "Techniques de structuration et personnalisation pour capter l'attention des recruteurs."
+      },
+      "coaching": {
+        "title": "Coaching Entretien",
+        "description": "Séance de coaching personnalisée de 3h avec simulations et feedback."
+      }
+    },
+    "choosePack": "Je choisis ce pack",
+    "preferentialRates": "Tarifs préférentiels par rapport aux services à l'unité"
+  },
+  "about": {
+    "title": "À Propos",
+    "subtitle": "Découvrez notre histoire et notre mission"
+  },
+  "testimonials": {
+    "title": "Témoignages",
+    "subtitle": "Ce que nos clients disent de nous"
   }
 }

@@ -4,8 +4,11 @@ import { Badge } from '@/components/ui/badge';
 import { Calendar } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const BlogPreview = () => {
+  const { t } = useTranslation();
+  
   const faqPreviews = [
     {
       title: "5 étapes pour préparer son dossier d'immigration au Canada",
@@ -51,10 +54,10 @@ const BlogPreview = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4 animate-fade-in">
-            FAQ & Conseils
+            {t('blog.faqAndTips')}
           </h2>
           <p className="text-gray-600 text-lg max-w-2xl mx-auto animate-fade-in animate-delay-100">
-            Trouvez des réponses à vos questions sur l'immigration et l'expatriation.
+            {t('blog.findAnswers')}
           </p>
         </div>
 
@@ -91,7 +94,7 @@ const BlogPreview = () => {
               <CardFooter>
                 <Button variant="ghost" className="w-full hover:text-migrapro-terre-cuite" asChild>
                   <Link to={post.slug}>
-                    Voir la réponse
+                    {t('blog.viewAnswer')}
                   </Link>
                 </Button>
               </CardFooter>
@@ -105,7 +108,7 @@ const BlogPreview = () => {
             asChild
           >
             <Link to="/blog">
-              Toutes les FAQ
+              {t('blog.allFaq')}
             </Link>
           </Button>
         </div>

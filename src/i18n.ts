@@ -20,7 +20,7 @@ i18n
         common: commonEN
       }
     },
-    lng: 'fr', // Default language
+    lng: localStorage.getItem('i18nextLng') || navigator.language.split('-')[0] || 'fr', // Try to detect from browser or use stored preference
     fallbackLng: 'fr',
     ns: ['common'],
     defaultNS: 'common',
@@ -28,12 +28,17 @@ i18n
       escapeValue: false, // React already escapes values
     },
     detection: {
-      order: ['localStorage', 'navigator'],
+      order: ['localStorage', 'navigator', 'htmlTag'],
       caches: ['localStorage'],
     },
     react: {
       useSuspense: false // Important for server-side rendering
     }
   });
+
+// Set the HTML lang attribute whenever the language changes
+i18n.on('languageChanged', (lng) => {
+  document.documentElement.lang = lng;
+});
 
 export default i18n;

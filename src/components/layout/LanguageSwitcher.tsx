@@ -17,7 +17,8 @@ const LanguageSwitcher = ({ variant = 'default' }: { variant?: 'default' | 'mini
         variant="ghost" 
         size="sm" 
         onClick={toggleLanguage}
-        className="px-2 min-w-[40px]"
+        className="px-2 min-w-[40px] flex items-center justify-center"
+        aria-label={`Switch to ${currentLang === 'fr' ? 'English' : 'French'}`}
       >
         {currentLang === 'fr' ? 'EN' : 'FR'}
       </Button>
@@ -31,6 +32,7 @@ const LanguageSwitcher = ({ variant = 'default' }: { variant?: 'default' | 'mini
         size="sm"
         className={`px-2 ${currentLang === 'fr' ? 'bg-migrapro-terre-cuite hover:bg-migrapro-terre-cuite/90' : ''}`}
         onClick={() => switchLanguage('fr')}
+        aria-label="Switch to French"
       >
         {t('languageSwitcher.fr')}
       </Button>
@@ -39,6 +41,7 @@ const LanguageSwitcher = ({ variant = 'default' }: { variant?: 'default' | 'mini
         size="sm"
         className={`px-2 ${currentLang === 'en' ? 'bg-migrapro-terre-cuite hover:bg-migrapro-terre-cuite/90' : ''}`}
         onClick={() => switchLanguage('en')}
+        aria-label="Switch to English"
       >
         {t('languageSwitcher.en')}
       </Button>

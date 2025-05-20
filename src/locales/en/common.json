@@ -56,7 +56,10 @@
   },
   "services": {
     "title": "Our Services",
-    "subtitle": "Complete solutions for your professional success and settlement in Canada."
+    "subtitle": "Complete solutions for your professional success and settlement in Canada.",
+    "readMore": "Read more",
+    "ourExpertise": "Our Expertise",
+    "servicesDescription": "Complete solutions for your professional success and settlement in Canada."
   },
   "languageSwitcher": {
     "fr": "FR",
@@ -64,10 +67,54 @@
   },
   "blog": {
     "title": "Tips & News",
-    "subtitle": "Stay informed about immigration, career, and expatriation"
+    "subtitle": "Stay informed about immigration, career, and expatriation",
+    "allFaq": "All FAQs",
+    "viewAnswer": "View answer",
+    "faqAndTips": "FAQ & Tips",
+    "findAnswers": "Find answers to your questions about immigration and expatriation"
   },
   "faq": {
     "title": "Frequently Asked Questions",
-    "subtitle": "Quickly find answers to your most common questions"
+    "subtitle": "Quickly find answers to your most common questions",
+    "yourQuestionsOurAnswers": "FAQ – Your questions, our answers",
+    "findAnswers": "Find answers to the most frequently asked questions about our services"
+  },
+  "immigration": {
+    "title": "Make Canada your new address",
+    "subtitle": "Join thousands of candidates who have turned their immigration dream into reality.",
+    "benefits": [
+      "Free and instant evaluation of your profile",
+      "Dedicated action plan: complete documentation, administrative support, installation and establishment advice",
+      "Certified experts to secure your visa and permit"
+    ],
+    "testEligibility": "Test my eligibility"
+  },
+  "packSuccess": {
+    "title": "Success Pack",
+    "subtitle": "🎯 Ready to boost your chances in Canada? Choose our Success Pack: CV, cover letter and coaching combined to maximize your impact with recruiters.",
+    "services": {
+      "cv": {
+        "title": "Professional CV",
+        "description": "Complete module on Canadian and Malagasy CV standards."
+      },
+      "coverLetter": {
+        "title": "Cover Letter",
+        "description": "Structuring techniques and personalization to capture recruiters' attention."
+      },
+      "coaching": {
+        "title": "Interview Coaching",
+        "description": "Personalized 3-hour coaching session with simulations and feedback."
+      }
+    },
+    "choosePack": "I choose this pack",
+    "preferentialRates": "Preferential rates compared to individual services"
+  },
+  "about": {
+    "title": "About Us",
+    "subtitle": "Discover our story and mission"
+  },
+  "testimonials": {
+    "title": "Testimonials",
+    "subtitle": "What our clients say about us"
   }
 }

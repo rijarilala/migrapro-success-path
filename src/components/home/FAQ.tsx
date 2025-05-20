@@ -1,5 +1,4 @@
 
-import { ChevronDown, ChevronUp, Plus, Minus } from 'lucide-react';
 import { useState } from 'react';
 import {
   Accordion,
@@ -7,9 +6,11 @@ import {
   AccordionItem,
   AccordionTrigger
 } from '@/components/ui/accordion';
+import { useTranslation } from 'react-i18next';
 
 const FAQ = () => {
   const [openItem, setOpenItem] = useState<string | null>(null);
+  const { t } = useTranslation();
 
   const faqItems = [
     {
@@ -54,10 +55,10 @@ const FAQ = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4 animate-fade-in">
-            FAQ – Vos questions, nos réponses
+            {t('faq.yourQuestionsOurAnswers')}
           </h2>
           <p className="text-gray-600 text-lg max-w-2xl mx-auto animate-fade-in animate-delay-100">
-            Retrouvez les réponses aux questions les plus fréquentes sur nos services.
+            {t('faq.findAnswers')}
           </p>
         </div>
 

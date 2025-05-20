@@ -4,8 +4,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { Badge } from '@/components/ui/badge';
+import { useTranslation } from 'react-i18next';
 
 const ServicesPreview = () => {
+  const { t } = useTranslation();
+  
   const services = [
     {
       title: "Conseil & Orientation Professionnelle",
@@ -70,9 +73,9 @@ const ServicesPreview = () => {
     <section className="py-16 md:py-24 bg-gray-50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4 animate-fade-in">Nos Compétences</h2>
+          <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4 animate-fade-in">{t('services.ourExpertise')}</h2>
           <p className="text-gray-600 text-lg max-w-2xl mx-auto animate-fade-in animate-delay-100">
-            Des solutions complètes pour votre réussite professionnelle et votre installation au Canada.
+            {t('services.servicesDescription')}
           </p>
         </div>
 
@@ -108,7 +111,7 @@ const ServicesPreview = () => {
                   asChild
                 >
                   <Link to={service.link}>
-                    En savoir plus
+                    {t('services.readMore')}
                   </Link>
                 </Button>
               </div>
