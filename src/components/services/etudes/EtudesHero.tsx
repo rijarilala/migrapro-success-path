@@ -1,10 +1,7 @@
-
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-
 const EtudesHero = () => {
-  return (
-    <section className="relative py-20 overflow-hidden bg-gradient-to-b from-blue-50 via-blue-100 to-white">
+  return <section className="relative py-20 overflow-hidden bg-gradient-to-b from-blue-50 via-blue-100 to-white">
       <div className="absolute inset-0 z-0 opacity-20 bg-pattern-grid"></div>
       
       <div className="container relative z-10 mx-auto px-4">
@@ -25,7 +22,7 @@ const EtudesHero = () => {
                 <Link to="/contact">Nous contacter</Link>
               </Button>
               <Button asChild variant="outline" size="lg">
-                <Link to="/services/eligibility">Vérifier mon éligibilité</Link>
+                
               </Button>
             </div>
           </div>
@@ -35,17 +32,11 @@ const EtudesHero = () => {
             <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-migrapro-bleu-ciel/20 rounded-full"></div>
             
             <div className="relative z-10 rounded-lg shadow-xl overflow-hidden">
-              <img 
-                src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80" 
-                alt="Étudiants sur un campus universitaire au Canada" 
-                className="w-full h-auto object-cover" 
-              />
+              <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80" alt="Étudiants sur un campus universitaire au Canada" className="w-full h-auto object-cover" />
             </div>
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default EtudesHero;
