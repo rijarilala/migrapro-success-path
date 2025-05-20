@@ -6,7 +6,6 @@ import {
   AccordionItem, 
   AccordionTrigger 
 } from "@/components/ui/accordion";
-import { ChevronDown } from "lucide-react";
 import FAQCategories from "./FAQCategories";
 
 // Extended FAQ data with categories
@@ -76,7 +75,7 @@ const FAQList = () => {
   );
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 md:space-y-8">
       <FAQCategories 
         activeCategory={activeCategory} 
         onCategoryChange={setActiveCategory} 
@@ -92,18 +91,18 @@ const FAQList = () => {
                 className="border-none"
               >
                 <AccordionTrigger 
-                  className="px-6 py-4 text-left hover:no-underline"
+                  className="px-4 md:px-6 py-3 md:py-4 text-left hover:no-underline text-sm md:text-base"
                 >
-                  <span className="text-lg font-medium">{faq.question}</span>
+                  <span className="text-base md:text-lg font-medium">{faq.question}</span>
                 </AccordionTrigger>
-                <AccordionContent className="px-6 pb-4 text-gray-700">
+                <AccordionContent className="px-4 md:px-6 pb-3 md:pb-4 text-gray-700 text-sm md:text-base">
                   <p>{faq.answer}</p>
                 </AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>
         ) : (
-          <div className="p-8 text-center">
+          <div className="p-6 md:p-8 text-center">
             <p className="text-gray-500">Aucune question trouvée dans cette catégorie.</p>
           </div>
         )}
