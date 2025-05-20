@@ -1,16 +1,13 @@
-
 import { MapPin, Phone, Mail } from "lucide-react";
-
 const ContactInfo = () => {
-  return (
-    <div className="mb-8">
+  return <div className="mb-8">
       <h2 className="text-2xl font-bold mb-6">Nos Coordonnées</h2>
       <div className="space-y-4">
         <div className="flex items-start gap-4">
           <MapPin className="w-5 h-5 text-migrapro-terre-cuite mt-1" />
           <div>
             <h3 className="font-semibold">Adresse</h3>
-            <p className="text-gray-600">Moramanga, Madagascar</p>
+            <p className="text-gray-600">Lot A351, Moramanga Ville 514</p>
           </div>
         </div>
         <div className="flex items-start gap-4">
@@ -32,8 +29,6 @@ const ContactInfo = () => {
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default ContactInfo;
