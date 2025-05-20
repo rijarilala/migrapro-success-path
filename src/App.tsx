@@ -23,7 +23,6 @@ import NotFound from "./pages/NotFound";
 import Auth from "./pages/Auth";
 import { useEffect } from "react";
 import { LanguageProvider } from "./contexts/LanguageContext";
-import { SearchProvider } from "./contexts/SearchContext";
 
 // Import i18n configuration
 import './i18n';
@@ -81,13 +80,11 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <LanguageProvider>
-          <SearchProvider>
-            <Toaster />
-            <Sonner />
-            <BrowserRouter>
-              <AppContent />
-            </BrowserRouter>
-          </SearchProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <AppContent />
+          </BrowserRouter>
         </LanguageProvider>
       </TooltipProvider>
     </QueryClientProvider>
