@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from '@/components/ui/button';
 import { useTranslation } from 'react-i18next';
+import { SearchableFormation, SearchableFAQ, SearchablePage } from '@/services/searchService';
 
 interface SearchCommandProps {
   className?: string;
@@ -88,12 +89,35 @@ const SearchCommand = ({ className }: SearchCommandProps) => {
     }
   };
 
+  // Type guard functions to check result types
+  const isFormation = (result: any): result is SearchableFormation => {
+    return result.type === 'formation';
+  };
+
+  const isPage = (result: any): result is SearchablePage => {
+    return result.type === 'page';
+  };
+
+  const isFAQ = (result: any): result is SearchableFAQ => {
+    return result.type === 'faq';
+  };
+
+  // Get displayable title for any type of result
+  const getDisplayTitle = (result: any) => {
+    if (isFAQ(result)) {
+      return result.question;
+    } else if (isFormation(result) || isPage(result)) {
+      return result.title;
+    }
+    return '';
+  };
+
   const filteredResults = selectedCategory 
     ? Object.fromEntries(
         Object.entries(groupedResults).map(([type, items]) => [
           type,
           items.filter(item => 
-            'category' in item && item.category === selectedCategory
+            (isFormation(item) || isFAQ(item)) && item.category === selectedCategory
           )
         ])
       )
@@ -198,10 +222,12 @@ const SearchCommand = ({ className }: SearchCommandProps) => {
                           )}
                           onClick={() => handleSelect(url)}
                         >
-                          <div dangerouslySetInnerHTML={{ __html: highlightMatch(item.title, query) }} />
-                          <div className="text-xs text-muted-foreground">
-                            Catégorie: {item.category}
-                          </div>
+                          <div dangerouslySetInnerHTML={{ __html: highlightMatch(getDisplayTitle(item), query) }} />
+                          {isFormation(item) && (
+                            <div className="text-xs text-muted-foreground">
+                              Catégorie: {item.category}
+                            </div>
+                          )}
                         </div>
                       );
                     })}
@@ -227,7 +253,7 @@ const SearchCommand = ({ className }: SearchCommandProps) => {
                           )}
                           onClick={() => handleSelect(url)}
                         >
-                          <div dangerouslySetInnerHTML={{ __html: highlightMatch(item.title, query) }} />
+                          <div dangerouslySetInnerHTML={{ __html: highlightMatch(getDisplayTitle(item), query) }} />
                         </div>
                       );
                     })}
@@ -253,12 +279,14 @@ const SearchCommand = ({ className }: SearchCommandProps) => {
                           )}
                           onClick={() => handleSelect(url)}
                         >
-                          <div dangerouslySetInnerHTML={{ __html: highlightMatch(item.question, query) }} />
-                          <div className="text-xs text-muted-foreground">
-                            {item.answer.length > 70 
-                              ? item.answer.substring(0, 70) + '...' 
-                              : item.answer}
-                          </div>
+                          <div dangerouslySetInnerHTML={{ __html: highlightMatch(getDisplayTitle(item), query) }} />
+                          {isFAQ(item) && (
+                            <div className="text-xs text-muted-foreground">
+                              {item.answer.length > 70 
+                                ? item.answer.substring(0, 70) + '...' 
+                                : item.answer}
+                            </div>
+                          )}
                         </div>
                       );
                     })}
