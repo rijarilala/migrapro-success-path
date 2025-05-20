@@ -1,3 +1,4 @@
+
 import Fuse from 'fuse.js';
 
 // Interfaces pour les différents types de résultats
