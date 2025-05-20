@@ -1,3 +1,4 @@
+
 import Fuse from 'fuse.js';
 
 // Interfaces pour les différents types de résultats
@@ -54,6 +55,7 @@ const pages: SearchablePage[] = [
   { title: 'Pack Réussite', path: '/services/pack-reussite', type: 'page' },
   { title: 'Immigration', path: '/services/immigration', type: 'page' },
   { title: 'Recrutement', path: '/services/recrutement', type: 'page' },
+  { title: 'Test d\'éligibilité à l\'immigration', path: '/services/eligibility', type: 'page' },
 ];
 
 const faqs: SearchableFAQ[] = [
