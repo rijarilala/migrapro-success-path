@@ -64,6 +64,7 @@ const SheetContent = React.forwardRef<
       {...props}
     >
       {children}
+      {/* Removed the default close button that was here */}
     </SheetPrimitive.Content>
   </SheetPortal>
 ))
