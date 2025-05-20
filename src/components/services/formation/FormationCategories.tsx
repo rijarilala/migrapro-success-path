@@ -23,8 +23,8 @@ type Formation = {
   image: string;
 };
 
-const FormationCategories = ({ initialModalToOpen }: { initialModalToOpen: string | null }) => {
-  const [openDialog, setOpenDialog] = useState<string | null>(initialModalToOpen);
+const FormationCategories = () => {
+  const [openDialog, setOpenDialog] = useState<string | null>(null);
 
   const formations: Formation[] = [{
     id: 'cv',
@@ -127,12 +127,22 @@ const FormationCategories = ({ initialModalToOpen }: { initialModalToOpen: strin
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-6">
-          {formations.filter(f => f.category === 'professional').map(formation => <Card key={formation.id} className="border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+          {formations.filter(f => f.category === 'professional').map(formation => (
+            <Card 
+              key={formation.id} 
+              id={formation.id} // Ajouter l'ID de formation pour le ciblage direct
+              className="border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+            >
               <CardHeader className="pb-2 flex flex-col items-center text-center">
                 <div className="w-full h-40 overflow-hidden mb-4 rounded-t-lg relative">
-                  <img src={formation.image} alt={formation.title} className="w-full h-full object-cover" onError={e => {
-                (e.target as HTMLImageElement).src = "/placeholder.svg";
-              }} />
+                  <img 
+                    src={formation.image} 
+                    alt={formation.title} 
+                    className="w-full h-full object-cover" 
+                    onError={e => {
+                      (e.target as HTMLImageElement).src = "/placeholder.svg";
+                    }} 
+                  />
                   <div className="absolute top-2 right-2 bg-white/80 p-1 rounded-full">
                     {formation.icon}
                   </div>
@@ -147,13 +157,19 @@ const FormationCategories = ({ initialModalToOpen }: { initialModalToOpen: strin
                     <Clock className="h-4 w-4 text-gray-500" />
                     <span className="text-sm text-gray-700">{formation.duration}</span>
                   </div>
-                  <Button variant="outline" size="sm" className="flex gap-1" onClick={() => setOpenDialog(formation.id)}>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="flex gap-1" 
+                    onClick={() => setOpenDialog(formation.id)}
+                  >
                     <Info className="h-4 w-4" />
                     <span>Détails</span>
                   </Button>
                 </div>
               </CardContent>
-            </Card>)}
+            </Card>
+          ))}
         </div>
       </div>
 
@@ -169,12 +185,22 @@ const FormationCategories = ({ initialModalToOpen }: { initialModalToOpen: strin
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 max-w-3xl mx-auto">
-          {formations.filter(f => f.category === 'hr').map(formation => <Card key={formation.id} className="border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+          {formations.filter(f => f.category === 'hr').map(formation => (
+            <Card 
+              key={formation.id} 
+              id={formation.id} // Ajouter l'ID de formation pour le ciblage direct
+              className="border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+            >
               <CardHeader className="pb-2 flex flex-col items-center text-center">
                 <div className="w-full h-40 overflow-hidden mb-4 rounded-t-lg relative">
-                  <img src={formation.image} alt={formation.title} className="w-full h-full object-cover" onError={e => {
-                (e.target as HTMLImageElement).src = "/placeholder.svg";
-              }} />
+                  <img 
+                    src={formation.image} 
+                    alt={formation.title} 
+                    className="w-full h-full object-cover" 
+                    onError={e => {
+                      (e.target as HTMLImageElement).src = "/placeholder.svg";
+                    }} 
+                  />
                   <div className="absolute top-2 right-2 bg-white/80 p-1 rounded-full">
                     {formation.icon}
                   </div>
@@ -189,146 +215,152 @@ const FormationCategories = ({ initialModalToOpen }: { initialModalToOpen: strin
                     <Clock className="h-4 w-4 text-gray-500" />
                     <span className="text-sm text-gray-700">{formation.duration}</span>
                   </div>
-                  <Button variant="outline" size="sm" className="flex gap-1" onClick={() => setOpenDialog(formation.id)}>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="flex gap-1" 
+                    onClick={() => setOpenDialog(formation.id)}
+                  >
                     <Info className="h-4 w-4" />
                     <span>Détails</span>
                   </Button>
                 </div>
               </CardContent>
-            </Card>)}
+            </Card>
+          ))}
         </div>
       </div>
 
       {/* Dialog pour le détail des formations - Centré au milieu de l'écran */}
       <Dialog open={!!openDialog} onOpenChange={open => setOpenDialog(open ? openDialog : null)}>
         <DialogContent className="sm:max-w-[600px] p-0 max-h-[85vh] overflow-hidden flex flex-col">
-          {getCurrentFormation() && <>
-              <div className={`bg-${getColorForCategory(getCurrentFormation()?.category || 'professional')}/10 py-4 px-6 flex justify-between items-center`}>
-                <div className="flex flex-col">
-                  <DialogTitle className="text-2xl">{getCurrentFormation()?.title}</DialogTitle>
-                  <p className={`text-${getColorForCategory(getCurrentFormation()?.category || 'professional')} text-sm font-medium`}>
-                    {getCurrentFormation()?.subtitle}
-                  </p>
-                </div>
-                <Button variant="ghost" size="icon" className="rounded-full hover:bg-gray-200" onClick={() => setOpenDialog(null)}>
-                  <X className="h-5 w-5" />
-                </Button>
+          {getCurrentFormation() && (
+            <div className={`bg-${getColorForCategory(getCurrentFormation()?.category || 'professional')}/10 py-4 px-6 flex justify-between items-center`}>
+              <div className="flex flex-col">
+                <DialogTitle className="text-2xl">{getCurrentFormation()?.title}</DialogTitle>
+                <p className={`text-${getColorForCategory(getCurrentFormation()?.category || 'professional')} text-sm font-medium`}>
+                  {getCurrentFormation()?.subtitle}
+                </p>
               </div>
+              <Button variant="ghost" size="icon" className="rounded-full hover:bg-gray-200" onClick={() => setOpenDialog(null)}>
+                <X className="h-5 w-5" />
+              </Button>
+            </div>
 
-              <ScrollArea className="flex-1 overflow-auto px-6 py-4">
-                <div className="space-y-5">
-                  <div className="w-full h-48 overflow-hidden rounded-md mb-6">
-                    <img 
-                      src={getCurrentFormation()?.image} 
-                      alt={getCurrentFormation()?.title} 
-                      className="w-full h-full object-cover" 
-                      onError={e => {
-                        (e.target as HTMLImageElement).src = "/placeholder.svg";
-                      }} 
-                    />
-                  </div>
-                  
-                  <div>
-                    <h4 className="font-medium text-sm text-gray-500 mb-1">Description</h4>
-                    <p>{getCurrentFormation()?.description}</p>
-                  </div>
-
-                  <div>
-                    <h4 className="font-medium text-sm text-gray-500 mb-1">Objectif</h4>
-                    <p>{getCurrentFormation()?.objective}</p>
-                  </div>
-
-                  <div>
-                    <h4 className="font-medium text-sm text-gray-500 mb-1">Public cible</h4>
-                    <p>{getCurrentFormation()?.targetAudience}</p>
-                  </div>
-
-                  <div className="flex flex-wrap justify-between items-center p-4 bg-gray-50 rounded-md">
-                    <div>
-                      <h4 className="font-medium text-sm text-gray-500 mb-1">Durée</h4>
-                      <div className="flex items-center gap-1">
-                        <Clock className={`h-4 w-4 text-${getColorForCategory(getCurrentFormation()?.category || 'professional')}`} />
-                        <span>{getCurrentFormation()?.duration}</span>
-                      </div>
-                    </div>
-
-                    <div>
-                      <h4 className="font-medium text-sm text-gray-500 mb-1">Format</h4>
-                      <div className="flex gap-2">
-                        {getCurrentFormation()?.format.map(fmt => (
-                          <Badge key={fmt} variant="outline" className="bg-gray-50">
-                            {fmt}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {getCurrentFormation()?.includedInPacks && getCurrentFormation()?.includedInPacks.length > 0 && (
-                    <div className="border-t pt-4 mt-4">
-                      <p className="font-medium mb-2">
-                        Cette formation est incluse dans :
-                      </p>
-                      <div className="flex gap-2 mt-2">
-                        {getCurrentFormation()?.includedInPacks.includes('pack-insertion-pro') && <Button variant="outline" className="bg-migrapro-terre-cuite/10 border border-migrapro-terre-cuite/20 hover:bg-migrapro-terre-cuite/20 rounded-md p-3 flex items-center gap-2 h-auto" onClick={() => {
-                    setOpenDialog(null);
-                    // Navigate to packs tab and scroll to the pack
-                    const tabsElement = document.querySelector('[value="packs"]');
-                    if (tabsElement) {
-                      (tabsElement as HTMLElement).click();
-                      setTimeout(() => {
-                        const packElement = document.getElementById('pack-insertion-pro');
-                        if (packElement) {
-                          packElement.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'center'
-                          });
-                        }
-                      }, 300);
-                    }
-                  }}>
-                            <Package className="h-5 w-5 text-migrapro-terre-cuite" />
-                            <span className="font-medium">Pack Insertion Pro</span>
-                          </Button>}
-                        {getCurrentFormation()?.includedInPacks.includes('pack-rh-starter') && <Button variant="outline" className="bg-migrapro-bleu-ciel/10 border border-migrapro-bleu-ciel/20 hover:bg-migrapro-bleu-ciel/20 rounded-md p-3 flex items-center gap-2 h-auto" onClick={() => {
-                    setOpenDialog(null);
-                    // Navigate to packs tab and scroll to the pack
-                    const tabsElement = document.querySelector('[value="packs"]');
-                    if (tabsElement) {
-                      (tabsElement as HTMLElement).click();
-                      setTimeout(() => {
-                        const packElement = document.getElementById('pack-rh-starter');
-                        if (packElement) {
-                          packElement.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'center'
-                          });
-                        }
-                      }, 300);
-                    }
-                  }}>
-                            <Package className="h-5 w-5 text-migrapro-bleu-ciel" />
-                            <span className="font-medium">Pack RH Starter</span>
-                          </Button>}
-                      </div>
-                    </div>
-                  )}
-                  
-                  <div className="h-20"></div> {/* Espace pour éviter que le contenu soit caché derrière le footer */}
+            <ScrollArea className="flex-1 overflow-auto px-6 py-4">
+              <div className="space-y-5">
+                <div className="w-full h-48 overflow-hidden rounded-md mb-6">
+                  <img 
+                    src={getCurrentFormation()?.image} 
+                    alt={getCurrentFormation()?.title} 
+                    className="w-full h-full object-cover" 
+                    onError={e => {
+                      (e.target as HTMLImageElement).src = "/placeholder.svg";
+                    }} 
+                  />
                 </div>
-              </ScrollArea>
+                
+                <div>
+                  <h4 className="font-medium text-sm text-gray-500 mb-1">Description</h4>
+                  <p>{getCurrentFormation()?.description}</p>
+                </div>
 
-              <DialogFooter className="px-6 py-4 border-t flex flex-col sm:flex-row gap-2 bg-white">
-                <Button variant="outline" onClick={() => setOpenDialog(null)} className="w-full sm:w-auto mx-0 my-0 py-[16px] px-0">
-                  Retour aux formations
-                </Button>
-                <Button asChild className="w-full sm:w-auto">
-                  <Link to={`/contact?service=formation&course=${openDialog}`}>
-                    Demander plus d'infos
-                  </Link>
-                </Button>
-              </DialogFooter>
-            </>}
+                <div>
+                  <h4 className="font-medium text-sm text-gray-500 mb-1">Objectif</h4>
+                  <p>{getCurrentFormation()?.objective}</p>
+                </div>
+
+                <div>
+                  <h4 className="font-medium text-sm text-gray-500 mb-1">Public cible</h4>
+                  <p>{getCurrentFormation()?.targetAudience}</p>
+                </div>
+
+                <div className="flex flex-wrap justify-between items-center p-4 bg-gray-50 rounded-md">
+                  <div>
+                    <h4 className="font-medium text-sm text-gray-500 mb-1">Durée</h4>
+                    <div className="flex items-center gap-1">
+                      <Clock className={`h-4 w-4 text-${getColorForCategory(getCurrentFormation()?.category || 'professional')}`} />
+                      <span>{getCurrentFormation()?.duration}</span>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h4 className="font-medium text-sm text-gray-500 mb-1">Format</h4>
+                    <div className="flex gap-2">
+                      {getCurrentFormation()?.format.map(fmt => (
+                        <Badge key={fmt} variant="outline" className="bg-gray-50">
+                          {fmt}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                
+                {getCurrentFormation()?.includedInPacks && getCurrentFormation()?.includedInPacks.length > 0 && (
+                  <div className="border-t pt-4 mt-4">
+                    <p className="font-medium mb-2">
+                      Cette formation est incluse dans :
+                    </p>
+                    <div className="flex gap-2 mt-2">
+                      {getCurrentFormation()?.includedInPacks.includes('pack-insertion-pro') && <Button variant="outline" className="bg-migrapro-terre-cuite/10 border border-migrapro-terre-cuite/20 hover:bg-migrapro-terre-cuite/20 rounded-md p-3 flex items-center gap-2 h-auto" onClick={() => {
+                        setOpenDialog(null);
+                        // Navigate to packs tab and scroll to the pack
+                        const tabsElement = document.querySelector('[value="packs"]');
+                        if (tabsElement) {
+                          (tabsElement as HTMLElement).click();
+                          setTimeout(() => {
+                            const packElement = document.getElementById('pack-insertion-pro');
+                            if (packElement) {
+                              packElement.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'center'
+                              });
+                            }
+                          }, 300);
+                        }
+                      }}>
+                        <Package className="h-5 w-5 text-migrapro-terre-cuite" />
+                        <span className="font-medium">Pack Insertion Pro</span>
+                      </Button>}
+                      {getCurrentFormation()?.includedInPacks.includes('pack-rh-starter') && <Button variant="outline" className="bg-migrapro-bleu-ciel/10 border border-migrapro-bleu-ciel/20 hover:bg-migrapro-bleu-ciel/20 rounded-md p-3 flex items-center gap-2 h-auto" onClick={() => {
+                        setOpenDialog(null);
+                        // Navigate to packs tab and scroll to the pack
+                        const tabsElement = document.querySelector('[value="packs"]');
+                        if (tabsElement) {
+                          (tabsElement as HTMLElement).click();
+                          setTimeout(() => {
+                            const packElement = document.getElementById('pack-rh-starter');
+                            if (packElement) {
+                              packElement.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'center'
+                              });
+                            }
+                          }, 300);
+                        }
+                      }}>
+                        <Package className="h-5 w-5 text-migrapro-bleu-ciel" />
+                        <span className="font-medium">Pack RH Starter</span>
+                      </Button>}
+                    </div>
+                  </div>
+                )}
+                
+                <div className="h-20"></div> {/* Espace pour éviter que le contenu soit caché derrière le footer */}
+              </div>
+            </ScrollArea>
+
+            <DialogFooter className="px-6 py-4 border-t flex flex-col sm:flex-row gap-2 bg-white">
+              <Button variant="outline" onClick={() => setOpenDialog(null)} className="w-full sm:w-auto mx-0 my-0 py-[16px] px-0">
+                Retour aux formations
+              </Button>
+              <Button asChild className="w-full sm:w-auto">
+                <Link to={`/contact?service=formation&course=${openDialog}`}>
+                  Demander plus d'infos
+                </Link>
+              </Button>
+            </DialogFooter>
+          )}
         </DialogContent>
       </Dialog>
     </div>;

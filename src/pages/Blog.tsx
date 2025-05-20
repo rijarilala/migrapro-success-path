@@ -24,16 +24,16 @@ const Blog = () => {
             (categoryButton as HTMLElement).click();
           }
           
-          // If both category and question are specified, wait for category tab to load then expand question
+          // If both category and question are specified, scroll to question and highlight it
           if (questionId) {
             setTimeout(() => {
-              expandQuestion(questionId);
+              highlightQuestion(questionId);
             }, 300);
           }
         } 
-        // If only question is specified, just expand it directly
+        // If only question is specified, just highlight it directly
         else if (questionId) {
-          expandQuestion(questionId);
+          highlightQuestion(questionId);
         }
         
         // Reset URL params to avoid issues with refreshing
@@ -42,8 +42,8 @@ const Blog = () => {
     }
   }, [searchParams]);
   
-  // Function to find and expand a specific question
-  const expandQuestion = (questionId: string) => {
+  // Function to find and highlight a specific question
+  const highlightQuestion = (questionId: string) => {
     // Find the accordion item containing the question
     const accordionItem = document.getElementById(`faq-${questionId}`);
     if (accordionItem) {
@@ -56,12 +56,6 @@ const Blog = () => {
         accordionItem.classList.remove('bg-yellow-50');
         accordionItem.classList.add('transition-colors', 'duration-1000');
       }, 2000);
-      
-      // Click to expand the accordion
-      const trigger = accordionItem.querySelector('[data-state]');
-      if (trigger && trigger.getAttribute('data-state') === 'closed') {
-        (trigger as HTMLElement).click();
-      }
     }
   };
 
