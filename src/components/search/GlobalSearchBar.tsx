@@ -66,19 +66,19 @@ export const GlobalSearchBar = () => {
     }
   }, [isOpen]);
 
-  // Gestion de la fermeture
-  const handleOpenChange = (open: boolean) => {
-    setIsOpen(open);
-    if (!open) {
-      clearSearch();
-    }
-  };
-
   // Navigation vers le résultat sélectionné
   const handleResultClick = (url: string) => {
     navigate(url);
     setIsOpen(false);
     clearSearch();
+  };
+
+  // Gestion de la fermeture sans suppression des résultats
+  const handleOpenChange = (open: boolean) => {
+    setIsOpen(open);
+    if (!open && !query) {
+      clearSearch();
+    }
   };
 
   // Gestion du filtrage par catégorie

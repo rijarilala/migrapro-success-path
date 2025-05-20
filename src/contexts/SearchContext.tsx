@@ -24,7 +24,7 @@ export const SearchProvider = ({ children }: { children: ReactNode }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
-  // Logique de recherche avec effet de bord et debounce plus court pour une recherche instantanée
+  // Logique de recherche avec effet de bord et debounce plus court pour une réactivité instantanée
   useEffect(() => {
     if (!query || query.length < 1) { // Recherche dès le premier caractère
       setResults([]);
@@ -34,7 +34,7 @@ export const SearchProvider = ({ children }: { children: ReactNode }) => {
 
     setIsLoading(true);
     
-    // Délai très court pour une recherche quasi-instantanée (100ms)
+    // Délai très court pour une recherche quasi-instantanée (50ms)
     const timer = setTimeout(() => {
       try {
         const searchResults = searchData(query, selectedCategory);
@@ -45,7 +45,7 @@ export const SearchProvider = ({ children }: { children: ReactNode }) => {
       } finally {
         setIsLoading(false);
       }
-    }, 100); // Délai réduit pour une expérience plus instantanée
+    }, 50); // Délai encore plus court pour une expérience totalement instantanée
 
     return () => clearTimeout(timer);
   }, [query, selectedCategory]);
