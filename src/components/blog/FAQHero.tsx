@@ -1,14 +1,14 @@
 
 const FAQHero = () => {
   return (
-    <section className="relative py-20 bg-migrapro-bleu-ciel text-white">
+    <section className="relative py-16 bg-[#21BBDC] text-white">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            Foire Aux Questions
+            Foire aux questions
           </h1>
-          <p className="text-lg md:text-xl text-gray-100">
-            Trouvez des réponses aux questions fréquentes sur l'immigration, les études et l'expatriation
+          <p className="text-lg md:text-xl text-white">
+            Trouvez des réponses à vos questions les plus fréquentes
           </p>
         </div>
       </div>
