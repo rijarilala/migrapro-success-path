@@ -138,9 +138,8 @@ const SearchCommand = ({ className }: SearchCommandProps) => {
           <span>{t('hero.searchPlaceholder')}</span>
         </Button>
       </DialogTrigger>
-      <DialogContent className="p-0 gap-0" onKeyDown={handleKeyDown} aria-describedby="search-description">
+      <DialogContent className="p-0 gap-0" onKeyDown={handleKeyDown}>
         <DialogTitle className="sr-only">Recherche</DialogTitle>
-        <div id="search-description" className="sr-only">Recherchez des formations, des pages ou des FAQ</div>
         <div className="flex flex-col">
           <Command className="rounded-lg border shadow-md">
             <div className="flex items-center px-3 border-b">

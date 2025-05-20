@@ -3,6 +3,7 @@ import { createContext, useContext, useState, ReactNode, useCallback } from 'rea
 import { SearchResult, searchAll, groupSearchResults } from '@/services/searchService';
 import { useDebounce } from '@/hooks/use-debounce';
 import { useNavigate } from 'react-router-dom';
+import { toast } from '@/hooks/use-toast';
 
 interface SearchContextType {
   isOpen: boolean;
@@ -15,7 +16,7 @@ interface SearchContextType {
   setIsOpen: (isOpen: boolean) => void;
   clearSearch: () => void;
   setSelectedCategory: (category: string | null) => void;
-  handleResultClick: (result: SearchResult) => void; // Added method to handle result clicks
+  handleResultClick: (result: SearchResult) => void; // Méthode pour gérer les clics sur les résultats
 }
 
 const SearchContext = createContext<SearchContextType | undefined>(undefined);
@@ -67,32 +68,46 @@ export function SearchProvider({ children }: { children: ReactNode }) {
     setSelectedCategory(null);
   }, []);
 
-  // New method to handle result clicks with enhanced navigation
+  // Méthode améliorée pour gérer les clics sur les résultats avec navigation intelligente
   const handleResultClick = useCallback((result: SearchResult) => {
-    // Determine the URL based on the result type and navigate
+    // Déterminer l'URL en fonction du type de résultat et naviguer
     let url = '';
+    let toastMessage = '';
     
     switch (result.type) {
       case 'formation':
         url = `/services/formation?showModal=${result.formationId}`;
+        toastMessage = `Redirection vers la formation: ${result.title}`;
         break;
       case 'page':
         url = (result as any).path;
         break;
       case 'faq':
         url = `/blog?category=${(result as any).faqCategory}&question=${result.id}`;
+        toastMessage = `Redirection vers la FAQ: ${(result as any).question}`;
         break;
       default:
         url = '/';
     }
 
-    // Close search dialog
+    // Fermer le dialogue de recherche
     setIsOpen(false);
-    // Clear search
+    
+    // Effacer la recherche
     clearSearch();
-    // Navigate to the URL
+    
+    // Afficher un toast informatif
+    if (toastMessage) {
+      toast({
+        title: "Redirection en cours",
+        description: toastMessage,
+        duration: 3000,
+      });
+    }
+    
+    // Naviguer vers l'URL
     navigate(url);
-  }, [navigate, clearSearch]);
+  }, [navigate, clearSearch, toast]);
 
   return (
     <SearchContext.Provider

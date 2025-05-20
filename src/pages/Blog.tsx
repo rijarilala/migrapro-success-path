@@ -47,7 +47,7 @@ const Blog = () => {
     // Find the accordion item containing the question
     const accordionItem = document.getElementById(`faq-${questionId}`);
     if (accordionItem) {
-      // Scroll to the question
+      // Scroll to the question with smooth behavior
       accordionItem.scrollIntoView({ behavior: 'smooth', block: 'start' });
       
       // Add a highlight effect

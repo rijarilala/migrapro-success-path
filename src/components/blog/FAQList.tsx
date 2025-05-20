@@ -100,7 +100,7 @@ const FAQList = () => {
                 key={index} 
                 value={`item-${index}`} 
                 className="border-none"
-                id={`faq-${faq.id}`} // Added ID for direct navigation
+                id={`faq-${faq.id}`} // ID pour la navigation directe
               >
                 <AccordionTrigger 
                   className="px-4 md:px-6 py-3 md:py-4 text-left hover:no-underline text-sm md:text-base"

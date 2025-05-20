@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import Navbar from '@/components/layout/Navbar';
@@ -5,6 +6,7 @@ import Footer from '@/components/layout/Footer';
 import FormationHero from '@/components/services/formation/FormationHero';
 import FormationTabs from '@/components/services/formation/FormationTabs';
 import ServiceCTA from '@/components/services/ServiceCTA';
+import { toast } from '@/hooks/use-toast';
 
 const Formation = () => {
   const location = useLocation();
@@ -17,6 +19,13 @@ const Formation = () => {
     const modalToShow = searchParams.get('showModal');
     if (modalToShow) {
       setShouldOpenModal(modalToShow);
+      
+      // Show toast notification
+      toast({
+        title: "Formation trouvée",
+        description: "Ouverture des détails de la formation...",
+        duration: 3000,
+      });
       
       // Reset the URL so refreshing doesn't reopen the modal
       // But keep this effect running only once per parameter change
@@ -33,6 +42,13 @@ const Formation = () => {
           const formationElement = document.getElementById(modalToShow);
           if (formationElement) {
             formationElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            // Add highlight effect
+            formationElement.classList.add('bg-yellow-50');
+            setTimeout(() => {
+              formationElement.classList.remove('bg-yellow-50');
+              formationElement.classList.add('transition-colors', 'duration-1000');
+            }, 2000);
             
             // Find and click the "details" button for this formation
             const detailButton = formationElement.querySelector('button');

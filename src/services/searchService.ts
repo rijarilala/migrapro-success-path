@@ -8,7 +8,7 @@ export interface SearchableFormation {
   slug: string;
   category: string;
   type: 'formation';
-  formationId: string; // Added formationId for direct modal opening
+  formationId: string; // Pour ouvrir directement le modal de la formation
 }
 
 export interface SearchablePage {
@@ -23,8 +23,7 @@ export interface SearchableFAQ {
   answer: string;
   category: string;
   type: 'faq';
-  faqCategory: string; // Added to help select the right category tab
-  questionIndex: number; // Added to identify which accordion item to expand
+  faqCategory: string; // Pour sélectionner la bonne catégorie
 }
 
 export type SearchResult = SearchableFormation | SearchablePage | SearchableFAQ;
@@ -67,8 +66,7 @@ const faqs: SearchableFAQ[] = [
     answer: 'Vous pouvez utiliser notre outil d\'évaluation d\'éligibilité gratuit ou prendre rendez-vous pour une consultation personnalisée.',
     category: 'Immigration',
     type: 'faq',
-    faqCategory: 'immigration',
-    questionIndex: 0
+    faqCategory: 'immigration'
   },
   { 
     id: '2', 
@@ -76,8 +74,7 @@ const faqs: SearchableFAQ[] = [
     answer: 'Pour un visa d\'études, vous aurez besoin de votre lettre d\'acceptation, preuve de fonds suffisants, passeport valide et autres documents spécifiques.',
     category: 'Études',
     type: 'faq',
-    faqCategory: 'etudes',
-    questionIndex: 0
+    faqCategory: 'etudes'
   },
   { 
     id: '3', 
@@ -85,8 +82,7 @@ const faqs: SearchableFAQ[] = [
     answer: 'Le Pack Réussite comprend la rédaction de CV, lettre de motivation et coaching d\'entretien, spécifiquement adaptés au marché canadien.',
     category: 'Services',
     type: 'faq',
-    faqCategory: 'general',
-    questionIndex: 0
+    faqCategory: 'general'
   },
   { 
     id: '4', 
@@ -94,8 +90,7 @@ const faqs: SearchableFAQ[] = [
     answer: 'L\'Express Entry est un système fédéral tandis que le PEQ est un programme provincial québécois, chacun avec des critères d\'admissibilité différents.',
     category: 'Immigration',
     type: 'faq',
-    faqCategory: 'immigration',
-    questionIndex: 1
+    faqCategory: 'immigration'
   },
   { 
     id: '5', 
@@ -103,8 +98,7 @@ const faqs: SearchableFAQ[] = [
     answer: 'Notre service de coaching vous prépare avec des simulations d\'entretien, des conseils culturels et des techniques de présentation adaptées.',
     category: 'Emploi',
     type: 'faq',
-    faqCategory: 'coaching',
-    questionIndex: 0
+    faqCategory: 'coaching'
   },
 ];
 
@@ -162,7 +156,7 @@ export function highlightMatch(text: string, query: string): string {
   return text.replace(regex, '<mark>$1</mark>');
 }
 
-// Fonction mise à jour pour obtenir le lien correct avec les paramètres appropriés
+// Fonction pour obtenir le lien correct avec les paramètres appropriés
 export function getResultUrl(result: SearchResult): string {
   switch (result.type) {
     case 'formation':
@@ -171,7 +165,7 @@ export function getResultUrl(result: SearchResult): string {
     case 'page':
       return (result as SearchablePage).path;
     case 'faq':
-      // Pour les FAQ, on ajoute la catégorie et l'index comme paramètres
+      // Pour les FAQ, on ajoute la catégorie et l'ID comme paramètres
       const faq = result as SearchableFAQ;
       return `/blog?category=${faq.faqCategory}&question=${faq.id}`;
     default:
