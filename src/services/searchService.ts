@@ -36,7 +36,7 @@ const formations: SearchableFormation[] = [
   { id: '6', title: 'Rédaction de CV (4h)', slug: 'redaction-cv', category: 'Documentation', type: 'formation' },
   { id: '7', title: 'Lettre de motivation (3h)', slug: 'lettre-motivation', category: 'Documentation', type: 'formation' },
   { id: '8', title: 'Créer et optimiser son profil LinkedIn (3h)', slug: 'linkedin', category: 'Emploi', type: 'formation' },
-  { id: '9', title: 'Préparation à la recherche d\'emploi (5h)', slug: 'recherche-emploi', category: 'Emploi', type: 'formation' },
+  { id: '9', title: 'Préparation à la recherche du premier emploi / nouveau emploi', slug: 'recherche-emploi', category: 'Emploi', type: 'formation' },
   { id: '10', title: 'Transition vie étudiante – vie professionnelle (4h)', slug: 'transition', category: 'Orientation', type: 'formation' },
   { id: '11', title: 'Gestion des Ressources Humaines – Fondamentaux, stratégie & pratique (6h)', slug: 'grh', category: 'Compétences RH', type: 'formation' },
   { id: '12', title: 'Préparation à la recherche du premier emploi / nouveau emploi', slug: 'premier-emploi', category: 'Insertion Professionnelle', type: 'formation' },
