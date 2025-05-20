@@ -3,9 +3,8 @@ import { useState, useEffect, useRef, KeyboardEvent } from 'react';
 import { Command } from 'cmdk';
 import { Search, Loader2, X } from 'lucide-react';
 import { useSearch } from '@/contexts/SearchContext';
-import { useNavigate } from 'react-router-dom';
 import { cn } from '@/lib/utils';
-import { getResultUrl, highlightMatch, getAvailableCategories } from '@/services/searchService';
+import { highlightMatch, getAvailableCategories } from '@/services/searchService';
 import {
   Dialog,
   DialogContent,
@@ -32,9 +31,9 @@ const SearchCommand = ({ className }: SearchCommandProps) => {
     isLoading, 
     clearSearch,
     selectedCategory,
-    setSelectedCategory
+    setSelectedCategory,
+    handleResultClick
   } = useSearch();
-  const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const [availableCategories, setAvailableCategories] = useState<string[]>([]);
@@ -60,36 +59,6 @@ const SearchCommand = ({ className }: SearchCommandProps) => {
     }
   }, [isOpen]);
 
-  const handleSelect = (url: string) => {
-    setIsOpen(false);
-    navigate(url);
-    clearSearch();
-  };
-
-  const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
-    // Navigation avec les flèches
-    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-      e.preventDefault();
-      
-      const flatResults = Object.values(groupedResults).flat();
-      if (flatResults.length === 0) return;
-      
-      if (e.key === 'ArrowDown') {
-        setSelectedIndex(prev => (prev + 1) % flatResults.length);
-      } else {
-        setSelectedIndex(prev => (prev <= 0 ? flatResults.length - 1 : prev - 1));
-      }
-    }
-    
-    // Sélection avec Entrée
-    if (e.key === 'Enter' && selectedIndex >= 0) {
-      const flatResults = Object.values(groupedResults).flat();
-      if (flatResults[selectedIndex]) {
-        handleSelect(getResultUrl(flatResults[selectedIndex]));
-      }
-    }
-  };
-
   // Type guard functions to check result types
   const isFormation = (result: any): result is SearchableFormation => {
     return result.type === 'formation';
@@ -111,6 +80,30 @@ const SearchCommand = ({ className }: SearchCommandProps) => {
       return result.title;
     }
     return '';
+  };
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+    // Navigation avec les flèches
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      
+      const flatResults = Object.values(groupedResults).flat();
+      if (flatResults.length === 0) return;
+      
+      if (e.key === 'ArrowDown') {
+        setSelectedIndex(prev => (prev + 1) % flatResults.length);
+      } else {
+        setSelectedIndex(prev => (prev <= 0 ? flatResults.length - 1 : prev - 1));
+      }
+    }
+    
+    // Sélection avec Entrée
+    if (e.key === 'Enter' && selectedIndex >= 0) {
+      const flatResults = Object.values(groupedResults).flat();
+      if (flatResults[selectedIndex]) {
+        handleResultClick(flatResults[selectedIndex]);
+      }
+    }
   };
 
   const filteredResults = selectedCategory 
@@ -211,7 +204,6 @@ const SearchCommand = ({ className }: SearchCommandProps) => {
                   <div className="px-1 py-1.5">
                     <div className="px-2 py-1.5 text-xs font-semibold">Formations</div>
                     {filteredResults.formation.map((item, index) => {
-                      const url = getResultUrl(item);
                       const globalIndex = Object.values(filteredResults)
                         .flat()
                         .findIndex(r => r === item);
@@ -223,7 +215,7 @@ const SearchCommand = ({ className }: SearchCommandProps) => {
                             "px-2 py-1.5 text-sm rounded-sm cursor-pointer flex flex-col relative",
                             selectedIndex === globalIndex ? "bg-accent text-accent-foreground" : "hover:bg-accent hover:text-accent-foreground"
                           )}
-                          onClick={() => handleSelect(url)}
+                          onClick={() => handleResultClick(item)}
                         >
                           <div dangerouslySetInnerHTML={{ __html: highlightMatch(getDisplayTitle(item), query) }} />
                           {isFormation(item) && (
@@ -242,7 +234,6 @@ const SearchCommand = ({ className }: SearchCommandProps) => {
                   <div className="px-1 py-1.5">
                     <div className="px-2 py-1.5 text-xs font-semibold">Pages</div>
                     {filteredResults.page.map((item, index) => {
-                      const url = getResultUrl(item);
                       const globalIndex = Object.values(filteredResults)
                         .flat()
                         .findIndex(r => r === item);
@@ -254,7 +245,7 @@ const SearchCommand = ({ className }: SearchCommandProps) => {
                             "px-2 py-1.5 text-sm rounded-sm cursor-pointer",
                             selectedIndex === globalIndex ? "bg-accent text-accent-foreground" : "hover:bg-accent hover:text-accent-foreground"
                           )}
-                          onClick={() => handleSelect(url)}
+                          onClick={() => handleResultClick(item)}
                         >
                           <div dangerouslySetInnerHTML={{ __html: highlightMatch(getDisplayTitle(item), query) }} />
                         </div>
@@ -268,7 +259,6 @@ const SearchCommand = ({ className }: SearchCommandProps) => {
                   <div className="px-1 py-1.5">
                     <div className="px-2 py-1.5 text-xs font-semibold">FAQ</div>
                     {filteredResults.faq.map((item, index) => {
-                      const url = getResultUrl(item);
                       const globalIndex = Object.values(filteredResults)
                         .flat()
                         .findIndex(r => r === item);
@@ -280,7 +270,7 @@ const SearchCommand = ({ className }: SearchCommandProps) => {
                             "px-2 py-1.5 text-sm rounded-sm cursor-pointer flex flex-col",
                             selectedIndex === globalIndex ? "bg-accent text-accent-foreground" : "hover:bg-accent hover:text-accent-foreground"
                           )}
-                          onClick={() => handleSelect(url)}
+                          onClick={() => handleResultClick(item)}
                         >
                           <div dangerouslySetInnerHTML={{ __html: highlightMatch(getDisplayTitle(item), query) }} />
                           {isFAQ(item) && (

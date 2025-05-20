@@ -1,12 +1,24 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import FormationCategories from './FormationCategories';
 import FormationPacks from './FormationPacks';
 import { BookOpen, Package } from 'lucide-react';
 
-const FormationTabs = () => {
+interface FormationTabsProps {
+  initialModalToOpen?: string | null;
+}
+
+const FormationTabs = ({ initialModalToOpen }: FormationTabsProps) => {
   const [activeTab, setActiveTab] = useState("categories");
+
+  useEffect(() => {
+    // Pass the initialModalToOpen down to the children components
+    if (initialModalToOpen) {
+      // Make sure we're on the categories tab for formation modals
+      setActiveTab("categories");
+    }
+  }, [initialModalToOpen]);
 
   return (
     <section className="py-16 bg-white">
@@ -14,6 +26,7 @@ const FormationTabs = () => {
         <Tabs 
           defaultValue="categories" 
           className="w-full"
+          value={activeTab}
           onValueChange={(value) => setActiveTab(value)}
         >
           <div className="flex justify-center mb-8">
@@ -30,7 +43,7 @@ const FormationTabs = () => {
           </div>
 
           <TabsContent value="categories" className="mt-0">
-            <FormationCategories />
+            <FormationCategories initialModalToOpen={initialModalToOpen} />
           </TabsContent>
           
           <TabsContent value="packs" className="mt-0">

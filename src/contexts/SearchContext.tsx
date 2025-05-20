@@ -2,6 +2,7 @@
 import { createContext, useContext, useState, ReactNode, useCallback } from 'react';
 import { SearchResult, searchAll, groupSearchResults } from '@/services/searchService';
 import { useDebounce } from '@/hooks/use-debounce';
+import { useNavigate } from 'react-router-dom';
 
 interface SearchContextType {
   isOpen: boolean;
@@ -14,6 +15,7 @@ interface SearchContextType {
   setIsOpen: (isOpen: boolean) => void;
   clearSearch: () => void;
   setSelectedCategory: (category: string | null) => void;
+  handleResultClick: (result: SearchResult) => void; // Added method to handle result clicks
 }
 
 const SearchContext = createContext<SearchContextType | undefined>(undefined);
@@ -25,6 +27,7 @@ export function SearchProvider({ children }: { children: ReactNode }) {
   const [groupedResults, setGroupedResults] = useState<Record<string, SearchResult[]>>({});
   const [isLoading, setIsLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   // Utiliser useDebounce pour éviter trop de recherches pendant la frappe
   const debouncedSearch = useDebounce(async (searchQuery: string) => {
@@ -64,6 +67,33 @@ export function SearchProvider({ children }: { children: ReactNode }) {
     setSelectedCategory(null);
   }, []);
 
+  // New method to handle result clicks with enhanced navigation
+  const handleResultClick = useCallback((result: SearchResult) => {
+    // Determine the URL based on the result type and navigate
+    let url = '';
+    
+    switch (result.type) {
+      case 'formation':
+        url = `/services/formation?showModal=${result.formationId}`;
+        break;
+      case 'page':
+        url = (result as any).path;
+        break;
+      case 'faq':
+        url = `/blog?category=${(result as any).faqCategory}&question=${result.id}`;
+        break;
+      default:
+        url = '/';
+    }
+
+    // Close search dialog
+    setIsOpen(false);
+    // Clear search
+    clearSearch();
+    // Navigate to the URL
+    navigate(url);
+  }, [navigate, clearSearch]);
+
   return (
     <SearchContext.Provider
       value={{
@@ -76,7 +106,8 @@ export function SearchProvider({ children }: { children: ReactNode }) {
         setQuery,
         setIsOpen,
         clearSearch,
-        setSelectedCategory
+        setSelectedCategory,
+        handleResultClick
       }}
     >
       {children}

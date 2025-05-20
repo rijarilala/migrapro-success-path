@@ -8,6 +8,7 @@ export interface SearchableFormation {
   slug: string;
   category: string;
   type: 'formation';
+  formationId: string; // Added formationId for direct modal opening
 }
 
 export interface SearchablePage {
@@ -22,23 +23,24 @@ export interface SearchableFAQ {
   answer: string;
   category: string;
   type: 'faq';
+  faqCategory: string; // Added to help select the right category tab
+  questionIndex: number; // Added to identify which accordion item to expand
 }
 
 export type SearchResult = SearchableFormation | SearchablePage | SearchableFAQ;
 
 // Données de recherche mock - À remplacer par des données réelles
 const formations: SearchableFormation[] = [
-  { id: '1', title: 'Formation en Orientation Professionnelle', slug: 'orientation', category: 'Orientation', type: 'formation' },
-  { id: '2', title: 'Formation en Leadership', slug: 'leadership', category: 'Compétences', type: 'formation' },
-  { id: '3', title: 'Cours de français professionnel', slug: 'francais', category: 'Langues', type: 'formation' },
-  { id: '4', title: 'Préparation à l\'entretien d\'embauche', slug: 'entretien', category: 'Emploi', type: 'formation' },
-  // Suppression de la formation dupliquée "Rédaction de CV canadien"
-  { id: '6', title: 'Rédaction de CV (4h)', slug: 'redaction-cv', category: 'Documentation', type: 'formation' },
-  { id: '7', title: 'Lettre de motivation (3h)', slug: 'lettre-motivation', category: 'Documentation', type: 'formation' },
-  { id: '8', title: 'Créer et optimiser son profil LinkedIn (3h)', slug: 'linkedin', category: 'Emploi', type: 'formation' },
-  { id: '9', title: 'Préparation à la recherche du premier emploi / nouveau emploi', slug: 'recherche-emploi', category: 'Insertion Professionnelle', type: 'formation' },
-  { id: '10', title: 'Transition vie étudiante – vie professionnelle (4h)', slug: 'transition', category: 'Orientation', type: 'formation' },
-  { id: '11', title: 'Gestion des Ressources Humaines – Fondamentaux, stratégie & pratique (6h)', slug: 'grh', category: 'Compétences RH', type: 'formation' },
+  { id: '1', title: 'Formation en Orientation Professionnelle', slug: 'orientation', category: 'Orientation', type: 'formation', formationId: 'orientation-pro' },
+  { id: '2', title: 'Formation en Leadership', slug: 'leadership', category: 'Compétences', type: 'formation', formationId: 'leadership' },
+  { id: '3', title: 'Cours de français professionnel', slug: 'francais', category: 'Langues', type: 'formation', formationId: 'francais-pro' },
+  { id: '4', title: 'Préparation à l\'entretien d\'embauche', slug: 'entretien', category: 'Emploi', type: 'formation', formationId: 'entretien' },
+  { id: '6', title: 'Rédaction de CV (4h)', slug: 'redaction-cv', category: 'Documentation', type: 'formation', formationId: 'redaction-cv' },
+  { id: '7', title: 'Lettre de motivation (3h)', slug: 'lettre-motivation', category: 'Documentation', type: 'formation', formationId: 'lettre-motivation' },
+  { id: '8', title: 'Créer et optimiser son profil LinkedIn (3h)', slug: 'linkedin', category: 'Emploi', type: 'formation', formationId: 'linkedin-profile' },
+  { id: '9', title: 'Préparation à la recherche du premier emploi / nouveau emploi', slug: 'recherche-emploi', category: 'Insertion Professionnelle', type: 'formation', formationId: 'recherche-emploi' },
+  { id: '10', title: 'Transition vie étudiante – vie professionnelle (4h)', slug: 'transition', category: 'Orientation', type: 'formation', formationId: 'transition-pro' },
+  { id: '11', title: 'Gestion des Ressources Humaines – Fondamentaux, stratégie & pratique (6h)', slug: 'grh', category: 'Compétences RH', type: 'formation', formationId: 'grh-basics' },
 ];
 
 const pages: SearchablePage[] = [
@@ -64,35 +66,45 @@ const faqs: SearchableFAQ[] = [
     question: 'Comment évaluer mon éligibilité pour l\'immigration au Canada?', 
     answer: 'Vous pouvez utiliser notre outil d\'évaluation d\'éligibilité gratuit ou prendre rendez-vous pour une consultation personnalisée.',
     category: 'Immigration',
-    type: 'faq'
+    type: 'faq',
+    faqCategory: 'immigration',
+    questionIndex: 0
   },
   { 
     id: '2', 
     question: 'Quels sont les documents nécessaires pour une demande de visa d\'études?', 
     answer: 'Pour un visa d\'études, vous aurez besoin de votre lettre d\'acceptation, preuve de fonds suffisants, passeport valide et autres documents spécifiques.',
     category: 'Études',
-    type: 'faq'
+    type: 'faq',
+    faqCategory: 'etudes',
+    questionIndex: 0
   },
   { 
     id: '3', 
     question: 'Comment fonctionne le Pack Réussite Professionnelle?', 
     answer: 'Le Pack Réussite comprend la rédaction de CV, lettre de motivation et coaching d\'entretien, spécifiquement adaptés au marché canadien.',
     category: 'Services',
-    type: 'faq'
+    type: 'faq',
+    faqCategory: 'general',
+    questionIndex: 0
   },
   { 
     id: '4', 
     question: 'Quelles sont les différences entre l\'Express Entry et le PEQ?', 
     answer: 'L\'Express Entry est un système fédéral tandis que le PEQ est un programme provincial québécois, chacun avec des critères d\'admissibilité différents.',
     category: 'Immigration',
-    type: 'faq'
+    type: 'faq',
+    faqCategory: 'immigration',
+    questionIndex: 1
   },
   { 
     id: '5', 
     question: 'Comment se préparer pour une entrevue d\'embauche au Canada?', 
     answer: 'Notre service de coaching vous prépare avec des simulations d\'entretien, des conseils culturels et des techniques de présentation adaptées.',
     category: 'Emploi',
-    type: 'faq'
+    type: 'faq',
+    faqCategory: 'coaching',
+    questionIndex: 0
   },
 ];
 
@@ -150,15 +162,18 @@ export function highlightMatch(text: string, query: string): string {
   return text.replace(regex, '<mark>$1</mark>');
 }
 
-// Fonction pour obtenir le lien correct pour chaque type de résultat
+// Fonction mise à jour pour obtenir le lien correct avec les paramètres appropriés
 export function getResultUrl(result: SearchResult): string {
   switch (result.type) {
     case 'formation':
-      return `/services/formation#${result.slug}`;
+      // Ajouter le paramètre showModal avec l'identifiant de la formation
+      return `/services/formation?showModal=${result.formationId}`;
     case 'page':
       return (result as SearchablePage).path;
     case 'faq':
-      return `/blog#faq-${result.id}`;
+      // Pour les FAQ, on ajoute la catégorie et l'index comme paramètres
+      const faq = result as SearchableFAQ;
+      return `/blog?category=${faq.faqCategory}&question=${faq.id}`;
     default:
       return '/';
   }

@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -24,8 +23,8 @@ type Formation = {
   image: string;
 };
 
-const FormationCategories = () => {
-  const [openDialog, setOpenDialog] = useState<string | null>(null);
+const FormationCategories = ({ initialModalToOpen }: { initialModalToOpen: string | null }) => {
+  const [openDialog, setOpenDialog] = useState<string | null>(initialModalToOpen);
 
   const formations: Formation[] = [{
     id: 'cv',
