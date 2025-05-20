@@ -111,8 +111,8 @@ const Navbar = () => {
           {/* Language Switcher */}
           <LanguageSwitcher />
           
-          {/* Search Icon */}
-          <SearchCommand />
+          {/* Search Component */}
+          <SearchCommand className="ml-auto mr-2" />
 
           {/* User Menu or CTA Button */}
           {isAuthenticated ? (
@@ -145,9 +145,7 @@ const Navbar = () => {
           {/* Language Switcher for Mobile */}
           <LanguageSwitcher variant="minimal" />
           
-          {/* Search Icon for Mobile */}
           <SearchCommand />
-          
           <Button variant="ghost" size="icon" onClick={() => setIsMenuOpen(true)}>
             <Menu className="h-6 w-6" />
             <span className="sr-only">Menu</span>
