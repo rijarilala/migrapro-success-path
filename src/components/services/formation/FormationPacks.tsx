@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -65,7 +64,7 @@ const FormationPacks = () => {
         {
           id: 'lm',
           title: "Lettres de Motivation",
-          description: "Maîtrisez l'art de la lettre de motivation efficace avec des techniques concrètes et des modèles adaptés à chaque situation.",
+          description: "Maîtrisez l'art de la lettre de motivation convaincante avec des techniques concrètes et des modèles adaptés à chaque situation.",
           duration: "3h",
           icon: <Mail className="h-6 w-6 text-migrapro-terre-cuite" />,
           image: "https://images.unsplash.com/photo-1586282391129-76a2df06b8fe?q=80&w=800&auto=format&fit=crop"
@@ -354,4 +353,3 @@ const FormationPacks = () => {
 };
 
 export default FormationPacks;
-

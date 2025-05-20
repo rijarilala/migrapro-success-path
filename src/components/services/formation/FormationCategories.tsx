@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -44,7 +43,7 @@ const FormationCategories = () => {
     id: 'lm',
     title: "Lettres de Motivation",
     subtitle: "Techniques & Exemples",
-    description: "Maîtrisez l'art de la lettre de motivation efficace avec des techniques concrètes et des modèles adaptés à chaque situation.",
+    description: "Maîtrisez l'art de la lettre de motivation convaincante avec des techniques concrètes et des modèles adaptés à chaque situation.",
     objective: "Rédiger des lettres de motivation percutantes qui suscitent l'intérêt des recruteurs et valorisent votre candidature en lien avec le poste visé.",
     targetAudience: "Jeunes diplômés, personnes en reconversion, candidats à l'immigration, chercheurs d'emploi",
     duration: "3h",
@@ -323,4 +322,3 @@ const FormationCategories = () => {
 };
 
 export default FormationCategories;
-
