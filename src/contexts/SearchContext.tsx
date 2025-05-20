@@ -69,47 +69,58 @@ export function SearchProvider({ children }: { children: ReactNode }) {
     setSelectedCategory(null);
   }, []);
 
-  // Méthode améliorée pour gérer les clics sur les résultats avec meilleure notification
+  // Méthode améliorée pour gérer les clics sur les résultats avec navigation robuste
   const handleResultClick = useCallback((result: SearchResult) => {
-    // Déterminer l'URL en fonction du type de résultat
-    let url = '';
-    let toastMessage = '';
+    console.log("Handling result click:", result);
     
-    switch (result.type) {
-      case 'formation':
-        url = `/services/formation?showModal=${result.formationId}`;
-        toastMessage = 'Redirection vers la formation...';
-        break;
-      case 'page':
-        url = (result as any).path;
-        toastMessage = 'Redirection vers la page...';
-        break;
-      case 'faq':
-        url = `/blog?category=${(result as any).faqCategory}&question=${result.id}`;
-        toastMessage = 'Redirection vers la FAQ...';
-        break;
-      default:
-        url = '/';
-        toastMessage = 'Redirection...';
-    }
-
-    // Afficher le toast pour informer l'utilisateur
-    toast({
-      title: "Navigation en cours",
-      description: toastMessage,
-      duration: 2000,
-    });
-    
-    // Fermer la boîte de dialogue de recherche
+    // Fermer la boîte de dialogue de recherche d'abord
     setIsOpen(false);
     
     // Effacer la recherche
     clearSearch();
     
-    // Naviguer vers l'URL avec un délai suffisant
+    // Déterminer l'URL en fonction du type de résultat
+    let url = '';
+    let toastMessage = '';
+    let toastTitle = '';
+    
+    switch (result.type) {
+      case 'formation':
+        url = `/services/formation?showModal=${result.formationId}`;
+        toastTitle = "Formation trouvée";
+        toastMessage = 'Redirection vers la formation spécifique...';
+        console.log(`Navigating to formation: ${result.formationId}`);
+        break;
+      case 'faq':
+        url = `/blog?category=${(result as any).faqCategory}&question=${result.id}`;
+        toastTitle = "FAQ trouvée";
+        toastMessage = 'Redirection vers la question spécifique...';
+        console.log(`Navigating to FAQ: ${result.id} in category ${(result as any).faqCategory}`);
+        break;
+      case 'page':
+        url = (result as any).path;
+        toastTitle = "Page trouvée";
+        toastMessage = 'Redirection vers la page...';
+        break;
+      default:
+        url = '/';
+        toastTitle = "Redirection";
+        toastMessage = 'Redirection en cours...';
+    }
+
+    // Afficher le toast pour informer l'utilisateur 
+    toast({
+      title: toastTitle,
+      description: toastMessage,
+      duration: 3000, // Plus long pour donner l'impression que l'action est en cours
+    });
+    
+    // Ajouter un délai avant la navigation pour s'assurer que le modal est bien fermé
+    // et donner le temps au toast d'être visible
     setTimeout(() => {
+      console.log(`Navigating to URL: ${url}`);
       navigate(url);
-    }, 300); // Délai augmenté pour assurer la fermeture du dialogue avant la navigation
+    }, 500); // Délai augmenté pour assurer la fermeture du dialogue avant la navigation
   }, [navigate, clearSearch, toast]);
 
   return (
