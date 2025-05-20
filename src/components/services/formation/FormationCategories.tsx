@@ -1,10 +1,11 @@
+
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Briefcase, FileText, GraduationCap, Mail, Users, Clock, Info, X, Package } from 'lucide-react';
+import { Briefcase, FileText, GraduationCap, Mail, Users, Clock, Info, X, Package, Linkedin } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 // Define formation type
@@ -52,6 +53,19 @@ const FormationCategories = () => {
     icon: <Mail className="h-12 w-12 text-migrapro-terre-cuite" />,
     includedInPacks: ['pack-insertion-pro'],
     image: "/lovable-uploads/e3b8f6e0-84bd-41c2-b3f3-d515446dc1fc.png"
+  }, {
+    id: 'linkedin',
+    title: "Créer et optimiser son profil LinkedIn",
+    subtitle: "Visibilité professionnelle",
+    description: "Développez une présence professionnelle en ligne percutante et apprenez à utiliser LinkedIn comme un outil efficace de réseautage et de recherche d'emploi.",
+    objective: "Créer un profil LinkedIn attractif, optimiser votre visibilité auprès des recruteurs et développer votre réseau professionnel de manière stratégique.",
+    targetAudience: "Professionnels en activité, chercheurs d'emploi, entrepreneurs, jeunes diplômés",
+    duration: "3h",
+    format: ["Présentiel"],
+    category: 'professional',
+    icon: <Linkedin className="h-12 w-12 text-migrapro-terre-cuite" />,
+    includedInPacks: ['pack-insertion-pro'],
+    image: "https://images.unsplash.com/photo-1611944212129-29977ae1398c?q=80&w=800&auto=format&fit=crop"
   }, {
     id: 'recherche-emploi',
     title: "Préparation à la recherche d'emploi",

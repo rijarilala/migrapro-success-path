@@ -1,10 +1,11 @@
+
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetFooter } from '@/components/ui/sheet';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Package, FileText, Mail, Briefcase, GraduationCap, Users, Clock, Check, ArrowRight, X } from 'lucide-react';
+import { Package, FileText, Mail, Briefcase, GraduationCap, Users, Clock, Check, ArrowRight, X, Linkedin } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 // Define pack type
@@ -46,7 +47,7 @@ const FormationPacks = () => {
         "Certificat de formation"
       ],
       price: "Contactez-nous",
-      duration: "16h",
+      duration: "19h",
       format: "Présentiel",
       targetAudience: "Jeunes diplômés, personnes en reconversion, candidats à l'immigration, chercheurs d'emploi",
       color: "migrapro-terre-cuite",
@@ -68,6 +69,14 @@ const FormationPacks = () => {
           duration: "3h",
           icon: <Mail className="h-6 w-6 text-migrapro-terre-cuite" />,
           image: "/lovable-uploads/e3b8f6e0-84bd-41c2-b3f3-d515446dc1fc.png"
+        },
+        {
+          id: 'linkedin',
+          title: "Créer et optimiser son profil LinkedIn",
+          description: "Développez une présence professionnelle en ligne percutante et apprenez à utiliser LinkedIn comme un outil efficace de réseautage et de recherche d'emploi.",
+          duration: "3h",
+          icon: <Linkedin className="h-6 w-6 text-migrapro-terre-cuite" />,
+          image: "https://images.unsplash.com/photo-1611944212129-29977ae1398c?q=80&w=800&auto=format&fit=crop"
         },
         {
           id: 'recherche-emploi',
