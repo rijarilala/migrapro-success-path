@@ -1,15 +1,11 @@
 
-import { useEffect, useRef } from "react";
-import { Search, X, Loader2 } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Search, X, Loader2, Filter } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useSearch } from "@/contexts/SearchContext";
-import { 
-  Dialog, 
-  DialogContent,
-  DialogTrigger
-} from "@/components/ui/dialog";
 import { CommandDialog, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "@/components/ui/command";
 import { useTranslation } from "react-i18next";
+import { Badge } from "@/components/ui/badge";
 
 export const GlobalSearchBar = () => {
   const {
@@ -19,25 +15,56 @@ export const GlobalSearchBar = () => {
     isOpen,
     setIsOpen,
     updateQuery,
-    clearSearch
+    clearSearch,
+    selectedCategory,
+    setSelectedCategory
   } = useSearch();
   
   const navigate = useNavigate();
   const { t } = useTranslation();
   const inputRef = useRef<HTMLInputElement>(null);
+  const [activeIndex, setActiveIndex] = useState<number>(-1);
 
-  // Gestion du raccourci clavier (Ctrl+K / Cmd+K)
+  // Gestion du raccourci clavier (Ctrl+K / Cmd+K) et navigation avec flèches
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.ctrlKey || e.metaKey) && e.key === "k") {
         e.preventDefault();
         setIsOpen(true);
       }
+
+      if (isOpen) {
+        // Navigation avec flèches
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          setActiveIndex((prev) => Math.min(prev + 1, results.length - 1));
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          setActiveIndex((prev) => Math.max(prev - 1, -1));
+        } else if (e.key === 'Enter' && activeIndex >= 0 && activeIndex < results.length) {
+          e.preventDefault();
+          const selectedResult = results[activeIndex];
+          if (selectedResult && selectedResult.url) {
+            handleResultClick(selectedResult.url);
+          }
+        }
+      }
     };
 
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [setIsOpen]);
+  }, [isOpen, setIsOpen, results, activeIndex]);
+
+  // Focus automatique sur le champ de recherche lors de l'ouverture
+  useEffect(() => {
+    if (isOpen && inputRef.current) {
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 10);
+    } else {
+      setActiveIndex(-1); // Réinitialisation de l'index actif
+    }
+  }, [isOpen]);
 
   // Gestion de la fermeture
   const handleOpenChange = (open: boolean) => {
@@ -54,11 +81,35 @@ export const GlobalSearchBar = () => {
     clearSearch();
   };
 
+  // Gestion du filtrage par catégorie
+  const handleCategoryFilter = (category: string | null) => {
+    if (selectedCategory === category) {
+      setSelectedCategory(null);
+    } else {
+      setSelectedCategory(category);
+    }
+    // Refocus sur le champ de recherche après le filtrage
+    setTimeout(() => {
+      inputRef.current?.focus();
+    }, 10);
+  };
+
   // Regroupement des résultats par catégorie
   const serviceResults = results.filter(result => result.category === "service");
   const formationResults = results.filter(result => result.category === "formation");
   const pageResults = results.filter(result => result.category === "page");
   const faqResults = results.filter(result => result.category === "faq");
+
+  // Calcul des indices pour la navigation clavier
+  const calculateGlobalIndex = (categoryIndex: number, itemIndex: number): number => {
+    let globalIndex = 0;
+    
+    if (categoryIndex > 0) globalIndex += serviceResults.length;
+    if (categoryIndex > 1) globalIndex += formationResults.length;
+    if (categoryIndex > 2) globalIndex += pageResults.length;
+    
+    return globalIndex + itemIndex;
+  };
 
   return (
     <>
@@ -84,6 +135,7 @@ export const GlobalSearchBar = () => {
             <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
           )}
           <CommandInput 
+            ref={inputRef}
             placeholder={t("search.placeholder")} 
             value={query} 
             onValueChange={updateQuery} 
@@ -98,6 +150,45 @@ export const GlobalSearchBar = () => {
             </button>
           )}
         </div>
+        
+        {/* Filtres de catégorie */}
+        {query && (
+          <div className="flex flex-wrap gap-2 p-2 border-b">
+            <span className="flex items-center text-xs text-muted-foreground mr-1">
+              <Filter className="h-3 w-3 mr-1" />
+              {t("search.filter")}:
+            </span>
+            <Badge 
+              variant={selectedCategory === "formation" ? "default" : "outline"} 
+              className="cursor-pointer hover:bg-secondary/80"
+              onClick={() => handleCategoryFilter("formation")}
+            >
+              {t("search.categories.formations")}
+            </Badge>
+            <Badge 
+              variant={selectedCategory === "service" ? "default" : "outline"} 
+              className="cursor-pointer hover:bg-secondary/80"
+              onClick={() => handleCategoryFilter("service")}
+            >
+              {t("search.categories.services")}
+            </Badge>
+            <Badge 
+              variant={selectedCategory === "page" ? "default" : "outline"} 
+              className="cursor-pointer hover:bg-secondary/80"
+              onClick={() => handleCategoryFilter("page")}
+            >
+              {t("search.categories.pages")}
+            </Badge>
+            <Badge 
+              variant={selectedCategory === "faq" ? "default" : "outline"} 
+              className="cursor-pointer hover:bg-secondary/80"
+              onClick={() => handleCategoryFilter("faq")}
+            >
+              {t("search.categories.faq")}
+            </Badge>
+          </div>
+        )}
+
         <CommandList>
           <CommandEmpty>
             {isLoading ? (
@@ -106,79 +197,91 @@ export const GlobalSearchBar = () => {
                 <p>{t("search.searching")}</p>
               </div>
             ) : (
-              <p>{t("search.no_results")}</p>
+              <p className="py-6 text-center">{t("search.no_results")}</p>
             )}
           </CommandEmpty>
+
+          {/* Formations (prioritaires) */}
+          {formationResults.length > 0 && (
+            <CommandGroup heading={t("search.categories.formations")}>
+              {formationResults.map((result, index) => {
+                const globalIndex = calculateGlobalIndex(1, index);
+                return (
+                  <CommandItem 
+                    key={result.id} 
+                    onSelect={() => result.url && handleResultClick(result.url)}
+                    className={`cursor-pointer ${activeIndex === globalIndex ? 'bg-accent' : ''}`}
+                  >
+                    <div className="flex flex-col w-full">
+                      <p className="font-medium">{result.title}</p>
+                      <p className="text-sm text-muted-foreground">{result.description}</p>
+                    </div>
+                  </CommandItem>
+                );
+              })}
+            </CommandGroup>
+          )}
 
           {/* Services */}
           {serviceResults.length > 0 && (
             <CommandGroup heading={t("search.categories.services")}>
-              {serviceResults.map((result) => (
-                <CommandItem 
-                  key={result.id} 
-                  onSelect={() => result.url && handleResultClick(result.url)}
-                  className="cursor-pointer"
-                >
-                  <div className="flex flex-col">
-                    <p className="font-medium">{result.title}</p>
-                    <p className="text-sm text-muted-foreground">{result.description}</p>
-                  </div>
-                </CommandItem>
-              ))}
-            </CommandGroup>
-          )}
-
-          {/* Formations */}
-          {formationResults.length > 0 && (
-            <CommandGroup heading={t("search.categories.formations")}>
-              {formationResults.map((result) => (
-                <CommandItem 
-                  key={result.id} 
-                  onSelect={() => result.url && handleResultClick(result.url)}
-                  className="cursor-pointer"
-                >
-                  <div className="flex flex-col">
-                    <p className="font-medium">{result.title}</p>
-                    <p className="text-sm text-muted-foreground">{result.description}</p>
-                  </div>
-                </CommandItem>
-              ))}
+              {serviceResults.map((result, index) => {
+                const globalIndex = calculateGlobalIndex(0, index);
+                return (
+                  <CommandItem 
+                    key={result.id} 
+                    onSelect={() => result.url && handleResultClick(result.url)}
+                    className={`cursor-pointer ${activeIndex === globalIndex ? 'bg-accent' : ''}`}
+                  >
+                    <div className="flex flex-col">
+                      <p className="font-medium">{result.title}</p>
+                      <p className="text-sm text-muted-foreground">{result.description}</p>
+                    </div>
+                  </CommandItem>
+                );
+              })}
             </CommandGroup>
           )}
 
           {/* Pages */}
           {pageResults.length > 0 && (
             <CommandGroup heading={t("search.categories.pages")}>
-              {pageResults.map((result) => (
-                <CommandItem 
-                  key={result.id} 
-                  onSelect={() => result.url && handleResultClick(result.url)}
-                  className="cursor-pointer"
-                >
-                  <div className="flex flex-col">
-                    <p className="font-medium">{result.title}</p>
-                    <p className="text-sm text-muted-foreground">{result.description}</p>
-                  </div>
-                </CommandItem>
-              ))}
+              {pageResults.map((result, index) => {
+                const globalIndex = calculateGlobalIndex(2, index);
+                return (
+                  <CommandItem 
+                    key={result.id} 
+                    onSelect={() => result.url && handleResultClick(result.url)}
+                    className={`cursor-pointer ${activeIndex === globalIndex ? 'bg-accent' : ''}`}
+                  >
+                    <div className="flex flex-col">
+                      <p className="font-medium">{result.title}</p>
+                      <p className="text-sm text-muted-foreground">{result.description}</p>
+                    </div>
+                  </CommandItem>
+                );
+              })}
             </CommandGroup>
           )}
 
           {/* FAQ */}
           {faqResults.length > 0 && (
             <CommandGroup heading={t("search.categories.faq")}>
-              {faqResults.map((result) => (
-                <CommandItem 
-                  key={result.id} 
-                  onSelect={() => result.url && handleResultClick(result.url)}
-                  className="cursor-pointer"
-                >
-                  <div className="flex flex-col">
-                    <p className="font-medium">{result.title}</p>
-                    <p className="text-sm text-muted-foreground">{result.description}</p>
-                  </div>
-                </CommandItem>
-              ))}
+              {faqResults.map((result, index) => {
+                const globalIndex = calculateGlobalIndex(3, index);
+                return (
+                  <CommandItem 
+                    key={result.id} 
+                    onSelect={() => result.url && handleResultClick(result.url)}
+                    className={`cursor-pointer ${activeIndex === globalIndex ? 'bg-accent' : ''}`}
+                  >
+                    <div className="flex flex-col">
+                      <p className="font-medium">{result.title}</p>
+                      <p className="text-sm text-muted-foreground">{result.description}</p>
+                    </div>
+                  </CommandItem>
+                );
+              })}
             </CommandGroup>
           )}
         </CommandList>

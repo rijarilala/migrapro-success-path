@@ -11,6 +11,8 @@ interface SearchContextType {
   setIsOpen: (open: boolean) => void;
   updateQuery: (query: string) => void;
   clearSearch: () => void;
+  selectedCategory: string | null;
+  setSelectedCategory: (category: string | null) => void;
 }
 
 const SearchContext = createContext<SearchContextType | undefined>(undefined);
@@ -20,10 +22,11 @@ export const SearchProvider = ({ children }: { children: ReactNode }) => {
   const [results, setResults] = useState<SearchResult[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
-  // Logique de recherche avec effet de bord
+  // Logique de recherche avec effet de bord et debounce plus court pour une recherche instantanée
   useEffect(() => {
-    if (!query || query.length < 2) {
+    if (!query || query.length < 1) { // Recherche dès le premier caractère
       setResults([]);
       setIsLoading(false);
       return;
@@ -31,10 +34,10 @@ export const SearchProvider = ({ children }: { children: ReactNode }) => {
 
     setIsLoading(true);
     
-    // Délai pour éviter trop de requêtes pendant la saisie (debounce)
+    // Délai très court pour une recherche quasi-instantanée (100ms)
     const timer = setTimeout(() => {
       try {
-        const searchResults = searchData(query);
+        const searchResults = searchData(query, selectedCategory);
         setResults(searchResults);
       } catch (error) {
         console.error("Erreur de recherche:", error);
@@ -42,16 +45,18 @@ export const SearchProvider = ({ children }: { children: ReactNode }) => {
       } finally {
         setIsLoading(false);
       }
-    }, 200);
+    }, 100); // Délai réduit pour une expérience plus instantanée
 
     return () => clearTimeout(timer);
-  }, [query]);
+  }, [query, selectedCategory]);
 
   // Mise à jour de la requête de recherche
   const updateQuery = (newQuery: string) => {
     setQuery(newQuery);
     if (newQuery.trim()) {
       setIsOpen(true);
+    } else if (newQuery.trim() === '') {
+      setResults([]);
     }
   };
 
@@ -59,6 +64,7 @@ export const SearchProvider = ({ children }: { children: ReactNode }) => {
   const clearSearch = () => {
     setQuery("");
     setResults([]);
+    setSelectedCategory(null);
   };
 
   return (
@@ -70,7 +76,9 @@ export const SearchProvider = ({ children }: { children: ReactNode }) => {
         isOpen,
         setIsOpen,
         updateQuery,
-        clearSearch
+        clearSearch,
+        selectedCategory,
+        setSelectedCategory
       }}
     >
       {children}

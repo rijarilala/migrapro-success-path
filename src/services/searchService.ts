@@ -220,57 +220,106 @@ export const getSearchDatabase = (): SearchResult[] => {
   return [...services, ...formations, ...pages, ...faq];
 };
 
-// Fonction de recherche avec algorithme de pertinence
-export function searchData(query: string): SearchResult[] {
-  if (!query || query.length < 2) return [];
+// Fonction de recherche avec algorithme de pertinence amélioré
+export function searchData(query: string, categoryFilter: string | null = null): SearchResult[] {
+  if (!query || query.length < 1) return [];
   
   const normalizedQuery = query.toLowerCase().trim();
   const searchDatabase = getSearchDatabase();
   
-  // Préindexation pour performance
-  const searchResults = searchDatabase
+  // Préfiltrage par catégorie si spécifié
+  const filteredByCategory = categoryFilter 
+    ? searchDatabase.filter(item => item.category === categoryFilter)
+    : searchDatabase;
+  
+  // Fonction pour calculer la pertinence d'une correspondance
+  const getRelevanceScore = (item: SearchResult): number => {
+    let score = 0;
+    const title = item.title.toLowerCase();
+    const description = item.description.toLowerCase();
+    
+    // Correspondance exacte dans le titre (priorité maximale)
+    if (title === normalizedQuery) {
+      score += 120;
+    }
+    
+    // Le titre commence par la recherche
+    if (title.startsWith(normalizedQuery)) {
+      score += 80;
+    }
+    
+    // Le titre contient des mots qui commencent par la recherche
+    const titleWords = title.split(' ');
+    const matchingTitleWords = titleWords.filter(word => word.startsWith(normalizedQuery));
+    score += matchingTitleWords.length * 50;
+    
+    // Le titre contient la recherche comme sous-chaîne
+    if (title.includes(normalizedQuery)) {
+      score += 40;
+    }
+    
+    // La description contient des mots qui commencent par la recherche
+    const descriptionWords = description.split(' ');
+    const matchingDescWords = descriptionWords.filter(word => word.startsWith(normalizedQuery));
+    score += matchingDescWords.length * 20;
+    
+    // La description contient la recherche comme sous-chaîne
+    if (description.includes(normalizedQuery)) {
+      score += 15;
+    }
+    
+    // Bonus pour les correspondances exactes de mots entiers
+    const queryWords = normalizedQuery.split(' ');
+    for (const word of queryWords) {
+      if (word.length > 2) { // Ignorer les mots trop courts
+        // Correspondance exacte de mot dans le titre
+        if (titleWords.includes(word)) {
+          score += 30;
+        }
+        // Correspondance exacte de mot dans la description
+        if (descriptionWords.includes(word)) {
+          score += 10;
+        }
+      }
+    }
+    
+    // Bonus par catégorie pour affiner les résultats
+    const categoryBonus = {
+      "formation": 15,  // Priorité aux formations puisque c'est ce qu'on recherche
+      "service": 10,
+      "page": 5,
+      "faq": 3
+    };
+    
+    score += categoryBonus[item.category as keyof typeof categoryBonus] || 0;
+    
+    // Bonus pour les correspondances plus courtes (précision)
+    score += (100 - Math.min(item.title.length, 100)) * 0.1;
+    
+    return score;
+  };
+  
+  // Filtrage et calcul du score de pertinence
+  const searchResults = filteredByCategory
     .filter(item => {
       const titleMatch = item.title.toLowerCase().includes(normalizedQuery);
       const descMatch = item.description.toLowerCase().includes(normalizedQuery);
-      return titleMatch || descMatch;
+      
+      // Correspondance de début de mot dans le titre ou la description
+      const titleWords = item.title.toLowerCase().split(' ');
+      const descWords = item.description.toLowerCase().split(' ');
+      const titleStartMatch = titleWords.some(word => word.startsWith(normalizedQuery));
+      const descStartMatch = descWords.some(word => word.startsWith(normalizedQuery));
+      
+      return titleMatch || descMatch || titleStartMatch || descStartMatch;
     })
-    .map(item => {
-      // Calcul du score de pertinence
-      let score = 0;
-      
-      // Correspondance exacte dans le titre (priorité maximale)
-      if (item.title.toLowerCase() === normalizedQuery) {
-        score += 100;
-      }
-      
-      // Le titre commence par la recherche
-      if (item.title.toLowerCase().startsWith(normalizedQuery)) {
-        score += 50;
-      }
-      
-      // Le titre contient la recherche
-      if (item.title.toLowerCase().includes(normalizedQuery)) {
-        score += 30;
-      }
-      
-      // La description contient la recherche
-      if (item.description.toLowerCase().includes(normalizedQuery)) {
-        score += 10;
-      }
-      
-      // Bonus par catégorie
-      const categoryBonus = {
-        "page": 5,
-        "service": 4,
-        "formation": 3,
-        "faq": 2
-      };
-      
-      score += categoryBonus[item.category] || 0;
-      
-      return { ...item, score };
-    })
-    .sort((a, b) => b.score - a.score); // Tri par score décroissant
+    .map(item => ({
+      ...item,
+      score: getRelevanceScore(item)
+    }))
+    .sort((a, b) => (b.score || 0) - (a.score || 0))
+    // Supprimer le score du résultat final
+    .map(({ score, ...item }) => item);
   
   return searchResults;
 }
