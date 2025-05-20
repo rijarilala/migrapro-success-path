@@ -161,7 +161,8 @@ const FormationPacks = () => {
           <Card 
             key={pack.id}
             id={pack.id}
-            className={`border-2 border-${pack.color}/20 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden`}
+            data-formation-id={pack.id} // Ajout d'un attribut data-formation-id pour faciliter la sélection
+            className={`border-2 border-${pack.color}/20 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden relative`} // Ajout de position relative pour surbrillance
           >
             <div className="w-full h-48 overflow-hidden relative">
               <img 
@@ -187,7 +188,12 @@ const FormationPacks = () => {
                 <h4 className="font-medium text-sm text-gray-500">Ce pack comprend :</h4>
                 <ul className="space-y-3">
                   {pack.formations.map((formation) => (
-                    <li key={formation.id} className="flex items-start gap-3 pb-3 border-b border-gray-100">
+                    <li 
+                      key={formation.id} 
+                      id={formation.id}
+                      data-formation-id={formation.id} // Ajout d'un attribut data-formation-id pour faciliter la sélection
+                      className="flex items-start gap-3 pb-3 border-b border-gray-100"
+                    >
                       <div className="mt-0.5">{formation.icon}</div>
                       <div>
                         <h5 className="font-medium">{formation.title}</h5>

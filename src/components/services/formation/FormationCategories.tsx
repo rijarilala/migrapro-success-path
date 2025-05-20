@@ -131,8 +131,9 @@ const FormationCategories = () => {
           {formations.filter(f => f.category === 'professional').map(formation => (
             <Card 
               key={formation.id} 
-              id={formation.id} // Ajouter l'ID de formation pour le ciblage direct
-              className="border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+              id={formation.id}
+              data-formation-id={formation.id} // Ajout d'un attribut data-formation-id pour faciliter la sélection
+              className="border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 relative" // Ajout de position relative pour surbrillance
             >
               <CardHeader className="pb-2 flex flex-col items-center text-center">
                 <div className="w-full h-40 overflow-hidden mb-4 rounded-t-lg relative">
@@ -189,8 +190,9 @@ const FormationCategories = () => {
           {formations.filter(f => f.category === 'hr').map(formation => (
             <Card 
               key={formation.id} 
-              id={formation.id} // Ajouter l'ID de formation pour le ciblage direct
-              className="border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+              id={formation.id}
+              data-formation-id={formation.id} // Ajout d'un attribut data-formation-id pour faciliter la sélection
+              className="border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 relative" // Ajout de position relative pour surbrillance
             >
               <CardHeader className="pb-2 flex flex-col items-center text-center">
                 <div className="w-full h-40 overflow-hidden mb-4 rounded-t-lg relative">

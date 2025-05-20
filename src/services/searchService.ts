@@ -39,6 +39,8 @@ const formations: SearchableFormation[] = [
   { id: '8', title: 'Préparation à la recherche du premier emploi / nouveau emploi', slug: 'recherche-emploi', category: 'Insertion Professionnelle', type: 'formation', formationId: 'recherche-emploi' },
   { id: '9', title: 'Transition vie étudiante – vie professionnelle (4h)', slug: 'transition', category: 'Orientation', type: 'formation', formationId: 'transition' },
   { id: '10', title: 'Gestion des Ressources Humaines – Fondamentaux, stratégie & pratique (6h)', slug: 'grh', category: 'Compétences RH', type: 'formation', formationId: 'grh' },
+  { id: '11', title: 'Pack Insertion Pro', slug: 'pack-insertion-pro', category: 'Pack', type: 'formation', formationId: 'pack-insertion-pro' },
+  { id: '12', title: 'Pack RH Starter', slug: 'pack-rh-starter', category: 'Pack', type: 'formation', formationId: 'pack-rh-starter' },
 ];
 
 const pages: SearchablePage[] = [
@@ -122,8 +124,13 @@ const fuse = new Fuse(allData, fuseOptions);
 export function searchAll(query: string): SearchResult[] {
   if (!query.trim()) return [];
   
+  console.log(`searchService: Recherche pour la requête "${query}"`);
   const results = fuse.search(query);
-  return results.map(result => result.item);
+  const items = results.map(result => {
+    console.log(`searchService: Résultat trouvé - type: ${result.item.type}, id: ${(result.item as any).formationId || result.item.id || 'N/A'}`);
+    return result.item;
+  });
+  return items;
 }
 
 // Fonction pour regrouper les résultats par type
@@ -159,8 +166,10 @@ export function highlightMatch(text: string, query: string): string {
 export function getResultUrl(result: SearchResult): string {
   switch (result.type) {
     case 'formation':
-      // Ajouter le hash avec l'identifiant de la formation pour le ciblage direct
-      return `/services/formation#${(result as SearchableFormation).formationId}`;
+      // Ajouter un paramètre fromSearch=true pour indiquer une recherche active
+      const formationId = (result as SearchableFormation).formationId;
+      console.log(`searchService: Génération d'URL pour la formation avec ID=${formationId}`);
+      return `/services/formation?fromSearch=true#${formationId}`;
     case 'page':
       return (result as SearchablePage).path;
     case 'faq':

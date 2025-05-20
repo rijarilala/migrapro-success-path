@@ -1,4 +1,3 @@
-
 import { createContext, useContext, useState, ReactNode, useCallback } from 'react';
 import { SearchResult, searchAll, groupSearchResults } from '@/services/searchService';
 import { useDebounce } from '@/hooks/use-debounce';
@@ -16,7 +15,7 @@ interface SearchContextType {
   setIsOpen: (isOpen: boolean) => void;
   clearSearch: () => void;
   setSelectedCategory: (category: string | null) => void;
-  handleResultClick: (result: SearchResult) => void; // Méthode pour gérer les clics sur les résultats
+  handleResultClick: (result: SearchResult) => void;
 }
 
 const SearchContext = createContext<SearchContextType | undefined>(undefined);
@@ -77,7 +76,10 @@ export function SearchProvider({ children }: { children: ReactNode }) {
     switch (result.type) {
       case 'formation':
         // Pour les formations, naviguer vers la page de formation avec l'ID dans le hash
-        url = `/services/formation#${(result as any).formationId}`;
+        // et ajouter un paramètre fromSearch pour indiquer une recherche active
+        const formationId = (result as any).formationId;
+        url = `/services/formation?fromSearch=true#${formationId}`;
+        console.log(`Redirection vers la formation avec ID: ${formationId}`);
         toastMessage = `Redirection vers la formation: ${result.title}`;
         break;
       case 'page':
@@ -108,7 +110,7 @@ export function SearchProvider({ children }: { children: ReactNode }) {
     
     // Naviguer vers l'URL
     navigate(url);
-  }, [navigate, clearSearch, toast]);
+  }, [navigate, clearSearch]);
 
   return (
     <SearchContext.Provider
