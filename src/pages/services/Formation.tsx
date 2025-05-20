@@ -38,6 +38,7 @@ const Formation = () => {
           // Switch to formations tab if needed (as default is categories)
           const categoriesTab = document.querySelector('[value="categories"]');
           if (categoriesTab) {
+            // Fix: Cast to HTMLElement before calling click()
             (categoriesTab as HTMLElement).click();
             
             // After showing the categories tab, find and click on the formation
@@ -56,7 +57,8 @@ const Formation = () => {
                 // Find and click the "details" button for this formation
                 const detailButton = formationElement.querySelector('button:last-child');
                 if (detailButton) {
-                  detailButton.click(); // This will open the modal
+                  // Fix: Cast to HTMLElement before calling click()
+                  (detailButton as HTMLElement).click(); // This will open the modal
                 } else {
                   console.error("Could not find the details button for formation:", modalToShow);
                   toast({
@@ -82,7 +84,8 @@ const Formation = () => {
                     
                     const retryButton = retryElement.querySelector('button:last-child');
                     if (retryButton) {
-                      retryButton.click();
+                      // Fix: Cast to HTMLElement before calling click()
+                      (retryButton as HTMLElement).click();
                     }
                   }
                 }, 1000);
@@ -109,6 +112,7 @@ const Formation = () => {
               // Switch to packs tab
               const tabsElement = document.querySelector('[value="packs"]');
               if (tabsElement) {
+                // Fix: Cast to HTMLElement before calling click()
                 (tabsElement as HTMLElement).click();
                 // After tab switch, scroll to the specific pack
                 setTimeout(() => {
@@ -128,6 +132,7 @@ const Formation = () => {
               // Need to be on the categories tab
               const tabsElement = document.querySelector('[value="categories"]');
               if (tabsElement) {
+                // Fix: Cast to HTMLElement before calling click()
                 (tabsElement as HTMLElement).click();
                 // After tab switch, scroll to the specific formation
                 setTimeout(() => {
