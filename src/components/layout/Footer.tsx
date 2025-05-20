@@ -20,7 +20,7 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center gap-2">
                 <MapPin size={18} className="text-migrapro-terre-cuite" />
-                <span>Lot A351, Moramanga Ville 514</span>
+                <span>Lot A351 Moramanga Ville</span>
               </div>
               <div className="flex items-center gap-2">
               <Mail size={20} className="text-migrapro-terre-cuite" />
