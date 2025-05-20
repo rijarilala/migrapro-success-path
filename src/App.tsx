@@ -43,6 +43,38 @@ const ScrollToTop = () => {
   return null;
 };
 
+// Define AppContent as a separate component that includes SearchProvider
+const AppContent = () => {
+  return (
+    <SearchProvider>
+      <ScrollToTop />
+      <Routes>
+        <Route path="/" element={<Index />} />
+        {/* Auth Route */}
+        <Route path="/auth" element={<Auth />} />
+        {/* Services Routes */}
+        <Route path="/services" element={<Services />} />
+        <Route path="/services/orientation" element={<OrientationPro />} />
+        <Route path="/services/formation" element={<Formation />} />
+        <Route path="/services/coaching" element={<Coaching />} />
+        <Route path="/services/etudes-canada" element={<EtudesCanada />} />
+        <Route path="/services/pack-reussite" element={<PackReussite />} />
+        <Route path="/services/immigration" element={<Immigration />} />
+        <Route path="/services/eligibility" element={<Eligibility />} />
+        <Route path="/services/recrutement" element={<Recrutement />} />
+        {/* Main Routes */}
+        <Route path="/a-propos" element={<About />} />
+        <Route path="/temoignages" element={<Testimonials />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/contact" element={<Contact />} />
+        {/* Catch-all Route */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+      <BackToTop />
+    </SearchProvider>
+  );
+};
+
 // Main App component
 function App() {
   return (
@@ -52,32 +84,7 @@ function App() {
           <Toaster />
           <Sonner />
           <BrowserRouter>
-            <SearchProvider>
-              <ScrollToTop />
-              <Routes>
-                <Route path="/" element={<Index />} />
-                {/* Auth Route */}
-                <Route path="/auth" element={<Auth />} />
-                {/* Services Routes */}
-                <Route path="/services" element={<Services />} />
-                <Route path="/services/orientation" element={<OrientationPro />} />
-                <Route path="/services/formation" element={<Formation />} />
-                <Route path="/services/coaching" element={<Coaching />} />
-                <Route path="/services/etudes-canada" element={<EtudesCanada />} />
-                <Route path="/services/pack-reussite" element={<PackReussite />} />
-                <Route path="/services/immigration" element={<Immigration />} />
-                <Route path="/services/eligibility" element={<Eligibility />} />
-                <Route path="/services/recrutement" element={<Recrutement />} />
-                {/* Main Routes */}
-                <Route path="/a-propos" element={<About />} />
-                <Route path="/temoignages" element={<Testimonials />} />
-                <Route path="/blog" element={<Blog />} />
-                <Route path="/contact" element={<Contact />} />
-                {/* Catch-all Route */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-              <BackToTop />
-            </SearchProvider>
+            <AppContent />
           </BrowserRouter>
         </LanguageProvider>
       </TooltipProvider>

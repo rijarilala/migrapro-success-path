@@ -35,12 +35,12 @@ const formations: SearchableFormation[] = [
   { id: '2', title: 'Formation en Leadership', slug: 'leadership', category: 'Compétences', type: 'formation', formationId: 'leadership' },
   { id: '3', title: 'Cours de français professionnel', slug: 'francais', category: 'Langues', type: 'formation', formationId: 'francais-pro' },
   { id: '4', title: 'Préparation à l\'entretien d\'embauche', slug: 'entretien', category: 'Emploi', type: 'formation', formationId: 'entretien' },
-  { id: '6', title: 'Rédaction de CV (4h)', slug: 'redaction-cv', category: 'Documentation', type: 'formation', formationId: 'cv' },
-  { id: '7', title: 'Lettre de motivation (3h)', slug: 'lettre-motivation', category: 'Documentation', type: 'formation', formationId: 'lm' },
-  { id: '8', title: 'Créer et optimiser son profil LinkedIn (3h)', slug: 'linkedin', category: 'Emploi', type: 'formation', formationId: 'linkedin' },
+  { id: '6', title: 'Rédaction de CV (4h)', slug: 'redaction-cv', category: 'Documentation', type: 'formation', formationId: 'redaction-cv' },
+  { id: '7', title: 'Lettre de motivation (3h)', slug: 'lettre-motivation', category: 'Documentation', type: 'formation', formationId: 'lettre-motivation' },
+  { id: '8', title: 'Créer et optimiser son profil LinkedIn (3h)', slug: 'linkedin', category: 'Emploi', type: 'formation', formationId: 'linkedin-profile' },
   { id: '9', title: 'Préparation à la recherche du premier emploi / nouveau emploi', slug: 'recherche-emploi', category: 'Insertion Professionnelle', type: 'formation', formationId: 'recherche-emploi' },
-  { id: '10', title: 'Transition vie étudiante – vie professionnelle (4h)', slug: 'transition', category: 'Orientation', type: 'formation', formationId: 'transition' },
-  { id: '11', title: 'Gestion des Ressources Humaines – Fondamentaux, stratégie & pratique (6h)', slug: 'grh', category: 'Compétences RH', type: 'formation', formationId: 'grh' },
+  { id: '10', title: 'Transition vie étudiante – vie professionnelle (4h)', slug: 'transition', category: 'Orientation', type: 'formation', formationId: 'transition-pro' },
+  { id: '11', title: 'Gestion des Ressources Humaines – Fondamentaux, stratégie & pratique (6h)', slug: 'grh', category: 'Compétences RH', type: 'formation', formationId: 'grh-basics' },
 ];
 
 const pages: SearchablePage[] = [
@@ -160,6 +160,23 @@ export function highlightMatch(text: string, query: string): string {
   
   // Remplacer les correspondances par le même texte mais entouré de balises de surbrillance
   return text.replace(regex, '<mark>$1</mark>');
+}
+
+// Fonction mise à jour pour obtenir le lien correct avec les paramètres appropriés
+export function getResultUrl(result: SearchResult): string {
+  switch (result.type) {
+    case 'formation':
+      // Ajouter le paramètre showModal avec l'identifiant de la formation
+      return `/services/formation?showModal=${result.formationId}`;
+    case 'page':
+      return (result as SearchablePage).path;
+    case 'faq':
+      // Pour les FAQ, on ajoute la catégorie et l'index comme paramètres
+      const faq = result as SearchableFAQ;
+      return `/blog?category=${faq.faqCategory}&question=${faq.id}`;
+    default:
+      return '/';
+  }
 }
 
 // Renvoie les catégories de résultats disponibles (pour l'affichage des filtres)
