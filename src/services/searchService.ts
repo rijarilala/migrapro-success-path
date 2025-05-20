@@ -32,7 +32,7 @@ const formations: SearchableFormation[] = [
   { id: '2', title: 'Formation en Leadership', slug: 'leadership', category: 'Compétences', type: 'formation' },
   { id: '3', title: 'Cours de français professionnel', slug: 'francais', category: 'Langues', type: 'formation' },
   { id: '4', title: 'Préparation à l\'entretien d\'embauche', slug: 'entretien', category: 'Emploi', type: 'formation' },
-  { id: '5', title: 'Rédaction de CV canadien', slug: 'cv', category: 'Documentation', type: 'formation' },
+  // Suppression de la formation dupliquée "Rédaction de CV canadien"
   { id: '6', title: 'Rédaction de CV (4h)', slug: 'redaction-cv', category: 'Documentation', type: 'formation' },
   { id: '7', title: 'Lettre de motivation (3h)', slug: 'lettre-motivation', category: 'Documentation', type: 'formation' },
   { id: '8', title: 'Créer et optimiser son profil LinkedIn (3h)', slug: 'linkedin', category: 'Emploi', type: 'formation' },
